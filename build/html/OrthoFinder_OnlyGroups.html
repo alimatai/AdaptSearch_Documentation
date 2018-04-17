@@ -1,0 +1,159 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>OrthoFinder_OnlyGroups &#8212; AdaptSearch 2 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Orthogroups_Tool" href="Orthogroups_Tool.html" />
+    <link rel="prev" title="TransDecoder" href="TransDecoder.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="Orthogroups_Tool.html" title="Orthogroups_Tool"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="TransDecoder.html" title="TransDecoder"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">AdaptSearch 2 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="orthofinder-onlygroups">
+<h1>OrthoFinder_OnlyGroups<a class="headerlink" href="#orthofinder-onlygroups" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>OrthoFinder is a fast, accurate and comprehensive analysis tool for comparative genomics. It finds orthologues and orthogroups infers gene trees for all orthogroups and infers a rooted species tree for the species being analysed. OrthoFinder also provides comprehensive statistics for comparative genomic analyses. OrthoFinder is simple to use and all you need to run it is a set of protein sequence files (one per species) in FASTA format (Emms, D.M. and Kelly, S., 2015).</p>
+<p>OrthoFinder_OnlyGroups makes available under Galaxy the first part of OrtohFinder, e.g Orthogroups inference.</p>
+<div class="section" id="user-parameters">
+<h3>User parameters<a class="headerlink" href="#user-parameters" title="Permalink to this headline">¶</a></h3>
+<p>This parameters list reports only the ones available under Galaxy. For a complete command-line OrthoFinder manual, see <a class="reference external" href="https://github.com/davidemms/OrthoFinder">https://github.com/davidemms/OrthoFinder</a></p>
+<p>Two types of inputs are possible: from <strong>fasta proteomes</strong> of from <strong>blast pre-computed results</strong> (blastp from by a previous OrthoFinder run)</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Inputs when using fasta proteomes :<ol class="arabic">
+<li>The list of fasta files</li>
+</ol>
+</li>
+<li>Inputs when using blast results (files from the ‘blast directory’) :<ol class="arabic">
+<li>blastX_Y.txt files</li>
+<li>‘_.fa’ files</li>
+<li>SpeciesIds.txt file</li>
+<li>SequencesIDs.txt file</li>
+</ol>
+</li>
+<li>The inflation parameter (clustering parameter)</li>
+</ol>
+</div></blockquote>
+</div>
+<div class="section" id="references">
+<h3>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h3>
+<p>Publication : Emms, David M. and Kelly, Steven (2015). OrthoFinder: solving fundamental biases in whole genome comparisons dramatically improves orthogroup inference accuracy. In Genome Biology, 16 (1). [doi:10.1186/s13059-015-0721-2</p>
+<p>Source code Available at <a class="reference external" href="https://github.com/davidemms/OrthoFinder">https://github.com/davidemms/OrthoFinder</a></p>
+<p>Back to <a class="reference external" href="index.html">main page</a>.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="index.html">Table Of Contents</a></h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Filter_Assemblies.html">Filter_Assemblies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pairwise.html">Pairwise</a></li>
+<li class="toctree-l1"><a class="reference internal" href="POGs.html">POGs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BlastAlign.html">BlastAlign</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TransDecoder.html">TransDecoder</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">OrthoFinder_OnlyGroups</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Orthogroups_Tool.html">Orthogroups_Tool</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CDS_Search.html">CDS_Search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MutCount.html">MutCount</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ConcatPhyl.html">ConcatPhyl</a></li>
+<li class="toctree-l1"><a class="reference internal" href="codeML.html">codeML</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="TransDecoder.html"
+                        title="previous chapter">TransDecoder</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Orthogroups_Tool.html"
+                        title="next chapter">Orthogroups_Tool</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/OrthoFinder_OnlyGroups.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="Orthogroups_Tool.html" title="Orthogroups_Tool"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="TransDecoder.html" title="TransDecoder"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">AdaptSearch 2 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Victor Mataigne.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,321 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Pairwise &#8212; AdaptSearch 2 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="POGs" href="POGs.html" />
+    <link rel="prev" title="Filter_Assemblies" href="Filter_Assemblies.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="POGs.html" title="POGs"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Filter_Assemblies.html" title="Filter_Assemblies"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">AdaptSearch 2 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="pairwise">
+<h1>Pairwise<a class="headerlink" href="#pairwise" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>This tool searches for different homologous genes (tblastx with RBH) from pairwise comparisons between a set of fasta files (one file per species). It returns lists of homologous genes pairs between each pair of species</p>
+<div class="section" id="user-parameters">
+<h3>User parameters<a class="headerlink" href="#user-parameters" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Fasta files (outputs of <a class="reference external" href="Filter_Assemblies.html">Filter_Assemblies</a>) separated by commas</li>
+<li>The blast e-value</li>
+</ol>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="code-documentation">
+<h2>Code documentation<a class="headerlink" href="#code-documentation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="algorithm">
+<h3>Algorithm<a class="headerlink" href="#algorithm" title="Permalink to this headline">¶</a></h3>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">Algo !</p>
+</div>
+</div>
+<div class="section" id="source-code">
+<h3>Source code<a class="headerlink" href="#source-code" title="Permalink to this headline">¶</a></h3>
+<div class="admonition-todo admonition" id="index-1">
+<p class="first admonition-title">Todo</p>
+<p class="last">source code docs !</p>
+</div>
+<div class="section" id="file-functions-py">
+<h4>File: functions.py<a class="headerlink" href="#file-functions-py" title="Permalink to this headline">¶</a></h4>
+<dl class="function">
+<dt id="split_file">
+<code class="descname">split_file</code><span class="sig-paren">(</span><em>path_in</em>, <em>keyword</em><span class="sig-paren">)</span><a class="headerlink" href="#split_file" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>path_in</strong> (<em>string</em>) – </li>
+<li><strong>keyword</strong> (<em>string</em>) – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="detect_Matches">
+<code class="descname">detect_Matches</code><span class="sig-paren">(</span><em>query</em>, <em>MATCH</em>, <em>WORK_DIR</em>, <em>bash1</em><span class="sig-paren">)</span><a class="headerlink" href="#detect_Matches" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>query</strong> – </li>
+<li><strong>MATCH</strong> (<em>int</em>) – </li>
+<li><strong>WORK_DIR</strong> (<em>string</em>) – source directory for blast run</li>
+<li><strong>bash1</strong> (<em>dict</em>) – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_information_on_matches">
+<code class="descname">get_information_on_matches</code><span class="sig-paren">(</span><em>list_of_line</em><span class="sig-paren">)</span><a class="headerlink" href="#get_information_on_matches" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>list_of_line</strong> – </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">match informations (length, score, identity percent …)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="get_pairs">
+<code class="descname">get_pairs</code><span class="sig-paren">(</span><em>fasta_file_path</em><span class="sig-paren">)</span><a class="headerlink" href="#get_pairs" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fasta_file_path</strong> (<em>string</em>) – the path to a file</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">returns all couples of homologous genes, each couple being a four elements sub-list (header+sequence * 2)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list of lists</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="extract_length">
+<code class="descname">extract_length</code><span class="sig-paren">(</span><em>length_string</em><span class="sig-paren">)</span><a class="headerlink" href="#extract_length" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>length_string</strong> (<em>string</em>) – </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="filter_redondancy">
+<code class="descname">filter_redondancy</code><span class="sig-paren">(</span><em>list_paireu</em>, <em>MIN_LENGTH</em><span class="sig-paren">)</span><a class="headerlink" href="#filter_redondancy" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>list_paireu</strong> (<em>list</em>) – list of list of matched sequences (pairs)</li>
+<li><strong>MIN_LENGTH</strong> (<em>int</em>) – mimimum sequence length</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">a list of dicts</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="file-s10-compare-list-pairs-for-reciprocical-best-hits-test-py">
+<h4>File : S10_compare_list_pairs_for_reciprocical_best_hits_test.py<a class="headerlink" href="#file-s10-compare-list-pairs-for-reciprocical-best-hits-test-py" title="Permalink to this headline">¶</a></h4>
+<dl class="function">
+<dt>
+<code class="descname">get_pairs</code><span class="sig-paren">(</span><em>fasta_file</em><span class="sig-paren">)</span></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fasta_file</strong> (<em>string</em>) – the path to a file</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">returns all couples of homologous genes, each couple being a four elements sub-list (header+sequence * 2)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list of lists</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<code class="descname">get_short_name(long_name):</code></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>long_name</strong> (<em>string</em>) – a sequence’s header</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">shortened <cite>long_name</cite></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">string</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Back to <a class="reference external" href="index.html">main page</a>.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="index.html">Table Of Contents</a></h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Filter_Assemblies.html">Filter_Assemblies</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Pairwise</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#code-documentation">Code documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="POGs.html">POGs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BlastAlign.html">BlastAlign</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TransDecoder.html">TransDecoder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OrthoFinder_OnlyGroups.html">OrthoFinder_OnlyGroups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Orthogroups_Tool.html">Orthogroups_Tool</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CDS_Search.html">CDS_Search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MutCount.html">MutCount</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ConcatPhyl.html">ConcatPhyl</a></li>
+<li class="toctree-l1"><a class="reference internal" href="codeML.html">codeML</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Filter_Assemblies.html"
+                        title="previous chapter">Filter_Assemblies</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="POGs.html"
+                        title="next chapter">POGs</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/Pairwise.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="POGs.html" title="POGs"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Filter_Assemblies.html" title="Filter_Assemblies"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">AdaptSearch 2 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Victor Mataigne.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,422 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>CDS_Search &#8212; AdaptSearch 2 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="MutCount" href="MutCount.html" />
+    <link rel="prev" title="Orthogroups_Tool" href="Orthogroups_Tool.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="MutCount.html" title="MutCount"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Orthogroups_Tool.html" title="Orthogroups_Tool"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">AdaptSearch 2 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="cds-search">
+<h1>CDS_Search<a class="headerlink" href="#cds-search" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>This tool takes files containing nucleic aligned sequences and search the ORF and the CDS.</p>
+<div class="section" id="user-parameters">
+<h3>User parameters<a class="headerlink" href="#user-parameters" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>For computing :</dt>
+<dd><ol class="first last arabic simple">
+<li>methionine</li>
+<li>(integer) Minimal number of species in each locus</li>
+<li>(integer) Minimal length of the CDS (in amino-acids)</li>
+<li>(integer) Minimal length of the subsequence (in amino-acids) between two series of indels</li>
+<li>(integer) Minimal length of the CDS, (in nucleotides) without indels</li>
+</ol>
+</dd>
+<dt>For outputs selection - All available in both nucleic and proteic format</dt>
+<dd><ol class="first last arabic simple">
+<li>Activate outputs for files with the best ORF</li>
+<li>Activate outputs for files with CDS</li>
+<li>Activate outputs for files with CDS without indels (most important)</li>
+</ol>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="code-documentation">
+<h2>Code documentation<a class="headerlink" href="#code-documentation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="algorithm">
+<h3>Algorithm<a class="headerlink" href="#algorithm" title="Permalink to this headline">¶</a></h3>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">Algo !</p>
+</div>
+<div class="section" id="part-1">
+<h4>Part. 1:<a class="headerlink" href="#part-1" title="Permalink to this headline">¶</a></h4>
+<p>Predict potential ORF on the basis of 2 criteria + 1 optional criteria :</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Longest part of the alignment of sequence without codon stop “*”, tested in the 3 potential ORF</li>
+<li>This longest part should be &gt; 150nc or 50aa</li>
+<li>[OPTIONNAL] A codon start “M” should be present in this longuest part, before the last 50 aa<ol class="arabic">
+<li>OUTPUTs “05_CDS_aa” &amp; “05_CDS_nuc” =&gt; NOT INCLUDE THIS CRITERIA</li>
+<li>OUTPUTs “06_CDS_with_M_aa” &amp; “06_CDS_with_M_nuc” =&gt; INCLUDE THIS CRITERIA</li>
+</ol>
+</li>
+</ol>
+</div></blockquote>
+</div>
+<div class="section" id="part-2">
+<h4>Part. 2:<a class="headerlink" href="#part-2" title="Permalink to this headline">¶</a></h4>
+<p>Find and remove indels</p>
+</div>
+<div class="section" id="part-3">
+<h4>Part. 3:<a class="headerlink" href="#part-3" title="Permalink to this headline">¶</a></h4>
+<p>Find and remove indels</p>
+</div>
+</div>
+<div class="section" id="source-code">
+<h3>Source code<a class="headerlink" href="#source-code" title="Permalink to this headline">¶</a></h3>
+<div class="admonition-todo admonition" id="index-1">
+<p class="first admonition-title">Todo</p>
+<p class="last">source code docs !</p>
+</div>
+<div class="section" id="file-s01-find-orf-on-multiple-alignment-py">
+<h4>File : S01_find_orf_on_multiple_alignment.py<a class="headerlink" href="#file-s01-find-orf-on-multiple-alignment-py" title="Permalink to this headline">¶</a></h4>
+<dl class="function">
+<dt id="code_universel">
+<code class="descname">code_universel</code><span class="sig-paren">(</span><em>F1</em><span class="sig-paren">)</span><a class="headerlink" href="#code_universel" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>F1</strong> (<em>file</em>) – a txt file with the genetic code (each line : a codon and its amino-acid)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the genetic code (key : codon, value : amino-acid)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Stop codons hava the value ‘*’.</p>
+<dl class="function">
+<dt id="find_good_ORF_criteria_3">
+<code class="descname">find_good_ORF_criteria_3</code><span class="sig-paren">(</span><em>bash_aligned_nc_seq</em>, <em>bash_codeUniversel</em><span class="sig-paren">)</span><a class="headerlink" href="#find_good_ORF_criteria_3" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>bash_aligned_nc_seq</strong> (<em>dict</em>) – </li>
+<li><strong>bash_codeUniversel</strong> (<em>dict</em>) – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">6 dictionaries</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="docutils">
+<dt>This is the most important fonction, which is run on each input file. The dictionaries return:</dt>
+<dd><ol class="first last arabic simple">
+<li>All the sequences with best  (open reading frame)</li>
+<li>All the sequences with CDS (coding sequence)</li>
+<li>All the sequences with CDS without indels</li>
+</ol>
+</dd>
+</dl>
+<p>In nucleic or proteic format</p>
+<div class="section" id="find-good-orf-criteria-3-subroutines">
+<h5>find_good_ORF_criteria_3() subroutines<a class="headerlink" href="#find-good-orf-criteria-3-subroutines" title="Permalink to this headline">¶</a></h5>
+<dl class="function">
+<dt id="multiple3">
+<code class="descname">multiple3</code><span class="sig-paren">(</span><em>seq</em><span class="sig-paren">)</span><a class="headerlink" href="#multiple3" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>seq</strong> (<em>string</em>) – a rna/dna sequence</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">an updated sequence and the length(seq)%3 modulo</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">tuple</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Tests if a sequence is multiple of 3, which measn only full codons. If not, the end of the sequence is cut by one or two bases.</p>
+<dl class="function">
+<dt id="simply_get_ORF">
+<code class="descname">simply_get_ORF</code><span class="sig-paren">(</span><em>seq_dna</em>, <em>bash_codeUniversel</em><span class="sig-paren">)</span><a class="headerlink" href="#simply_get_ORF" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>seq_dna</strong> (<em>string</em>) – a dna/rna sequence (a,t,c,g)</li>
+<li><strong>bash_codeUniversel</strong> (<em>dict</em>) – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">an amino-acid sequence translated from seq_dna (open-reading frame only)</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">string</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="allindices">
+<code class="descname">allindices</code><span class="sig-paren">(</span><em>string</em>, <em>sub</em><span class="sig-paren">)</span><a class="headerlink" href="#allindices" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>string</strong> (<em>string</em>) – a dna/rna sequence</li>
+<li><strong>sub</strong> (<em>string</em>) – a smaller dna/rna sequence</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">the list of occurrences of the <cite>sub</cite></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Detects all indices corresponding to all occurrences of a substring in a string. This can be replaced by :</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
+<span class="p">[</span><span class="n">motif</span><span class="o">.</span><span class="n">start</span><span class="p">()</span> <span class="k">for</span> <span class="n">motif</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span> <span class="n">string</span><span class="p">)]</span>
+</pre></div>
+</div>
+<dl class="function">
+<dt id="detect_Methionine">
+<code class="descname">detect_Methionine</code><span class="sig-paren">(</span><em>seq_aa</em>, <em>Ortho</em><span class="sig-paren">)</span><a class="headerlink" href="#detect_Methionine" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>seq_aa</strong> (<em>string</em>) – an amino-acid sequence</li>
+<li><strong>Ortho</strong> (<em>int</em>) – value indicating wether the first methionine found is not in the last 55 amino-acids.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">an updated value of <cite>Ortho</cite></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">int</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Detect if methionin in the aa sequence. Calls <cite>allindices()</cite></p>
+<dl class="function">
+<dt id="ReverseComplement2">
+<code class="descname">ReverseComplement2</code><span class="sig-paren">(</span><em>seq</em><span class="sig-paren">)</span><a class="headerlink" href="#ReverseComplement2" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>seq</strong> (<em>string</em>) – a dna/rna sequence (a,t,c,g)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The reverse complement of <cite>seq</cite></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">string</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="file-s02-remove-too-short-bit-or-whole-sequence-py">
+<h4>File : S02_remove_too_short_bit_or_whole_sequence.py<a class="headerlink" href="#file-s02-remove-too-short-bit-or-whole-sequence-py" title="Permalink to this headline">¶</a></h4>
+<dl class="function">
+<dt id="detect_short_indel">
+<code class="descname">detect_short_indel</code><span class="sig-paren">(</span><em>seq</em>, <em>MAX_LENGTH_SMALL_INDEL</em><span class="sig-paren">)</span><a class="headerlink" href="#detect_short_indel" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>seq</strong> (<em>string</em>) – a dna/rna sequence (a,t,c,g)</li>
+<li><strong>MAX_LENGTH_SMALL_INDEL</strong> (<em>int</em>) – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The list of consecutive gap positions</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list of lists</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">detect_short_indel</span><span class="p">(</span><span class="s2">&quot;agcga-ag----agact-aca--ga-----aaatg-aca---aaaa&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="c1"># [[5], [17], [21, 22], [35]]</span>
+
+<span class="n">detect_short_indel</span><span class="p">(</span><span class="s2">&quot;agcga-ag----agact-aca--ga-----aaatg-aca---aaaa&quot;</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+<span class="c1"># [[5], [8, 9, 10, 11], [17], [21, 22], [25, 26, 27, 28, 29], [35], [39, 40, 41]]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id1">
+<h4>File : S01_find_orf_on_multiple_alignment.py<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<dl class="function">
+<dt id="remove_position_with_too_much_missing_data">
+<code class="descname">remove_position_with_too_much_missing_data</code><span class="sig-paren">(</span><em>bash_aa</em>, <em>bash_nuc</em>, <em>MIN_SPECIES_NB</em><span class="sig-paren">)</span><a class="headerlink" href="#remove_position_with_too_much_missing_data" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>bash_aa</strong> (<em>dict</em>) – a hashtable sequence_name - proteic sequence</li>
+<li><strong>bash_nuc</strong> (<em>dict</em>) – a hashtable sequence_name - nucleic sequence</li>
+<li><strong>MIN_SPECIES_NB</strong> (<em>int</em>) – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">two dictionaries without sequences containing indels in <cite>bash_aa</cite> and <cite>bash_nuc</cite></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p><cite>bash_aa</cite> and <cite>bash_nuc</cite> are obtained at each input file iteration with the function <cite>dico(fileIN)</cite> from <cite>dico.py</cite> file.</p>
+<p>Back to <a class="reference external" href="index.html">main page</a>.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="index.html">Table Of Contents</a></h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Filter_Assemblies.html">Filter_Assemblies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pairwise.html">Pairwise</a></li>
+<li class="toctree-l1"><a class="reference internal" href="POGs.html">POGs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BlastAlign.html">BlastAlign</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TransDecoder.html">TransDecoder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OrthoFinder_OnlyGroups.html">OrthoFinder_OnlyGroups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Orthogroups_Tool.html">Orthogroups_Tool</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">CDS_Search</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#code-documentation">Code documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="MutCount.html">MutCount</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ConcatPhyl.html">ConcatPhyl</a></li>
+<li class="toctree-l1"><a class="reference internal" href="codeML.html">codeML</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Orthogroups_Tool.html"
+                        title="previous chapter">Orthogroups_Tool</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="MutCount.html"
+                        title="next chapter">MutCount</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/CDS_Search.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="MutCount.html" title="MutCount"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Orthogroups_Tool.html" title="Orthogroups_Tool"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">AdaptSearch 2 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Victor Mataigne.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.
+    </div>
+  </body>
+</html>

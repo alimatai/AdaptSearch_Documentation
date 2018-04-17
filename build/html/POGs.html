@@ -1,0 +1,368 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>POGs &#8212; AdaptSearch 2 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="BlastAlign" href="BlastAlign.html" />
+    <link rel="prev" title="Pairwise" href="Pairwise.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="BlastAlign.html" title="BlastAlign"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Pairwise.html" title="Pairwise"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">AdaptSearch 2 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="pogs">
+<h1>POGs<a class="headerlink" href="#pogs" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>POGs (Putative Orthologs Groups) parses outputs of <a class="reference external" href="Pairwise.html">Pairwise</a> to build groups of putative orthologous genes.</p>
+<div class="section" id="user-parameters">
+<h3>User parameters<a class="headerlink" href="#user-parameters" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>The parameter’s name are the ones used in the Galaxy’s interface.</dt>
+<dd><ol class="first last arabic simple">
+<li>Input files from Pairwise DNA : all the <a class="reference external" href="Pairwise.html">Pairwise_DNA</a> outputs, separated by commas</li>
+<li>(integer) Drop orthogroups with less than n species : smaller orthogroups will not be returned</li>
+<li>(-v) Verbose : display a supplementary table with details before the paralogous sequence removal</li>
+<li>(-p) Paralogs : if activated, returns the orthogroups before paralogs sequences removal</li>
+</ol>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="code-documentation">
+<h2>Code documentation<a class="headerlink" href="#code-documentation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="algorithm">
+<h3>Algorithm<a class="headerlink" href="#algorithm" title="Permalink to this headline">¶</a></h3>
+<p>Pairwise outputs are gathered into a list of lists of couples of homologous sequences obtained by blast, for instance :</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">[[</span><span class="n">sequence_1</span><span class="p">,</span> <span class="n">sequence_2</span><span class="p">],[</span><span class="n">sequence_3</span><span class="p">,</span> <span class="n">sequence_4</span><span class="p">],[</span><span class="n">sequence_1</span><span class="p">,</span> <span class="n">sequence_5</span><span class="p">],[</span><span class="n">sequence_3</span><span class="p">,</span> <span class="n">sequence_6</span><span class="p">],</span> <span class="o">...</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The main algorithm gathers together groups sharing sequences :</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">group</span> <span class="mi">1</span> <span class="p">:</span> <span class="p">[</span><span class="n">sequence_1</span><span class="p">,</span> <span class="n">sequence_2</span><span class="p">,</span> <span class="n">sequence_5</span><span class="p">]</span>
+<span class="n">group</span> <span class="mi">2</span> <span class="p">:</span> <span class="p">[</span><span class="n">sequence_3</span><span class="p">,</span> <span class="n">sequence_4</span><span class="p">,</span> <span class="n">sequence_6</span><span class="p">]</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>There are two ways to deal with sequences from the same species (paralogs) within a group:</dt>
+<dd><ol class="first last arabic simple">
+<li>Only the first sequence recorded is kept. These outputs are always returned byt the program</li>
+<li>All sequences are kept (this gives supplemntal outputs)</li>
+</ol>
+</dd>
+</dl>
+<p>Each orthogroup is then written in a fasta file. The log displays a dataframe indicating the numbers of orthogroups and the numbers of species per orthogroups after the removal of paralogous sequences.</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>list_orthogroups = []
+
+FOR genes_pair IN all_genes_pairs DO
+
+    IF genes_pair NOT tagged THEN
+        orthogroup = genes_pair
+
+        FOR genes_pair_2 IN all_genes_pairs[starting from genes_pairs+1] DO
+            IF intersection(orthogroup, genes_pair_2) AND genes_pair_2 NOT tagged THEN
+                UPDATE orthogroup WITH genes_pair_2
+
+        IF len(list_orthogroup) &gt; 0 THEN
+            presence = False
+            FOR final_group in list_orthogroup DO
+                IF intersection(orthogroup, final_group) THEN
+                    UPDATE final_group WITH orthogroup
+                    presence = True
+            IF NOT presence
+                list_orthogroups APPEND orthogroup
+        ELSE
+            list_orthogroup APPEND orthogroup
+
+RETURN list_orthogroups
+</pre></div>
+</div>
+</div>
+<div class="section" id="source-code">
+<h3>Source code<a class="headerlink" href="#source-code" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="main-features">
+<h4>Main features<a class="headerlink" href="#main-features" title="Permalink to this headline">¶</a></h4>
+<dl class="class">
+<dt id="Locus">
+<em class="property">class </em><code class="descname">Locus</code><span class="sig-paren">(</span><em>header</em>, <em>sequence</em>, <em>tagged</em><span class="sig-paren">)</span><a class="headerlink" href="#Locus" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>header</strong> (<em>string</em>) – a nucleic/proteic sequence’s header</li>
+<li><strong>sequence</strong> (<em>string</em>) – a nucleic/proteic sequence</li>
+<li><strong>tagged</strong> (<em>bool</em>) – used in orthogroup’s building functions</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Describe a sequence with its header and its nucleic/proteic sequence. The <em>tag</em> parameter is used in the function <strong>makeOrthogroups</strong> (sub-routine : <strong>checkIfTagged</strong> and <strong>tagGroup</strong>) to avoid duplicated loci and splitted groups.</p>
+<dl class="function">
+<dt id="getListPairwiseAll">
+<code class="descname">getListPairwiseAll</code><span class="sig-paren">(</span><em>listPairwiseFiles</em><span class="sig-paren">)</span><a class="headerlink" href="#getListPairwiseAll" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>listpairwiseFiles</strong> (<em>list</em>) – the pairwise files (tool’s input files)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">all the homologous genes pairs</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list of list of Locus objects</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Proceeds to create a list of lists of Locus objects. Calls the sub-routine <strong>getPairwiseCouple</strong> on each element of <em>listPairwiseFiles</em></p>
+<dl class="function">
+<dt id="makeOrthogroups">
+<code class="descname">makeOrthogroups</code><span class="sig-paren">(</span><em>list_pairwises_allsp</em>, <em>minspec</em>, <em>nb_rbh</em>, <em>verbose</em>, <em>paralogs</em><span class="sig-paren">)</span><a class="headerlink" href="#makeOrthogroups" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>list_pairwises_allsp</strong> (<em>list of list of Locus objects</em>) – all the homologous genes pairs</li>
+<li><strong>minspec</strong> (<em>int</em>) – minimal number of species per group (set by the user)</li>
+<li><strong>nb_rbh</strong> (<em>int</em>) – number of pairwise comparisons (automatically pre-computed)</li>
+<li><strong>verbose</strong> (<em>bool</em>) – set by -v option ; activate the display of an intermediate summary table (orthogroups before paralogs removal)</li>
+<li><strong>paralogs</strong> (<em>bool</em>) – set by -p option ; activate the writing of intermediate output files (orthogroups before paralogs removal)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">the number of orthogroups</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">int</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>This is the main function, which creates the orthogroups by parsing the list returned by <em>getListPairwiseAll</em> and writes output files</p>
+</div>
+<div class="section" id="makeorthogroups-sub-routines">
+<h4>makeOrthogroups() sub-routines<a class="headerlink" href="#makeorthogroups-sub-routines" title="Permalink to this headline">¶</a></h4>
+<dl class="function">
+<dt id="checkIfTagged">
+<code class="descname">checkIfTagged</code><span class="sig-paren">(</span><em>pair</em><span class="sig-paren">)</span><a class="headerlink" href="#checkIfTagged" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pair</strong> (<em>list of two Locus objects</em>) – a pair of sequences</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">wether the Locus objects have been already checked while makeOrthogroups() looping step.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>This function is used while making orthogroups. When a Locus pairs is added to an orthogroup while looping on the list of homologous sequences pairs, both Locus objects are tagged (<em>True</em>) to avoid them to be associated with following pairs, leading to unwanted splitted orthogroups.</p>
+<dl class="function">
+<dt id="writeOutputFile">
+<code class="descname">writeOutputFile</code><span class="sig-paren">(</span><em>orthogroup</em>, <em>number</em>, <em>naming</em><span class="sig-paren">)</span><a class="headerlink" href="#writeOutputFile" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>orthogroup</strong> (<em>set</em>) – contains all sequences of an orthogroup</li>
+<li><strong>number</strong> (<em>int</em>) – used to set a unique filename</li>
+<li><strong>naming</strong> (<em>bool</em>) – the file name varies according to the value of this parameter (depends on the <em>paralogs</em> option)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Used to write an orthogroup in an output fasta file.</p>
+<dl class="function">
+<dt id="filterParalogs">
+<code class="descname">filterParalogs</code><span class="sig-paren">(</span><em>list_orthogroups</em>, <em>minspec</em><span class="sig-paren">)</span><a class="headerlink" href="#filterParalogs" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>list_orthogroups</strong> (<em>list of sets of Locus objects</em>) – computed in makeOrthogroups()</li>
+<li><strong>minspec</strong> (<em>int</em>) – minimal number of species per group (set by the user)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">the orthogroups with only one sequence per species</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list of list of Locus objects</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Remove sequences from the same species and keeps only the first sequence (<em>Locus</em> object) encountered</p>
+<dl class="function">
+<dt id="countings">
+<code class="descname">countings</code><span class="sig-paren">(</span><em>listOrthogroups</em>, <em>nb_rbh</em><span class="sig-paren">)</span><a class="headerlink" href="#countings" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>listOrthogroups</strong> (<em>list of sets of Locus objects</em>) – computed in makeOrthogroups()</li>
+<li><strong>nb_rbh</strong> (<em>int</em>) – the number of pairwise comparisons (e.g number of input files)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">a summary table containing the number of orthogroups and the number of species per orthogroup.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">numpy 2D array</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="asFrame">
+<code class="descname">asFrame</code><span class="sig-paren">(</span><em>matrix</em><span class="sig-paren">)</span><a class="headerlink" href="#asFrame" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>matrix</strong> (<em>numpy 2D array</em>) – the output of countings()</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the matrix converted in a pandas dataFrame</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Back to <a class="reference external" href="index.html">main page</a>.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="index.html">Table Of Contents</a></h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Filter_Assemblies.html">Filter_Assemblies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pairwise.html">Pairwise</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">POGs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#code-documentation">Code documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="BlastAlign.html">BlastAlign</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TransDecoder.html">TransDecoder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OrthoFinder_OnlyGroups.html">OrthoFinder_OnlyGroups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Orthogroups_Tool.html">Orthogroups_Tool</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CDS_Search.html">CDS_Search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MutCount.html">MutCount</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ConcatPhyl.html">ConcatPhyl</a></li>
+<li class="toctree-l1"><a class="reference internal" href="codeML.html">codeML</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Pairwise.html"
+                        title="previous chapter">Pairwise</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="BlastAlign.html"
+                        title="next chapter">BlastAlign</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/POGs.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="BlastAlign.html" title="BlastAlign"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Pairwise.html" title="Pairwise"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">AdaptSearch 2 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Victor Mataigne.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.
+    </div>
+  </body>
+</html>

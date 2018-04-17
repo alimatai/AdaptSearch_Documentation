@@ -1,0 +1,300 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Filter_Assemblies &#8212; AdaptSearch 2 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Pairwise" href="Pairwise.html" />
+    <link rel="prev" title="Welcome to AdaptSearch’s documentation!" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="Pairwise.html" title="Pairwise"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to AdaptSearch’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">AdaptSearch 2 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="filter-assemblies">
+<h1>Filter_Assemblies<a class="headerlink" href="#filter-assemblies" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>This tool reformats Velvet Oases or Trinity assemblies for the AdaptSearch galaxy suite and selects only one variant per gene according to its length and quality check (using cap3).</p>
+<div class="section" id="user-parameters">
+<h3>User parameters<a class="headerlink" href="#user-parameters" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ol class="arabic simple">
+<li>A list of transcriptoms in fasta format, separated by commas.</li>
+<li>(integer &gt; 65%) Overlap percent identity cutoff : minimum percent identity of an overlap</li>
+<li>(integer &gt; 15) Overlap length cutoff : minimum length of an overlap (in base pairs)</li>
+<li>(integer) Minimum sequence length</li>
+</ol>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="code-documentation">
+<h2>Code documentation<a class="headerlink" href="#code-documentation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="algorithm">
+<h3>Algorithm<a class="headerlink" href="#algorithm" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-none"><div class="highlight"><pre><span></span># Main algorithm
+
+FOR each input file DO
+    nameFormatting() on the file
+        RUN the scripts S02a or S02b + S03 according to the used assembler
+    CALL S04
+    CALL cap3 and fasta_formatter
+    CALL S05
+</pre></div>
+</div>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">The scripts creates various sub-directories and temp files, making it difficult to follow : TO IMPROVE.</p>
+</div>
+</div>
+<div class="section" id="source-code">
+<h3>Source code<a class="headerlink" href="#source-code" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="file-s01-script-to-choose-py">
+<h4>File: S01_script_to_choose.py<a class="headerlink" href="#file-s01-script-to-choose-py" title="Permalink to this headline">¶</a></h4>
+<dl class="function">
+<dt id="nameFormatting">
+<code class="descname">nameFormatting</code><span class="sig-paren">(</span><em>name</em>, <em>script_path</em>, <em>prefix</em><span class="sig-paren">)</span><a class="headerlink" href="#nameFormatting" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> (<em>string</em>) – the name of an input file</li>
+<li><strong>script_path</strong> (<em>string</em>) – UNUSED - TO REMOVE FROM SOURCE CODE</li>
+<li><strong>prefix</strong> (<em>string</em>) – A spcies’ name two letter abbreviation</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">a formatted name</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">string</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>This function is called on each input file, renames the file name and launches the scripts <em>S02b_format_fasta_name_trinity.py</em> and <em>S03_choose_one_variants_per_locus_trinity.py</em></p>
+</div>
+<div class="section" id="file-s02a-remove-redundancy-from-velvet-oases-py">
+<h4>File: S02a_remove_redundancy_from_velvet_oases.py<a class="headerlink" href="#file-s02a-remove-redundancy-from-velvet-oases-py" title="Permalink to this headline">¶</a></h4>
+<dl class="function">
+<dt id="dico_filtering_redundancy">
+<code class="descname">dico_filtering_redundancy</code><span class="sig-paren">(</span><em>path_in</em><span class="sig-paren">)</span><a class="headerlink" href="#dico_filtering_redundancy" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path_in</strong> (<em>string</em>) – path to a asta file</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a dictionary headers/sequences from the fasta file, with simplified headers</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Filters redundancy (keeps only one variant epr locus) within velvet_oases assemblies</p>
+</div>
+<div class="section" id="file-s02b-format-fasta-name-trinity-py">
+<h4>File: S02b_format_fasta_name_trinity.py<a class="headerlink" href="#file-s02b-format-fasta-name-trinity-py" title="Permalink to this headline">¶</a></h4>
+<dl class="function">
+<dt id="dico_format_fasta_name">
+<code class="descname">dico_format_fasta_name</code><span class="sig-paren">(</span><em>path_in</em>, <em>SUFFIX</em><span class="sig-paren">)</span><a class="headerlink" href="#dico_format_fasta_name" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>path_in</strong> (<em>string</em>) – path to a fasta file</li>
+<li><strong>SUFFIX</strong> (<em>string</em>) – species’ name abbreviation</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">a dictionary headers/sequences from the fasta file, with simplified headers</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Filters redundancy (keeps only one variant epr locus) within Trinity assemblies</p>
+</div>
+<div class="section" id="file-s03-choose-one-variants-per-locus-trinity-py">
+<h4>File: S03_choose_one_variants_per_locus_trinity.py<a class="headerlink" href="#file-s03-choose-one-variants-per-locus-trinity-py" title="Permalink to this headline">¶</a></h4>
+<dl class="function">
+<dt>
+<code class="descname">dico_filtering_redundancy</code><span class="sig-paren">(</span><em>path_in</em><span class="sig-paren">)</span></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path_in</strong> (<em>string</em>) – the path to a fasta file</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a dictionary header - sequence from <cite>path_in</cite> with only one variant per locus.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="file-s04-find-orf-py">
+<h4>File: S04_find_orf.py<a class="headerlink" href="#file-s04-find-orf-py" title="Permalink to this headline">¶</a></h4>
+<p>..py: function:: find_orf(entry)</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param entry:</th><td class="field-body">a dna/rna sequence</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type entry:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">start and stop positions of the longest ORF in <cite>entry</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<dl class="function">
+<dt id="reverse_seq">
+<code class="descname">reverse_seq</code><span class="sig-paren">(</span><em>entry</em><span class="sig-paren">)</span><a class="headerlink" href="#reverse_seq" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>entry</strong> (<em>string</em>) – a dna/rna sequence (A,T,C,G,N)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the reverse complement of&nbsp;<cite>entry</cite></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">string</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Back to <a class="reference external" href="index.html">main page</a>.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="index.html">Table Of Contents</a></h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Filter_Assemblies</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#code-documentation">Code documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Pairwise.html">Pairwise</a></li>
+<li class="toctree-l1"><a class="reference internal" href="POGs.html">POGs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BlastAlign.html">BlastAlign</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TransDecoder.html">TransDecoder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OrthoFinder_OnlyGroups.html">OrthoFinder_OnlyGroups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Orthogroups_Tool.html">Orthogroups_Tool</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CDS_Search.html">CDS_Search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MutCount.html">MutCount</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ConcatPhyl.html">ConcatPhyl</a></li>
+<li class="toctree-l1"><a class="reference internal" href="codeML.html">codeML</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to AdaptSearch’s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Pairwise.html"
+                        title="next chapter">Pairwise</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/Filter_Assemblies.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="Pairwise.html" title="Pairwise"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to AdaptSearch’s documentation!"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">AdaptSearch 2 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Victor Mataigne.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.
+    </div>
+  </body>
+</html>

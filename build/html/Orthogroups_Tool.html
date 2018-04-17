@@ -1,0 +1,280 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Orthogroups_Tool &#8212; AdaptSearch 2 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="CDS_Search" href="CDS_Search.html" />
+    <link rel="prev" title="OrthoFinder_OnlyGroups" href="OrthoFinder_OnlyGroups.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="CDS_Search.html" title="CDS_Search"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="OrthoFinder_OnlyGroups.html" title="OrthoFinder_OnlyGroups"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">AdaptSearch 2 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="orthogroups-tool">
+<h1>Orthogroups_Tool<a class="headerlink" href="#orthogroups-tool" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>This tool takes Orthogroups found by OrthoFinder and proceeds to retrieve nucleic sequences back, then write each orthogroups in its own fasta file.</p>
+<div class="section" id="user-parameters">
+<h3>User parameters<a class="headerlink" href="#user-parameters" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>The parameter’s name are the ones used in the Galaxy’s interface.</dt>
+<dd><ol class="first last arabic simple">
+<li>Orthogroup file : the <em>Orthogroups.txt</em> outpuf file from OrthoFinder</li>
+<li>Outputs from Filter Assemblies : all the <a class="reference external" href="Filter_Assemblies.html">Filter_Assemblies</a> outputs, separated by commas</li>
+<li>(integer) Minimal number of sequences per orthogroup : smaller orthogroups will not be returned</li>
+<li>(-v) Verbose : display a supplementary table with details before the paralogous sequence removal</li>
+<li>(-p) Paralogs : if activated, returns the orthogroups before paralogs sequences removal</li>
+</ol>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="code-documentation">
+<h2>Code documentation<a class="headerlink" href="#code-documentation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="algorithm">
+<h3>Algorithm<a class="headerlink" href="#algorithm" title="Permalink to this headline">¶</a></h3>
+<p>:: note:: under Galaxy, a first shell script is launched to rewrite correctly TransDecoder sequences’ headers in the <cite>Orthogroups.txt</cite> file.</p>
+<blockquote>
+<div><p>#. Outputs of <a class="reference external" href="Filter_Assemblies.html">Filter_Assemblies</a> are used to buid a hashtable between headers and sequences
+#.`Orthogroups.txt` file is parsed and :</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Each line (a line = an orthogroup) is put into a list</li>
+<li>Paralogous sequences are removed from the list (only one sequence per species is kept)</li>
+<li>Each element of the list is written in a fasta file, with the sequence retrieved from the hashtable</li>
+<li>Summary countings are recorded and displayed on the screen.</li>
+</ol>
+</div></blockquote>
+</div></blockquote>
+<p>The code is not fully optimized and the whole orthogroups list is parsed 2-3 times.</p>
+</div>
+<div class="section" id="source-code">
+<h3>Source code<a class="headerlink" href="#source-code" title="Permalink to this headline">¶</a></h3>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">source code docs !</p>
+</div>
+<dl class="function">
+<dt id="hashSequences">
+<code class="descname">hashSequences</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#hashSequences" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<em>list</em>) – the fasta files outputs of Filter_Assemblies</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a hashTable between headers (keys) and sequences (values)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="formatAndFilter">
+<code class="descname">formatAndFilter</code><span class="sig-paren">(</span><em>orthogroups</em>, <em>mini</em>, <em>nbspecs</em>, <em>hashTable</em>, <em>verbose</em>, <em>paralogs</em><span class="sig-paren">)</span><a class="headerlink" href="#formatAndFilter" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>orthogroups</strong> (<em>file</em>) – ‘Orthogroups.txt’ file</li>
+<li><strong>mini</strong> (<em>int</em>) – minimal number of species per group (set by the user)</li>
+<li><strong>nbspecs</strong> (<em>int</em>) – Total number of species</li>
+<li><strong>hashTable</strong> (<em>dict</em>) – hashtable headers/sequences <cite>returned by hashSequences()</cite></li>
+<li><strong>verbose</strong> (<em>bool</em>) – set by -v option ; activate the display of an intermediate summary table (orthogroups before paralogs removal)</li>
+<li><strong>paralogs</strong> (<em>bool</em>) – set by -p option ; activate the writing of intermediate output files (orthogroups before paralogs removal)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">the total number of orthogroups</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">int</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>This is the main function, which creates the orthogroups by parsing the file <em>Orthogroups.txt</em> returned by <em>OrthoFinder_OnlyGroups</em> and writes output files</p>
+<div class="section" id="formatandfilter-sub-routines">
+<h4>formatAndFilter() sub-routines<a class="headerlink" href="#formatandfilter-sub-routines" title="Permalink to this headline">¶</a></h4>
+<dl class="function">
+<dt id="writeOutputFile">
+<code class="descname">writeOutputFile</code><span class="sig-paren">(</span><em>orthogroup</em>, <em>hashTable</em>, <em>i</em>, <em>naming</em><span class="sig-paren">)</span><a class="headerlink" href="#writeOutputFile" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>orthogroup</strong> (<em>list</em>) – contains all sequences of an orthogroup</li>
+<li><strong>hashtable</strong> (<em>dict</em>) – hashtable headers/sequences <cite>returned by hashSequences()</cite></li>
+<li><strong>i</strong> (<em>int</em>) – used to set a unique filename</li>
+<li><strong>naming</strong> (<em>bool</em>) – the file name varies according to the value of this parameter (depends on the <em>paralogs</em> option)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Used to write an orthogroup in an output fasta file.</p>
+<dl class="function">
+<dt id="countings">
+<code class="descname">countings</code><span class="sig-paren">(</span><em>listOrthogroups</em>, <em>nbcols</em><span class="sig-paren">)</span><a class="headerlink" href="#countings" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>listOrthogroups</strong> (<em>list of sets of Locus objects</em>) – computed in makeOrthogroups()</li>
+<li><strong>nbcols</strong> (<em>int</em>) – the total number species (e.g the number of fasta input files)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">a summary table containing the number of orthogroups and the number of species per orthogroup.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">numpy 2D array</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="asFrame">
+<code class="descname">asFrame</code><span class="sig-paren">(</span><em>matrix</em><span class="sig-paren">)</span><a class="headerlink" href="#asFrame" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>matrix</strong> (<em>numpy 2D array</em>) – the output of countings()</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the matrix converted in a pandas dataFrame</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Back to <a class="reference external" href="index.html">main page</a>.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="index.html">Table Of Contents</a></h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Filter_Assemblies.html">Filter_Assemblies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pairwise.html">Pairwise</a></li>
+<li class="toctree-l1"><a class="reference internal" href="POGs.html">POGs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BlastAlign.html">BlastAlign</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TransDecoder.html">TransDecoder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OrthoFinder_OnlyGroups.html">OrthoFinder_OnlyGroups</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Orthogroups_Tool</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#code-documentation">Code documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="CDS_Search.html">CDS_Search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MutCount.html">MutCount</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ConcatPhyl.html">ConcatPhyl</a></li>
+<li class="toctree-l1"><a class="reference internal" href="codeML.html">codeML</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="OrthoFinder_OnlyGroups.html"
+                        title="previous chapter">OrthoFinder_OnlyGroups</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="CDS_Search.html"
+                        title="next chapter">CDS_Search</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/Orthogroups_Tool.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="CDS_Search.html" title="CDS_Search"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="OrthoFinder_OnlyGroups.html" title="OrthoFinder_OnlyGroups"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">AdaptSearch 2 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Victor Mataigne.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.
+    </div>
+  </body>
+</html>
