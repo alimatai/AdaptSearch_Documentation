@@ -53,30 +53,31 @@
 <div class="section" id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
 <p>This tool takes Orthogroups found by OrthoFinder and proceeds to retrieve nucleic sequences back, then write each orthogroups in its own fasta file.</p>
+</div>
 <div class="section" id="user-parameters">
-<h3>User parameters<a class="headerlink" href="#user-parameters" title="Permalink to this headline">¶</a></h3>
+<h2>User parameters<a class="headerlink" href="#user-parameters" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>The parameter’s name are the ones used in the Galaxy’s interface.</dt>
 <dd><ol class="first last arabic simple">
-<li>Orthogroup file : the <em>Orthogroups.txt</em> outpuf file from OrthoFinder</li>
+<li>Orthogroup file : The <em>Orthogroups.txt</em> outpuf file from OrthoFinder</li>
 <li>Outputs from Filter Assemblies : all the <a class="reference external" href="Filter_Assemblies.html">Filter_Assemblies</a> outputs, separated by commas</li>
 <li>(integer) Minimal number of sequences per orthogroup : smaller orthogroups will not be returned</li>
-<li>(-v) Verbose : display a supplementary table with details before the paralogous sequence removal</li>
-<li>(-p) Paralogs : if activated, returns the orthogroups before paralogs sequences removal</li>
+<li>(-v) Verbose : Display a supplementary table with details before the paralogous sequence removal</li>
+<li>(-p) Paralogs : If activated, returns the orthogroups before paralogs sequences removal</li>
 </ol>
 </dd>
 </dl>
-</div>
 </div>
 <div class="section" id="code-documentation">
 <h2>Code documentation<a class="headerlink" href="#code-documentation" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="algorithm">
 <h3>Algorithm<a class="headerlink" href="#algorithm" title="Permalink to this headline">¶</a></h3>
-<p>:: note:: under Galaxy, a first shell script is launched to rewrite correctly TransDecoder sequences’ headers in the <cite>Orthogroups.txt</cite> file.</p>
-<blockquote>
-<div><p>#. Outputs of <a class="reference external" href="Filter_Assemblies.html">Filter_Assemblies</a> are used to buid a hashtable between headers and sequences
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>a first shell script is launched to rewrite correctly TransDecoder sequences’ headers in the <cite>Orthogroups.txt</cite> file.</p>
+<p>#. Outputs of <a class="reference external" href="Filter_Assemblies.html">Filter_Assemblies</a> are used to buid a hashtable between headers and sequences
 #.`Orthogroups.txt` file is parsed and :</p>
-<blockquote>
+<blockquote class="last">
 <div><ol class="arabic simple">
 <li>Each line (a line = an orthogroup) is put into a list</li>
 <li>Paralogous sequences are removed from the list (only one sequence per species is kept)</li>
@@ -84,15 +85,11 @@
 <li>Summary countings are recorded and displayed on the screen.</li>
 </ol>
 </div></blockquote>
-</div></blockquote>
+</div>
 <p>The code is not fully optimized and the whole orthogroups list is parsed 2-3 times.</p>
 </div>
 <div class="section" id="source-code">
 <h3>Source code<a class="headerlink" href="#source-code" title="Permalink to this headline">¶</a></h3>
-<div class="admonition-todo admonition" id="index-0">
-<p class="first admonition-title">Todo</p>
-<p class="last">source code docs !</p>
-</div>
 <dl class="function">
 <dt id="hashSequences">
 <code class="descname">hashSequences</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#hashSequences" title="Permalink to this definition">¶</a></dt>
@@ -100,9 +97,9 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<em>list</em>) – the fasta files outputs of Filter_Assemblies</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<em>list</em>) – The fasta files outputs of Filter_Assemblies</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a hashTable between headers (keys) and sequences (values)</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A hashTable between headers (keys) and sequences (values)</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
 </tr>
@@ -119,15 +116,15 @@
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>orthogroups</strong> (<em>file</em>) – ‘Orthogroups.txt’ file</li>
-<li><strong>mini</strong> (<em>int</em>) – minimal number of species per group (set by the user)</li>
+<li><strong>mini</strong> (<em>int</em>) – Minimal number of species per group (set by the user)</li>
 <li><strong>nbspecs</strong> (<em>int</em>) – Total number of species</li>
-<li><strong>hashTable</strong> (<em>dict</em>) – hashtable headers/sequences <cite>returned by hashSequences()</cite></li>
-<li><strong>verbose</strong> (<em>bool</em>) – set by -v option ; activate the display of an intermediate summary table (orthogroups before paralogs removal)</li>
-<li><strong>paralogs</strong> (<em>bool</em>) – set by -p option ; activate the writing of intermediate output files (orthogroups before paralogs removal)</li>
+<li><strong>hashTable</strong> (<em>dict</em>) – Hashtable headers/sequences <cite>returned by hashSequences()</cite></li>
+<li><strong>verbose</strong> (<em>bool</em>) – Set by -v option ; activate the display of an intermediate summary table (orthogroups before paralogs removal)</li>
+<li><strong>paralogs</strong> (<em>bool</em>) – Set by -p option ; activate the writing of intermediate output files (orthogroups before paralogs removal)</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">the total number of orthogroups</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The total number of orthogroups</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">int</p>
@@ -148,10 +145,10 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>orthogroup</strong> (<em>list</em>) – contains all sequences of an orthogroup</li>
-<li><strong>hashtable</strong> (<em>dict</em>) – hashtable headers/sequences <cite>returned by hashSequences()</cite></li>
-<li><strong>i</strong> (<em>int</em>) – used to set a unique filename</li>
-<li><strong>naming</strong> (<em>bool</em>) – the file name varies according to the value of this parameter (depends on the <em>paralogs</em> option)</li>
+<li><strong>orthogroup</strong> (<em>list</em>) – Contains all sequences of an orthogroup</li>
+<li><strong>hashtable</strong> (<em>dict</em>) – Hashtable headers/sequences <cite>returned by hashSequences()</cite></li>
+<li><strong>i</strong> (<em>int</em>) – Used to set a unique filename</li>
+<li><strong>naming</strong> (<em>bool</em>) – The file name varies according to the value of this parameter (depends on the <em>paralogs</em> option)</li>
 </ul>
 </td>
 </tr>
@@ -168,12 +165,12 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>listOrthogroups</strong> (<em>list of sets of Locus objects</em>) – computed in makeOrthogroups()</li>
-<li><strong>nbcols</strong> (<em>int</em>) – the total number species (e.g the number of fasta input files)</li>
+<li><strong>listOrthogroups</strong> (<em>list of sets of Locus objects</em>) – Computed in makeOrthogroups()</li>
+<li><strong>nbcols</strong> (<em>int</em>) – The total number species (e.g the number of fasta input files)</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">a summary table containing the number of orthogroups and the number of species per orthogroup.</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A summary table containing the number of orthogroups and the number of species per orthogroup.</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">numpy 2D array</p>
@@ -190,9 +187,11 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>matrix</strong> (<em>numpy 2D array</em>) – the output of countings()</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>matrix</strong> (<em>numpy 2D array</em>) – The output of countings()</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the matrix converted in a pandas dataFrame</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The matrix converted in a pandas dataFrame</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pandas dataFrame</td>
 </tr>
 </tbody>
 </table>
@@ -221,6 +220,7 @@
 <li class="toctree-l1"><a class="reference internal" href="OrthoFinder_OnlyGroups.html">OrthoFinder_OnlyGroups</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Orthogroups_Tool</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#user-parameters">User parameters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#code-documentation">Code documentation</a></li>
 </ul>
 </li>
@@ -228,6 +228,7 @@
 <li class="toctree-l1"><a class="reference internal" href="MutCount.html">MutCount</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ConcatPhyl.html">ConcatPhyl</a></li>
 <li class="toctree-l1"><a class="reference internal" href="codeML.html">codeML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CommandLine_User_Guide.html">User Guide for the use of AdaptSearch in command line</a></li>
 </ul>
 
   <h4>Previous topic</h4>

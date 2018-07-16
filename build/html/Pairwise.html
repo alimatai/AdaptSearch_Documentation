@@ -53,192 +53,81 @@
 <div class="section" id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
 <p>This tool searches for different homologous genes (tblastx with RBH) from pairwise comparisons between a set of fasta files (one file per species). It returns lists of homologous genes pairs between each pair of species</p>
+</div>
 <div class="section" id="user-parameters">
-<h3>User parameters<a class="headerlink" href="#user-parameters" title="Permalink to this headline">¶</a></h3>
+<h2>User parameters<a class="headerlink" href="#user-parameters" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><ol class="arabic simple">
 <li>Fasta files (outputs of <a class="reference external" href="Filter_Assemblies.html">Filter_Assemblies</a>) separated by commas</li>
 <li>The blast e-value</li>
+<li>The alignment tool to use : the user can choose between tblastx (sensitive and very slow) and diamond (very fast and apparently a bit less sensitive).</li>
 </ol>
 </div></blockquote>
-</div>
 </div>
 <div class="section" id="code-documentation">
 <h2>Code documentation<a class="headerlink" href="#code-documentation" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="algorithm">
 <h3>Algorithm<a class="headerlink" href="#algorithm" title="Permalink to this headline">¶</a></h3>
-<div class="admonition-todo admonition" id="index-0">
-<p class="first admonition-title">Todo</p>
-<p class="last">Algo !</p>
+<dl class="docutils">
+<dt>For each possible couple of species :</dt>
+<dd><ol class="first last arabic simple">
+<li>A first blast is computed, the species_1 being the query and the species_2 the database</li>
+<li>For each query, only the Best Hit is kept</li>
+<li>Intermediate fasta files are built with the best_hits from query and db</li>
+<li>A second blast is computed, the species_2 being the query and the recorded best_hit queries being the database</li>
+<li>Only the Reciprocical Best Hits are kept.</li>
+</ol>
+</dd>
+</dl>
+<p>If diamond is used, a call to BioPython Bio.Seq and Bio.Alphabet is used to translate sequences in every reading frame. Every translation is made with the original sequence name, with the addition of the suffix ‘orf_x’, so it is easy to keep track of the original sequence name.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Many temporary files are generated ; the scripts work with species and sub-directories names, which are transfered from one script to another. The involved code can be uneasy to read.</p>
 </div>
 </div>
 <div class="section" id="source-code">
 <h3>Source code<a class="headerlink" href="#source-code" title="Permalink to this headline">¶</a></h3>
-<div class="admonition-todo admonition" id="index-1">
-<p class="first admonition-title">Todo</p>
-<p class="last">source code docs !</p>
+<p>The tool consists in several scripts following each others, launched on each species couple iteration.</p>
+<div class="section" id="file-s01-run-first-blast-py">
+<h4>File: S01_run_first_blast.py<a class="headerlink" href="#file-s01-run-first-blast-py" title="Permalink to this headline">¶</a></h4>
+<p>This is the main script, running the first blast and then launching sub-scripts (S02,03,04) on every iteration of species couples.</p>
+<ul class="simple">
+<li>The species_1 is the query</li>
+<li>The species_2 is the database</li>
+</ul>
 </div>
-<div class="section" id="file-functions-py">
-<h4>File: functions.py<a class="headerlink" href="#file-functions-py" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="file-s02-04-keep-one-hit-from-blast-py">
+<h4>File: S02_04_keep_one_hit_from_blast.py<a class="headerlink" href="#file-s02-04-keep-one-hit-from-blast-py" title="Permalink to this headline">¶</a></h4>
+<p>This scripts is run twice on each species couple iteration : after each blast. Every best hit for every query sequence is recorded, then a temporary fasta file containing only those best hits is generated.</p>
 <dl class="function">
-<dt id="split_file">
-<code class="descname">split_file</code><span class="sig-paren">(</span><em>path_in</em>, <em>keyword</em><span class="sig-paren">)</span><a class="headerlink" href="#split_file" title="Permalink to this definition">¶</a></dt>
+<dt id="list_with_max_score">
+<code class="descname">list_with_max_score</code><span class="sig-paren">(</span><em>list_of_hits</em><span class="sig-paren">)</span><a class="headerlink" href="#list_with_max_score" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>path_in</strong> (<em>string</em>) – </li>
-<li><strong>keyword</strong> (<em>string</em>) – </li>
-</ul>
-</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>list_of_hits</strong> (<em>list</em>) – a list of blast hits (each element being a line from a tab-formated blast output : query,db,score,evalue…). All queries are the same.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"></p>
-</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the elem of the list which has the best score</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="detect_Matches">
-<code class="descname">detect_Matches</code><span class="sig-paren">(</span><em>query</em>, <em>MATCH</em>, <em>WORK_DIR</em>, <em>bash1</em><span class="sig-paren">)</span><a class="headerlink" href="#detect_Matches" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>query</strong> – </li>
-<li><strong>MATCH</strong> (<em>int</em>) – </li>
-<li><strong>WORK_DIR</strong> (<em>string</em>) – source directory for blast run</li>
-<li><strong>bash1</strong> (<em>dict</em>) – </li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"></p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"></p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="get_information_on_matches">
-<code class="descname">get_information_on_matches</code><span class="sig-paren">(</span><em>list_of_line</em><span class="sig-paren">)</span><a class="headerlink" href="#get_information_on_matches" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>list_of_line</strong> – </td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">match informations (length, score, identity percent …)</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="get_pairs">
-<code class="descname">get_pairs</code><span class="sig-paren">(</span><em>fasta_file_path</em><span class="sig-paren">)</span><a class="headerlink" href="#get_pairs" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fasta_file_path</strong> (<em>string</em>) – the path to a file</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">returns all couples of homologous genes, each couple being a four elements sub-list (header+sequence * 2)</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list of lists</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="extract_length">
-<code class="descname">extract_length</code><span class="sig-paren">(</span><em>length_string</em><span class="sig-paren">)</span><a class="headerlink" href="#extract_length" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>length_string</strong> (<em>string</em>) – </td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="filter_redondancy">
-<code class="descname">filter_redondancy</code><span class="sig-paren">(</span><em>list_paireu</em>, <em>MIN_LENGTH</em><span class="sig-paren">)</span><a class="headerlink" href="#filter_redondancy" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>list_paireu</strong> (<em>list</em>) – list of list of matched sequences (pairs)</li>
-<li><strong>MIN_LENGTH</strong> (<em>int</em>) – mimimum sequence length</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">a list of dicts</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list</p>
-</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"></td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
 </div>
-<div class="section" id="file-s10-compare-list-pairs-for-reciprocical-best-hits-test-py">
-<h4>File : S10_compare_list_pairs_for_reciprocical_best_hits_test.py<a class="headerlink" href="#file-s10-compare-list-pairs-for-reciprocical-best-hits-test-py" title="Permalink to this headline">¶</a></h4>
-<dl class="function">
-<dt>
-<code class="descname">get_pairs</code><span class="sig-paren">(</span><em>fasta_file</em><span class="sig-paren">)</span></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fasta_file</strong> (<em>string</em>) – the path to a file</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">returns all couples of homologous genes, each couple being a four elements sub-list (header+sequence * 2)</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list of lists</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt>
-<code class="descname">get_short_name(long_name):</code></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>long_name</strong> (<em>string</em>) – a sequence’s header</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">shortened <cite>long_name</cite></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">string</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
+<div class="section" id="file-s03-run-second-blast-py">
+<h4>File : S03_run_second_blast.py<a class="headerlink" href="#file-s03-run-second-blast-py" title="Permalink to this headline">¶</a></h4>
+<p>Runs the second blast (with the same alignment tool than for the 1st blast) between the best hits of the 1st blast and the input transcriptom</p>
+<ul class="simple">
+<li>The species_2 is the query</li>
+<li>The species_1 sequences who had a hit during the first blast are the database</li>
+</ul>
+</div>
+<div class="section" id="file-s05-find-rbh-py">
+<h4>File : S05_find_rbh.py<a class="headerlink" href="#file-s05-find-rbh-py" title="Permalink to this headline">¶</a></h4>
+<p>This last script compare all the best hits from both blasts and keeps only reciprocical best hits.</p>
 <p>Back to <a class="reference external" href="index.html">main page</a>.</p>
 </div>
 </div>
@@ -257,6 +146,7 @@
 <li class="toctree-l1"><a class="reference internal" href="Filter_Assemblies.html">Filter_Assemblies</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Pairwise</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#user-parameters">User parameters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#code-documentation">Code documentation</a></li>
 </ul>
 </li>
@@ -269,6 +159,7 @@
 <li class="toctree-l1"><a class="reference internal" href="MutCount.html">MutCount</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ConcatPhyl.html">ConcatPhyl</a></li>
 <li class="toctree-l1"><a class="reference internal" href="codeML.html">codeML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CommandLine_User_Guide.html">User Guide for the use of AdaptSearch in command line</a></li>
 </ul>
 
   <h4>Previous topic</h4>

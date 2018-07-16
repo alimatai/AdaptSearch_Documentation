@@ -1,0 +1,287 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>User Guide for the use of AdaptSearch in command line &#8212; AdaptSearch 2 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="codeML" href="codeML.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="codeML.html" title="codeML"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">AdaptSearch 2 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="user-guide-for-the-use-of-adaptsearch-in-command-line">
+<h1>User Guide for the use of AdaptSearch in command line<a class="headerlink" href="#user-guide-for-the-use-of-adaptsearch-in-command-line" title="Permalink to this headline">¶</a></h1>
+<div class="topic">
+<p class="topic-title first">Alternative to Galaxy</p>
+<p>Due to perfs issue on the Galaxy instance, a commandline usecase of AdaptSearch has been set up. Each tool can be launched with a qsub on Roscoff Marine Station cluster. This usecase is semi-automatic : each qsub has to be launched by the user.</p>
+</div>
+<div class="section" id="usage-example">
+<h2>Usage example<a class="headerlink" href="#usage-example" title="Permalink to this headline">¶</a></h2>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>Make sure to respect the items below :</p>
+<ul class="last simple">
+<li>The input start files names (transcriptoms) must <strong>start with the species abbreviated name</strong>, for example, if the species is <em>Alvinella pompejana</em> : Ap_transcriptom.fasta</li>
+<li>The pipeline is set to work with the directories architecture defined in <strong>/projet/umr7144/abice/vmataigne/AdaptSearch_commandLine</strong>, which is stored in each .sh script into the <strong>‘path’</strong> variable. You can copy the whole project elsewhere but you’ll have to modify the value of <strong>‘path’</strong>  in each .sh script according to the copy destination.</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The pipeline suite is semi-automatic : each tool have to run by the user (a given tool is not automatically launched by the previous one).</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Almost every tool can be launched without editing the default parameters, except MutCount, where the user has to edit the command lines to set groups of species for counts, resampling, and ecological categories.</p>
+</div>
+<div class="section" id="run-the-tools">
+<h3>Run the tools<a class="headerlink" href="#run-the-tools" title="Permalink to this headline">¶</a></h3>
+<p>First, go to the directory specified above</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ssh</span> <span class="n">nz</span>
+<span class="n">cd</span> <span class="o">/</span><span class="n">projet</span><span class="o">/</span><span class="n">umr7144</span><span class="o">/</span><span class="n">abice</span><span class="o">/</span><span class="n">vmataigne</span><span class="o">/</span><span class="n">AdaptSearch_commandLine</span>
+</pre></div>
+</div>
+<p>Then, copy your input transcritoms in the directory:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cp</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">your</span><span class="o">/</span><span class="n">files</span><span class="o">/*.</span><span class="n">fasta</span> <span class="n">input_start_files</span><span class="o">/</span>
+</pre></div>
+</div>
+<p>Specify your email adress in each .sh file (edit <strong>#$ -M victor.mataigne&#64;sb-roscoff.fr</strong>)
+If you think that a tool will run for more than 12h, edit the line <strong>#$ -q short.q</strong> to <strong>#$ -q long.q</strong></p>
+<p>Now the pipeline can be launch. You’ll have to launch each tool manually once the previous tool is finished:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">qsub</span> <span class="n">filter_assemblies</span><span class="o">.</span><span class="n">sh</span>
+<span class="n">qsub</span> <span class="n">pairwise</span><span class="o">.</span><span class="n">sh</span>
+<span class="n">qsub</span> <span class="n">pogs</span><span class="o">.</span><span class="n">sh</span>
+<span class="n">qsub</span> <span class="n">blastalign</span><span class="o">.</span><span class="n">sh</span>
+<span class="n">qsub</span> <span class="n">cds_search</span><span class="o">.</span><span class="n">sh</span>
+<span class="n">qsub</span> <span class="n">concat_phyl</span><span class="o">.</span><span class="n">sh</span>
+<span class="n">qsub</span> <span class="n">mutcount</span><span class="o">.</span><span class="n">sh</span>
+<span class="n">qsub</span> <span class="n">codeml</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+<p>The input and outputs files are automatically handled for each tool but :</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">if you run a tool a second time (for instance with different parameters), the previous results will be erased ! Make sure to move the previous results in another directory</p>
+</div>
+<p>After each tool run, various temporary and intermediate files are stored in the directory  <strong>archived_temp_files/</strong>. Already stored results will also be erased if you run the same tool twice.</p>
+</div>
+<div class="section" id="how-to-modify-default-parameters">
+<h3>How to modify default parameters<a class="headerlink" href="#how-to-modify-default-parameters" title="Permalink to this headline">¶</a></h3>
+<p>You will have to edit directly the python command(s) line(s) in each shell (.sh) script to change default parameters. This is a quite unconvenient way to proceed so below is explained in details wich command line argument corresponds to which Galaxy’s parameter</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">These explains only the correspondances between commandline arguments and Galaxy’s parameters. For more details about each parameter, see the tool’s main help page.</p>
+</div>
+<div class="section" id="filter-assemblies">
+<h4>Filter Assemblies<a class="headerlink" href="#filter-assemblies" title="Permalink to this headline">¶</a></h4>
+<p>Command line to edit:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>python S01_script_to_choose.py $inputs 100 100 60
+</pre></div>
+</div>
+<ul class="simple">
+<li>$inputs : do not modify ; it is a shell variable storing inputs files names</li>
+<li>The 2d argument (default : 100) is the minimum sequence length</li>
+<li>The 3d argument (default : 100, minimum : 65) is the minimum percent identity of an overlap</li>
+<li>The 4d argument (default : 60, minimum : 15) is minimum length of an overlap (in base pairs)</li>
+</ul>
+</div>
+<div class="section" id="pairwise">
+<h4>Pairwise<a class="headerlink" href="#pairwise" title="Permalink to this headline">¶</a></h4>
+<p>Command line to edit:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>python S01_run_first_blast.py $inputs 1e-5 diamond
+</pre></div>
+</div>
+<ul class="simple">
+<li>$inputs : do not modify ; it is a shell variable storing inputs files names</li>
+<li>The 2d argument is the e-value (default : 1e-5)</li>
+<li>The 3d argument is the alignment tool to use : use ‘tblastx’ or ‘diamond’</li>
+</ul>
+</div>
+<div class="section" id="pogs">
+<h4>POGs<a class="headerlink" href="#pogs" title="Permalink to this headline">¶</a></h4>
+<p>Command line to edit:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>python pogs.py $inputs 3 -v
+</pre></div>
+</div>
+<ul class="simple">
+<li>$inputs : do not modify ; it is a shell variable storing inputs files names</li>
+<li>The 2d argument (default : 3) is the minimal number of species authorized in an orthogroup</li>
+<li>-v is the ‘verbose’ option (default : activated)</li>
+<li>-p is the ‘paralogs’ option (default : deactivated)</li>
+</ul>
+</div>
+<div class="section" id="blastalign">
+<h4>BlastAlign<a class="headerlink" href="#blastalign" title="Permalink to this headline">¶</a></h4>
+<p>Command line to edit:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>BlastAlign+ -i $n -m 95 -n T -s 0
+</pre></div>
+</div>
+<ul class="simple">
+<li>-i $n : do not modify ; it is the input file</li>
+<li>-m 95 is the proportion of gaps allowed in any sequence in the final alignement</li>
+<li>-n T : Keep T to retain original sequences names in the output file (possible values : T/F)</li>
+<li>-s 0 : is used to set a reference sequence ; 0 means that the option is deactivated here.</li>
+</ul>
+</div>
+<div class="section" id="cds-search">
+<h4>CDS_Search<a class="headerlink" href="#cds-search" title="Permalink to this headline">¶</a></h4>
+<p>Command lines to edit:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">S01_find_orf_on_multiple_alignment</span><span class="o">.</span><span class="n">py</span> <span class="n">code_universel_modified</span><span class="o">.</span><span class="n">txt</span> <span class="mi">50</span> <span class="n">list_files</span>
+<span class="n">python</span> <span class="n">S02_remove_too_short_bit_or_whole_sequence</span><span class="o">.</span><span class="n">py</span> <span class="mi">3</span> <span class="n">oui</span> <span class="mi">50</span> <span class="mi">15</span>
+<span class="n">python</span> <span class="n">S03_remove_site_with_not_enough_species_represented</span><span class="o">.</span><span class="n">py</span> <span class="mi">3</span> <span class="mi">50</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>1st script
+* 1st argument (default : 50) is the minimal length of the CDS (in amino-acids)
+* list_files : do not modify : it contains the list of all input files names</li>
+<li>2d script
+* 1st argument (default : 3) is the minimal number of species in each orthogroup
+* 2d argument (default : ‘oui’) means the script takes Methionine into account for the search of CDS (possible values : oui/non)
+* 3d argument (default : 50) is the minimal length of the CDS (in amino-acids)
+* 15</li>
+<li>3d script
+* 1st argument (default : 3) is the minimal number of species in each orthogroup
+* 2d argument (default : 50) is the minimal length of the CDS, in base-pairs (without indels)</li>
+</ul>
+</div>
+<div class="section" id="concat-phyl">
+<h4>Concat_Phyl<a class="headerlink" href="#concat-phyl" title="Permalink to this headline">¶</a></h4>
+<p>Command lines to edit:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>python S01_concatenate.py $inputs nucleic list_files
+raxmlHPC -n raxml -s 03_Concatenation_nuc.phy -m GTRGAMMA -p 1234567890 -N 1000 -x 12345 -f a
+</pre></div>
+</div>
+<ul class="simple">
+<li>Python script
+* $inputs : do not modify ; it is a shell variable storing inputs files names from filter_assemblies
+* 2d argument (default : nucleic) : specifies the format of the fasta files (possible values : nucleic/proteic)
+* 3d argument : list_files : do not modify ; it contains the list of all input files names from cds_search</li>
+<li>raxml :
+* -n : prefix for output files names
+* -s : input file from the python script. Do not modify.
+* -m : Substitution Model
+* -p : random seed for the parsimony inferences
+* -N : number of bootsrap runs
+* -x : rapid bootsrap random seed
+* -f : Algorithm to execute</li>
+</ul>
+</div>
+<div class="section" id="mutcount">
+<h4>Mutcount<a class="headerlink" href="#mutcount" title="Permalink to this headline">¶</a></h4>
+<p>Command lines to edit:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">S01a_codons_counting</span><span class="o">.</span><span class="n">py</span> <span class="n">outputs_phylogeny</span><span class="o">/</span><span class="mi">03</span><span class="n">_Concatenation_nuc</span><span class="o">.</span><span class="n">fas</span> <span class="s1">&#39;write,here,species,to,count&#39;</span> <span class="s1">&#39;write,here,species,to,resample&#39;</span> <span class="mi">1000</span> <span class="mi">1000</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>1st argument : outputs_phylogeny/03_Concatenation_nuc.fas : do not modify</li>
+<li>2d argument : ‘write,here,species,to,count’ is the list of species for countings: Replace those by comma-separated species abbreviated names (ex : Ac,Ap,Am,Pf)</li>
+<li>3d argument : ‘write,here,species,to,resample’ is the list of species for resampling: Replace those by comma-separated species abbreviated names (ex : Pg,Pp,Ps,Pi)</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="index.html">Table Of Contents</a></h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Filter_Assemblies.html">Filter_Assemblies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pairwise.html">Pairwise</a></li>
+<li class="toctree-l1"><a class="reference internal" href="POGs.html">POGs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BlastAlign.html">BlastAlign</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TransDecoder.html">TransDecoder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OrthoFinder_OnlyGroups.html">OrthoFinder_OnlyGroups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Orthogroups_Tool.html">Orthogroups_Tool</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CDS_Search.html">CDS_Search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MutCount.html">MutCount</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ConcatPhyl.html">ConcatPhyl</a></li>
+<li class="toctree-l1"><a class="reference internal" href="codeML.html">codeML</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">User Guide for the use of AdaptSearch in command line</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#usage-example">Usage example</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="codeML.html"
+                        title="previous chapter">codeML</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/CommandLine_User_Guide.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="codeML.html" title="codeML"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">AdaptSearch 2 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Victor Mataigne.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.
+    </div>
+  </body>
+</html>

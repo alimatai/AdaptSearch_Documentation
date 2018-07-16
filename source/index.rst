@@ -29,6 +29,7 @@ Welcome to AdaptSearch's documentation!
    MutCount
    ConcatPhyl
    codeML
+   CommandLine_User_Guide
 
 
 Indices and tables

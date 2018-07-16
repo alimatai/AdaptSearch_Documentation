@@ -54,19 +54,27 @@
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
 <p>BlastAlign takes a set of nucleic sequences in a file in fasta format and returns a multiple alignment (in Nexus and Phylip formats) using BLAST+. This Galaxy implementation works with dataset collections, which allows multiple parallels runs of BlastAlign at once on many files.</p>
 <p>This tool has been chosen for it’s good ability to manage indels.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If the sequences cannot be aligned, the corresponding file in the output dataset collection will be empty, but not marked as failed. This behavior is the result of slight modifications of BlastAlign source code. The origin code caused a tool crash, which was not relevant outside Galaxy but had to be managed in a more Galaxy’s dataset collections suitable way, leading to these empty files. The output collection has to be cleaned of these empty files with the tool ‘Filter_failed’ from the ‘Colelction operations’ panel.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The ‘Filter failed’ tool is not supposed to filter green empty files ; it’s a temporary modification on our Galaxy instance, and a new tool, ‘Filter_empty’ is supposed to be available soon.</p>
+</div>
+</div>
 <div class="section" id="user-parameters">
-<h3>User parameters<a class="headerlink" href="#user-parameters" title="Permalink to this headline">¶</a></h3>
+<h2>User parameters<a class="headerlink" href="#user-parameters" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><ol class="arabic simple">
 <li>Fasta file(s) : outputs of <a class="reference external" href="POGs.html">POGs</a> ; under Galaxy, it can be one or many files</li>
-<li>Output format : choice between fasta (default for AdaptSearch), phylip or nexus</li>
+<li>Output format : choice between fasta (default for AdaptSearch), phylip or nexus (default for stand-alone BlastAlign)</li>
 </ol>
 </div></blockquote>
 </div>
 <div class="section" id="references">
-<h3>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h3>
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
 <p>Publication : Belshaw R, Katzourakis A (2005) BlastAlign: a program that uses blast to align problematic nucleotide sequences. Bioinformatics 21:122-3</p>
-</div>
 </div>
 <div class="section" id="adaptsearch-supplemental-code">
 <h2>AdaptSearch supplemental code<a class="headerlink" href="#adaptsearch-supplemental-code" title="Permalink to this headline">¶</a></h2>
@@ -80,11 +88,14 @@
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>File_IN</strong> (<em>file</em>) – a phylip file</td>
 </tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the content of converted phylip file (String) and the number of species within (int)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">String, int</td>
+</tr>
 </tbody>
 </table>
 </dd></dl>
 
-<p>Function to convert a phylip file to a fasta file.</p>
 <p>Back to <a class="reference external" href="index.html">main page</a>.</p>
 </div>
 </div>
@@ -103,6 +114,8 @@
 <li class="toctree-l1"><a class="reference internal" href="POGs.html">POGs</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">BlastAlign</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#user-parameters">User parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#references">References</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#adaptsearch-supplemental-code">AdaptSearch supplemental code</a></li>
 </ul>
 </li>
@@ -113,6 +126,7 @@
 <li class="toctree-l1"><a class="reference internal" href="MutCount.html">MutCount</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ConcatPhyl.html">ConcatPhyl</a></li>
 <li class="toctree-l1"><a class="reference internal" href="codeML.html">codeML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CommandLine_User_Guide.html">User Guide for the use of AdaptSearch in command line</a></li>
 </ul>
 
   <h4>Previous topic</h4>

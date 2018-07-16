@@ -4,7 +4,7 @@ codeML
 
 
 Overview
-********
+========
 
 codeml is a part of the PAML package, which is a suite of programs for phylogenetic analyses of DNA or protein sequences using maximum likelihood (ML).
 

@@ -4,9 +4,12 @@ Filter_Assemblies
 
 
 Overview
-********
+========
 
 This tool reformats Velvet Oases or Trinity assemblies for the AdaptSearch galaxy suite and selects only one variant per gene according to its length and quality check (using cap3).
+
+.. warning:: Make sure to have all the input files as '.fasta' files.
+.. warning:: Each input file name must start with a two-letter abbreviated name of the species. For example, if the species is *Avinella pompejana*, name the file 'Ap_transcriptom.fasta'
 
 User parameters
 ===============
@@ -18,10 +21,10 @@ User parameters
 
 
 Code documentation
-******************
+==================
 
 Algorithm
-=========
+---------
 
 .. code-block:: none
 
@@ -34,14 +37,14 @@ Algorithm
         CALL cap3 and fasta_formatter
         CALL S05
 
-.. todo:: The scripts creates various sub-directories and temp files, making it difficult to follow : TO IMPROVE.
+.. note:: Many temporary files are generated ; the scripts work with species and sub-directories names, which are transfered from one script to another. The involved code can be uneasy to read.
 
 
 Source code
-===========
+-----------
 
 File: S01_script_to_choose.py
------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. py:function:: nameFormatting(name, script_path, prefix)
    
@@ -49,7 +52,7 @@ File: S01_script_to_choose.py
    :type name: string
    :param script_path: UNUSED - TO REMOVE FROM SOURCE CODE
    :type script_path: string
-   :param prefix: A spcies' name two letter abbreviation
+   :param prefix: A species' name two letter abbreviation
    :type prefix: string
    :return: a formatted name
    :rtype: string
@@ -57,7 +60,7 @@ File: S01_script_to_choose.py
 This function is called on each input file, renames the file name and launches the scripts *S02b_format_fasta_name_trinity.py* and *S03_choose_one_variants_per_locus_trinity.py*
 
 File: S02a_remove_redundancy_from_velvet_oases.py
--------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. py:function:: dico_filtering_redundancy(path_in)
 
@@ -69,7 +72,7 @@ File: S02a_remove_redundancy_from_velvet_oases.py
 Filters redundancy (keeps only one variant epr locus) within velvet_oases assemblies
 
 File: S02b_format_fasta_name_trinity.py
----------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. py:function:: dico_format_fasta_name(path_in, SUFFIX)
 
@@ -83,7 +86,7 @@ File: S02b_format_fasta_name_trinity.py
 Filters redundancy (keeps only one variant epr locus) within Trinity assemblies
 
 File: S03_choose_one_variants_per_locus_trinity.py
---------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. py:function:: dico_filtering_redundancy(path_in)
 
@@ -93,7 +96,7 @@ File: S03_choose_one_variants_per_locus_trinity.py
   :rtype: dict
 
 File: S04_find_orf.py
----------------------
+^^^^^^^^^^^^^^^^^^^^^
 
 ..py: function:: find_orf(entry)
 

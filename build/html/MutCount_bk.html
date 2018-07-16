@@ -22,9 +22,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="ConcatPhyl" href="ConcatPhyl.html" />
-    <link rel="prev" title="CDS_Search" href="CDS_Search.html" /> 
+    <link rel="search" title="Search" href="search.html" /> 
   </head>
   <body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -33,12 +31,6 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="ConcatPhyl.html" title="ConcatPhyl"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="CDS_Search.html" title="CDS_Search"
-             accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">AdaptSearch 2 documentation</a> &#187;</li> 
       </ul>
     </div>  
@@ -52,41 +44,30 @@
 <h1>MutCount<a class="headerlink" href="#mutcount" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="separated-mode">
-<h3>Separated mode<a class="headerlink" href="#separated-mode" title="Permalink to this headline">¶</a></h3>
-<dl class="docutils">
-<dt>This mode counts occurrences of amino-acids or nucleic acids, according to the sequences type, in each distinct orthogroup. Then, two subgroups of species are set by the user :</dt>
-<dd><ol class="first last arabic simple">
-<li>A first group, constitued by species having something in common (an ecological trait, an ecological niche, a particular environmental adaptation)</li>
-<li>A second group, constitued by species sharing the opposite trait (for example, the user can have a first subgroup made with species adapted to high temperatures and a second group made with species adapted to cold temperatures)</li>
-</ol>
-</dd>
-</dl>
-<p>Within the groups, the program checks wether the occurrences of each element (amino-acid, nucleic acid, thermostability indice, GC content …) is higher of lower between one species and all the species of the opposite group. Binomial tests are then performed of these counts.</p>
-</div>
-<div class="section" id="concatenated-mode">
-<h3>Concatenated mode<a class="headerlink" href="#concatenated-mode" title="Permalink to this headline">¶</a></h3>
 <p>This script counts the number of codons, amino acids, and types of amino acids in sequences, as well as the mutation bias from one item to another between 2 sequences. Counting is then compared to empirical p-values, obtained from bootstrapped sequences obtained from a subset of sequences.</p>
 <p>In the output files, the pvalues indicate the position of the observed data in a distribution of empirical countings obtained from a resample of the data. Values above 0.95 indicate a significantly higher counting, values under 0.05 a significantly lower counting.</p>
 <p>The script resamples random pairs of aligned codon to determine what countings can be expected under the hypothesis of an homogenous dataset. Countings are performed on each generated random alignement, thousands of alignments allow to draw a gaussian distribution of the countings. Then the script simply checks whether the observed data are within the 5% lowest or 5% highest values of the distribution.</p>
-</div>
-</div>
 <div class="section" id="user-parameters">
-<h2>User parameters<a class="headerlink" href="#user-parameters" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id1">
-<h3>Separated mode<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<h3>User parameters<a class="headerlink" href="#user-parameters" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>Two modes available :</dt>
+<dd><ol class="first last arabic simple">
+<li>Separated</li>
+<li>Concatenated</li>
+</ol>
+</dd>
+</dl>
+<div class="section" id="separated-mode">
+<h4>Separated mode<a class="headerlink" href="#separated-mode" title="Permalink to this headline">¶</a></h4>
 <blockquote>
 <div><ol class="arabic simple">
-<li>Sequences type has to be specified : ‘nucleic’ or ‘proteic’</li>
-<li>Inputs are all fasta files from <a class="reference external" href="CDS_Search.html">CDS_Search</a> read from a fixed named directory of inputs</li>
-<li>List of all species : the user has to specifiy all the species which can be found in the set of orthogroups (comma-separated abbreviated names, ex Ac,Ap,Ps,Pp,Pf,Am,Pg)</li>
-<li>Species for group one : set the list of species of group one (comma-separated abbreviated names, ex Ap,Ps)</li>
-<li>Species for group two : set the list of species of group two (comma-separated abbreviated names, ex Pg,Pp)</li>
+<li>Inputs are all fasta files from <a class="reference external" href="CDS_Search.html">CDS_Search</a> separated by commas</li>
+<li>Concatenated file from <a class="reference external" href="ConcatPhyl.html">ConcatPhyl</a> is used to retrieve all species names</li>
 </ol>
 </div></blockquote>
 </div>
-<div class="section" id="id2">
-<h3>Concatenated mode<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="concatenated-mode">
+<h4>Concatenated mode<a class="headerlink" href="#concatenated-mode" title="Permalink to this headline">¶</a></h4>
 <blockquote>
 <div><ol class="arabic simple">
 <li>Input fasta file is the ‘Phylogeny_concatenation_fasta_nuc’ from <a class="reference external" href="ConcatPhyl.html">ConcatPhyl</a></li>
@@ -98,27 +79,20 @@
 </div></blockquote>
 </div>
 </div>
+</div>
 <div class="section" id="code-documentation">
 <h2>Code documentation<a class="headerlink" href="#code-documentation" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="algorithm">
 <h3>Algorithm<a class="headerlink" href="#algorithm" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id2">
+<h4>Separated mode :<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">Algo !</p>
+</div>
+</div>
 <div class="section" id="id3">
-<h4>Separated mode<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
-<blockquote>
-<div><ol class="arabic simple">
-<li>A first script proceed to count the occurrence of each element (nucleotide or amino-acid) in each orthogroup, then of each indice (GC and purine content, IVYWREL, VLIM, hydratation …). Results are stored in nested dictionaries (keys : files_names, sub-keys : species names, sub-sub-keys : elements and indices names). Missing species in a group are set with dictionaries full of ‘NaN’ values. One cs file is written per element/indice.</li>
-<li>A second script prepare tables for binomial test by counting the number of successes and failures between the two subgroups of species (e.g the number of times a value of A is higher (and lower) than a value of B).</li>
-<li>A species is compared to the whole group of opposite species -&gt; the maximum and minimum values of ‘A’ observed into the opposite group are taken into account for the comparisons</li>
-<li>A third R script loops on these tables to do binomial tests. The number of successes is, for instance, the number of times the value of ‘A’ has been higher than the value of ‘B’, and the number of trials is the number of times ‘A’ &gt; ‘B’ + the number of times ‘A’ &lt; ‘B’</li>
-</ol>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This is not how a binomial test is supposed to work. The number of trials should be the total number of comparisons (‘A’ &gt; ‘B’ + ‘A’&lt;’B’ + ‘A’=’B’). Is it done on purpose ?</p>
-</div>
-</div></blockquote>
-</div>
-<div class="section" id="id4">
-<h4>Concatenated mode<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+<h4>Concatenated mode :<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
 <dl class="docutils">
 <dt>A whole bunch of dictionaries are used to store, for each sequences/pairs of sequences :</dt>
 <dd><ol class="first last arabic simple">
@@ -134,7 +108,7 @@
                                                     <span class="o">...</span><span class="p">}</span>
 </pre></div>
 </div>
-<p>Resampling is done on all or on a subset of sequences by picking codons at random positions (which are positions where all the resampled sequences have a full codon).</p>
+<p>Resampling is done on all or on a subset of sequences by picking codons at random positions. The more resemaplin</p>
 <p>Then, Final dictionaries gathers all occurrences and transitions of all sequences, which are written to csv files using pandas.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Example</span>
 <span class="n">codons_counts_final</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Species1&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;aaa&#39;</span><span class="p">:</span><span class="mi">20</span><span class="p">,</span> <span class="s1">&#39;aac&#39;</span><span class="p">:</span><span class="mi">12</span><span class="p">,</span> <span class="o">...</span><span class="p">},</span>
@@ -154,187 +128,6 @@
 </div>
 <div class="section" id="source-code">
 <h3>Source code<a class="headerlink" href="#source-code" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="id5">
-<h4>Separated mode<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
-<div class="section" id="file-s01b-extract-variable-nuc-py">
-<h5>File: S01b_extract_variable_nuc.py<a class="headerlink" href="#file-s01b-extract-variable-nuc-py" title="Permalink to this headline">¶</a></h5>
-<p>Counts occurrences of nucleic acids and computes corresponding indices (GC content, purine content …). Called when the sequences are in nucleic format.</p>
-<dl class="function">
-<dt id="all_nuc_counts">
-<code class="descname">all_nuc_counts</code><span class="sig-paren">(</span><em>seq</em><span class="sig-paren">)</span><a class="headerlink" href="#all_nuc_counts" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>seq</strong> (<em>String</em>) – a nucleic sequence</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">counts of each nucleotide</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="ratios">
-<code class="descname">ratios</code><span class="sig-paren">(</span><em>nuc_counts</em><span class="sig-paren">)</span><a class="headerlink" href="#ratios" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>nuc_counts</strong> (<em>dict</em>) – counts of nucleotides in a sequence (computed by all_nuc_counts())</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">values of various nucleic indices and ratios (GC%, purine% …)</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<p>For each element (A,C,G,T in a first directory, and each indice in a second directory), there is an output csv file. Rows are fasta files and columns are species. Missing species in a group have NaN values.</p>
-</div>
-<div class="section" id="file-s01b-extract-variable-prot-py">
-<h5>File: S01b_extract_variable_prot.py<a class="headerlink" href="#file-s01b-extract-variable-prot-py" title="Permalink to this headline">¶</a></h5>
-<p>Counts occurrences of amino acids and computes corresponding indices (IVYRWEL, ratio EQ_KQ …). Called when the sequences are in proteic format.</p>
-<dl class="function">
-<dt id="all_aa_counts">
-<code class="descname">all_aa_counts</code><span class="sig-paren">(</span><em>seq</em><span class="sig-paren">)</span><a class="headerlink" href="#all_aa_counts" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>seq</strong> (<em>String</em>) – a proteic sequence</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">counts of each amino-acid</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="all_aa_props">
-<code class="descname">all_aa_props</code><span class="sig-paren">(</span><em>seq_counts</em><span class="sig-paren">)</span><a class="headerlink" href="#all_aa_props" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>seq_counts</strong> (<em>dict</em>) – counts of amino-acids in a sequence (computed by all_aa_counts())</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">proportion of each amino-acid in the sequence</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<p>This function is called but is curently excluded from the final results.</p>
-<dl class="function">
-<dt id="aa_variables_counts_and_props">
-<code class="descname">aa_variables_counts_and_props</code><span class="sig-paren">(</span><em>aa_counts</em><span class="sig-paren">)</span><a class="headerlink" href="#aa_variables_counts_and_props" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>aa_counts</strong> (<em>dict</em>) – counts of amino-acids in a sequence (computed by all_aa_counts())</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">2 variables : counts and proportions of various indices and ratios</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="aa_properties">
-<code class="descname">aa_properties</code><span class="sig-paren">(</span><em>amino_acids_properties_file</em><span class="sig-paren">)</span><a class="headerlink" href="#aa_properties" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>amino_acids_properties_file</strong> (<em>String</em>) – a file which comes along with the scripts, storing various amino-acids properties</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the content of the file, each amino-acid properties being a list (frequencies, weight, volume, partial_specific_volume, hydratation)</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="sequence_properties_from_aa_properties">
-<code class="descname">sequence_properties_from_aa_properties</code><span class="sig-paren">(</span><em>aa_counts</em>, <em>aa_properties</em><span class="sig-paren">)</span><a class="headerlink" href="#sequence_properties_from_aa_properties" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>aa_counts</strong> (<em>dict</em>) – counts of amino-acids in a sequence (computed by all_aa_counts())</li>
-<li><strong>aa_properties</strong> (<em>dict</em>) – amino-acids properties returned by the call of aa_properties()</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<p>For each element (each amino-acid in a first directory, and each indice in a second directory), there is an output csv file. Rows are fasta files and columns are species. Missing species in a group have NaN values.</p>
-</div>
-<div class="section" id="file-s02b-extreme-2states-py">
-<h5>File: S02b_extreme_2states.py<a class="headerlink" href="#file-s02b-extreme-2states-py" title="Permalink to this headline">¶</a></h5>
-<p>Proceeds to count, for each element/indice and each comparison <em>species A from group 1</em> VS. <em>all species from group 2</em>, the number of times A &gt; B and A &lt; B. The script handles both sequences format (nucleic and proteic).</p>
-<dl class="function">
-<dt id="loop_on_elems">
-<code class="descname">loop_on_elems</code><span class="sig-paren">(</span><em>list_of_elems</em>, <em>path_in</em>, <em>path_out</em>, <em>sps_group_1</em>, <em>sps_group_2</em>, <em>colnames</em><span class="sig-paren">)</span><a class="headerlink" href="#loop_on_elems" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>list_of_elems</strong> (<em>list</em>) – the lsit of counted elements names, which corresponds to dictionaries keys</li>
-<li><strong>path_in</strong> (<em>String</em>) – The name of the input directory</li>
-<li><strong>path_out</strong> (<em>String</em>) – The name of the output directory</li>
-<li><strong>sps_group_1</strong> (<em>list</em>) – Species names (abbreviated) belonging to group 1</li>
-<li><strong>sps_group_2</strong> (<em>list</em>) – Species names (abbreviated) belonging to group 2</li>
-<li><strong>colnames</strong> (<em>dict</em>) – contains automaticcaly formatted names for the table columns (one per comparison)</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<p>This is the main function, which loops on every counts file, make pandas dataframe which are then written in csv files. It calls the sub-routine tableu().</p>
-<dl class="function">
-<dt id="tableu">
-<code class="descname">tableu</code><span class="sig-paren">(</span><em>fileu</em>, <em>sps_group_1</em>, <em>sps_group_2</em><span class="sig-paren">)</span><a class="headerlink" href="#tableu" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>fileu</strong> (<em>pandas DataFrame</em>) – contains the counts of an element computed by the previous script</li>
-<li><strong>sps_group_1</strong> (<em>list</em>) – Same parameter than into the function loop_on_elems()</li>
-<li><strong>sps_group_2</strong> (<em>list</em>) – Same parameter than into the function loop_on_elems()</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<p>This function parse the pandas DataFrame obtained after reading the input counts file and proceeds to count the number of successes for A&lt;B and A&gt;B</p>
-<p>At the end of this second script, a R script (S03b_sign_test_binomial.R) is called twice (on elements counts and on indices counts) and run binomial tests.</p>
-</div>
-</div>
-<div class="section" id="id6">
-<h4>Concatenated mode<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt id="buildDicts">
 <code class="descname">buildDicts</code><span class="sig-paren">(</span><em>list_codons</em>, <em>content</em>, <em>dict_genetic_code</em>, <em>dict_aa_classif</em><span class="sig-paren">)</span><a class="headerlink" href="#buildDicts" title="Permalink to this definition">¶</a></dt>
@@ -528,7 +321,6 @@
 </div>
 </div>
 </div>
-</div>
 
 
           </div>
@@ -538,7 +330,7 @@
         <div class="sphinxsidebarwrapper">
 <h3><a href="index.html">Table Of Contents</a></h3>
 <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="Filter_Assemblies.html">Filter_Assemblies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Pairwise.html">Pairwise</a></li>
 <li class="toctree-l1"><a class="reference internal" href="POGs.html">POGs</a></li>
@@ -547,27 +339,16 @@
 <li class="toctree-l1"><a class="reference internal" href="OrthoFinder_OnlyGroups.html">OrthoFinder_OnlyGroups</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Orthogroups_Tool.html">Orthogroups_Tool</a></li>
 <li class="toctree-l1"><a class="reference internal" href="CDS_Search.html">CDS_Search</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">MutCount</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#user-parameters">User parameters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#code-documentation">Code documentation</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="MutCount.html">MutCount</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ConcatPhyl.html">ConcatPhyl</a></li>
 <li class="toctree-l1"><a class="reference internal" href="codeML.html">codeML</a></li>
 <li class="toctree-l1"><a class="reference internal" href="CommandLine_User_Guide.html">User Guide for the use of AdaptSearch in command line</a></li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="CDS_Search.html"
-                        title="previous chapter">CDS_Search</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="ConcatPhyl.html"
-                        title="next chapter">ConcatPhyl</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/MutCount.rst.txt"
+      <li><a href="_sources/MutCount_bk.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -591,12 +372,6 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
-        <li class="right" >
-          <a href="ConcatPhyl.html" title="ConcatPhyl"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="CDS_Search.html" title="CDS_Search"
-             >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">AdaptSearch 2 documentation</a> &#187;</li> 
       </ul>
     </div>

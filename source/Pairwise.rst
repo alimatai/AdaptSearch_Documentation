@@ -4,7 +4,7 @@ Pairwise
 
 
 Overview
-********
+========
 
 This tool searches for different homologous genes (tblastx with RBH) from pairwise comparisons between a set of fasta files (one file per species). It returns lists of homologous genes pairs between each pair of species
 
@@ -13,92 +13,62 @@ User parameters
 
  #. Fasta files (outputs of `Filter_Assemblies <Filter_Assemblies.html>`_) separated by commas
  #. The blast e-value
-
+ #. The alignment tool to use : the user can choose between tblastx (sensitive and very slow) and diamond (very fast and apparently a bit less sensitive). 
 
 Code documentation
-******************
+==================
 
 Algorithm
-=========
+---------
 
-.. todo:: Algo !
+For each possible couple of species :
+ #. A first blast is computed, the species_1 being the query and the species_2 the database
+ #. For each query, only the Best Hit is kept
+ #. Intermediate fasta files are built with the best_hits from query and db
+ #. A second blast is computed, the species_2 being the query and the recorded best_hit queries being the database
+ #. Only the Reciprocical Best Hits are kept.
+ 
+If diamond is used, a call to BioPython Bio.Seq and Bio.Alphabet is used to translate sequences in every reading frame. Every translation is made with the original sequence name, with the addition of the suffix 'orf_x', so it is easy to keep track of the original sequence name.
+
+.. note:: Many temporary files are generated ; the scripts work with species and sub-directories names, which are transfered from one script to another. The involved code can be uneasy to read.
 
 Source code
-===========
+-----------
 
-.. todo:: source code docs !
+The tool consists in several scripts following each others, launched on each species couple iteration.
 
-File: functions.py
-------------------
+File: S01_run_first_blast.py
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. py:function:: split_file(path_in, keyword)
+This is the main script, running the first blast and then launching sub-scripts (S02,03,04) on every iteration of species couples.
 
-   :param path_in:
-   :type path_in: string
-   :param keyword:
-   :type keyword: string
-   :return:
-   :rtype: dict
+* The species_1 is the query
+* The species_2 is the database
 
-.. py:function:: detect_Matches(query, MATCH, WORK_DIR, bash1)
+File: S02_04_keep_one_hit_from_blast.py
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-   :param query:
-   :type query: 
-   :param MATCH:
-   :type MATCH: int
-   :param WORK_DIR: source directory for blast run
-   :type WORK_DIR: string
-   :param bash1:
-   :type bash1: dict
-   :return:
+This scripts is run twice on each species couple iteration : after each blast. Every best hit for every query sequence is recorded, then a temporary fasta file containing only those best hits is generated.
+
+.. py:function:: list_with_max_score(list_of_hits)
+
+   :param list_of_hits: a list of blast hits (each element being a line from a tab-formated blast output : query,db,score,evalue...). All queries are the same.
+   :type list_of_hits: list   
+   :return: the elem of the list which has the best score
    :rtype: 
 
-.. py:function:: get_information_on_matches(list_of_line)
+File : S03_run_second_blast.py
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-   :param list_of_line:
-   :type list_of_line: 
-   :return: match informations (length, score, identity percent ...)
-   :rtype: list
+Runs the second blast (with the same alignment tool than for the 1st blast) between the best hits of the 1st blast and the input transcriptom
 
-.. py:function:: get_pairs(fasta_file_path)
+* The species_2 is the query
+* The species_1 sequences who had a hit during the first blast are the database
 
-   :param fasta_file_path: the path to a file
-   :type fasta_file_path: string
-   :return: returns all couples of homologous genes, each couple being a four elements sub-list (header+sequence * 2)
-   :rtype: list of lists
+File : S05_find_rbh.py
+^^^^^^^^^^^^^^^^^^^^^^
 
-.. py:function:: extract_length(length_string)
-
-   :param length_string:
-   :type length_string: string
-   :return:
-   :rtype: int
-
-.. py:function:: filter_redondancy(list_paireu, MIN_LENGTH)
-
-   :param list_paireu: list of list of matched sequences (pairs)
-   :type list_paireu: list
-   :param MIN_LENGTH: mimimum sequence length
-   :type MIN_LENGTH: int
-   :return: a list of dicts
-   :rtype: list
-
-File : S10_compare_list_pairs_for_reciprocical_best_hits_test.py
-----------------------------------------------------------------
-
-.. py:function:: get_pairs(fasta_file)
-
-   :param fasta_file: the path to a file
-   :type fasta_file: string
-   :return: returns all couples of homologous genes, each couple being a four elements sub-list (header+sequence * 2)
-   :rtype: list of lists
-
-.. py:function:: get_short_name(long_name):
-
-   :param long_name: a sequence's header
-   :type long_name: string
-   :return: shortened `long_name`
-   :rtype: string
+This last script compare all the best hits from both blasts and keeps only reciprocical best hits.
 
 
 Back to `main page <index.html>`_.

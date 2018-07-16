@@ -53,19 +53,19 @@
 <div class="section" id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
 <p>POGs (Putative Orthologs Groups) parses outputs of <a class="reference external" href="Pairwise.html">Pairwise</a> to build groups of putative orthologous genes.</p>
+</div>
 <div class="section" id="user-parameters">
-<h3>User parameters<a class="headerlink" href="#user-parameters" title="Permalink to this headline">¶</a></h3>
+<h2>User parameters<a class="headerlink" href="#user-parameters" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>The parameter’s name are the ones used in the Galaxy’s interface.</dt>
 <dd><ol class="first last arabic simple">
 <li>Input files from Pairwise DNA : all the <a class="reference external" href="Pairwise.html">Pairwise_DNA</a> outputs, separated by commas</li>
-<li>(integer) Drop orthogroups with less than n species : smaller orthogroups will not be returned</li>
+<li>(integer) Drop orthogroups with less than n species : smaller orthogroups will not be returned. It is recommended to set this number to the total number of studied species, to avoid missing data afterwards</li>
 <li>(-v) Verbose : display a supplementary table with details before the paralogous sequence removal</li>
 <li>(-p) Paralogs : if activated, returns the orthogroups before paralogs sequences removal</li>
 </ol>
 </dd>
 </dl>
-</div>
 </div>
 <div class="section" id="code-documentation">
 <h2>Code documentation<a class="headerlink" href="#code-documentation" title="Permalink to this headline">¶</a></h2>
@@ -118,8 +118,6 @@ RETURN list_orthogroups
 </div>
 <div class="section" id="source-code">
 <h3>Source code<a class="headerlink" href="#source-code" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="main-features">
-<h4>Main features<a class="headerlink" href="#main-features" title="Permalink to this headline">¶</a></h4>
 <dl class="class">
 <dt id="Locus">
 <em class="property">class </em><code class="descname">Locus</code><span class="sig-paren">(</span><em>header</em>, <em>sequence</em>, <em>tagged</em><span class="sig-paren">)</span><a class="headerlink" href="#Locus" title="Permalink to this definition">¶</a></dt>
@@ -184,7 +182,6 @@ RETURN list_orthogroups
 </dd></dl>
 
 <p>This is the main function, which creates the orthogroups by parsing the list returned by <em>getListPairwiseAll</em> and writes output files</p>
-</div>
 <div class="section" id="makeorthogroups-sub-routines">
 <h4>makeOrthogroups() sub-routines<a class="headerlink" href="#makeorthogroups-sub-routines" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
@@ -305,6 +302,7 @@ RETURN list_orthogroups
 <li class="toctree-l1"><a class="reference internal" href="Pairwise.html">Pairwise</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">POGs</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#user-parameters">User parameters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#code-documentation">Code documentation</a></li>
 </ul>
 </li>
@@ -316,6 +314,7 @@ RETURN list_orthogroups
 <li class="toctree-l1"><a class="reference internal" href="MutCount.html">MutCount</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ConcatPhyl.html">ConcatPhyl</a></li>
 <li class="toctree-l1"><a class="reference internal" href="codeML.html">codeML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CommandLine_User_Guide.html">User Guide for the use of AdaptSearch in command line</a></li>
 </ul>
 
   <h4>Previous topic</h4>

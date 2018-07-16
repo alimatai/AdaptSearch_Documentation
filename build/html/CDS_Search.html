@@ -53,13 +53,14 @@
 <div class="section" id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
 <p>This tool takes files containing nucleic aligned sequences and search the ORF and the CDS.</p>
+</div>
 <div class="section" id="user-parameters">
-<h3>User parameters<a class="headerlink" href="#user-parameters" title="Permalink to this headline">¶</a></h3>
+<h2>User parameters<a class="headerlink" href="#user-parameters" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>For computing :</dt>
 <dd><ol class="first last arabic simple">
-<li>methionine</li>
-<li>(integer) Minimal number of species in each locus</li>
+<li>(yes/no) Methionine : if ‘yes’ is checked (default), the Methionine will be considered in the search of CDS</li>
+<li>(integer) Minimal number of species in each locus. It is recommended to set this number to the total number of studied species, to avoid missing data afterwards</li>
 <li>(integer) Minimal length of the CDS (in amino-acids)</li>
 <li>(integer) Minimal length of the subsequence (in amino-acids) between two series of indels</li>
 <li>(integer) Minimal length of the CDS, (in nucleotides) without indels</li>
@@ -73,7 +74,6 @@
 </ol>
 </dd>
 </dl>
-</div>
 </div>
 <div class="section" id="code-documentation">
 <h2>Code documentation<a class="headerlink" href="#code-documentation" title="Permalink to this headline">¶</a></h2>
@@ -91,8 +91,8 @@
 <li>Longest part of the alignment of sequence without codon stop “*”, tested in the 3 potential ORF</li>
 <li>This longest part should be &gt; 150nc or 50aa</li>
 <li>[OPTIONNAL] A codon start “M” should be present in this longuest part, before the last 50 aa<ol class="arabic">
-<li>OUTPUTs “05_CDS_aa” &amp; “05_CDS_nuc” =&gt; NOT INCLUDE THIS CRITERIA</li>
-<li>OUTPUTs “06_CDS_with_M_aa” &amp; “06_CDS_with_M_nuc” =&gt; INCLUDE THIS CRITERIA</li>
+<li>The output directory “05_CDS_aa” &amp; “05_CDS_nuc” does not include this criteria</li>
+<li>The output directory “06_CDS_with_M_aa” &amp; “06_CDS_with_M_nuc” includes this criteria</li>
 </ol>
 </li>
 </ol>
@@ -100,10 +100,6 @@
 </div>
 <div class="section" id="part-2">
 <h4>Part. 2:<a class="headerlink" href="#part-2" title="Permalink to this headline">¶</a></h4>
-<p>Find and remove indels</p>
-</div>
-<div class="section" id="part-3">
-<h4>Part. 3:<a class="headerlink" href="#part-3" title="Permalink to this headline">¶</a></h4>
 <p>Find and remove indels</p>
 </div>
 </div>
@@ -132,7 +128,7 @@
 </table>
 </dd></dl>
 
-<p>Stop codons hava the value ‘*’.</p>
+<p>Stop codons have the value ‘*’.</p>
 <dl class="function">
 <dt id="find_good_ORF_criteria_3">
 <code class="descname">find_good_ORF_criteria_3</code><span class="sig-paren">(</span><em>bash_aligned_nc_seq</em>, <em>bash_codeUniversel</em><span class="sig-paren">)</span><a class="headerlink" href="#find_good_ORF_criteria_3" title="Permalink to this definition">¶</a></dt>
@@ -313,8 +309,8 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="id1">
-<h4>File : S01_find_orf_on_multiple_alignment.py<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="file-s03-remove-sties-with-not-enought-species-represented-py">
+<h4>File : S03_remove_sties_with_not_enought_species_represented.py<a class="headerlink" href="#file-s03-remove-sties-with-not-enought-species-represented-py" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt id="remove_position_with_too_much_missing_data">
 <code class="descname">remove_position_with_too_much_missing_data</code><span class="sig-paren">(</span><em>bash_aa</em>, <em>bash_nuc</em>, <em>MIN_SPECIES_NB</em><span class="sig-paren">)</span><a class="headerlink" href="#remove_position_with_too_much_missing_data" title="Permalink to this definition">¶</a></dt>
@@ -364,12 +360,14 @@
 <li class="toctree-l1"><a class="reference internal" href="Orthogroups_Tool.html">Orthogroups_Tool</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">CDS_Search</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#user-parameters">User parameters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#code-documentation">Code documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="MutCount.html">MutCount</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ConcatPhyl.html">ConcatPhyl</a></li>
 <li class="toctree-l1"><a class="reference internal" href="codeML.html">codeML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CommandLine_User_Guide.html">User Guide for the use of AdaptSearch in command line</a></li>
 </ul>
 
   <h4>Previous topic</h4>

@@ -4,7 +4,7 @@ CDS_Search
 
 
 Overview
-********
+========
 
 This tool takes files containing nucleic aligned sequences and search the ORF and the CDS.
 
@@ -12,8 +12,8 @@ User parameters
 ===============
 
 For computing :
- #. methionine
- #. (integer) Minimal number of species in each locus
+ #. (yes/no) Methionine : if 'yes' is checked (default), the Methionine will be considered in the search of CDS 
+ #. (integer) Minimal number of species in each locus. It is recommended to set this number to the total number of studied species, to avoid missing data afterwards
  #. (integer) Minimal length of the CDS (in amino-acids)
  #. (integer) Minimal length of the subsequence (in amino-acids) between two series of indels
  #. (integer) Minimal length of the CDS, (in nucleotides) without indels
@@ -25,15 +25,15 @@ For outputs selection - All available in both nucleic and proteic format
 
 
 Code documentation
-******************
+==================
 
 Algorithm
-=========
+---------
 
 .. todo:: Algo !
 
 Part. 1:
---------
+^^^^^^^^
 
 Predict potential ORF on the basis of 2 criteria + 1 optional criteria :
 
@@ -41,26 +41,21 @@ Predict potential ORF on the basis of 2 criteria + 1 optional criteria :
  #. This longest part should be > 150nc or 50aa
  #. [OPTIONNAL] A codon start "M" should be present in this longuest part, before the last 50 aa
     
-    #. OUTPUTs "05_CDS_aa" & "05_CDS_nuc" => NOT INCLUDE THIS CRITERIA
-    #. OUTPUTs "06_CDS_with_M_aa" & "06_CDS_with_M_nuc" => INCLUDE THIS CRITERIA
+    #. The output directory "05_CDS_aa" & "05_CDS_nuc" does not include this criteria
+    #. The output directory "06_CDS_with_M_aa" & "06_CDS_with_M_nuc" includes this criteria
 
 Part. 2:
---------
-
-Find and remove indels
-
-Part. 3:
---------
+^^^^^^^^
 
 Find and remove indels
 
 Source code
-===========
+-----------
 
 .. todo:: source code docs !
 
 File : S01_find_orf_on_multiple_alignment.py
---------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. py:function:: code_universel(F1)
 
@@ -69,7 +64,7 @@ File : S01_find_orf_on_multiple_alignment.py
    :return: the genetic code (key : codon, value : amino-acid)
    :rtype: dict
 
-Stop codons hava the value '*'.
+Stop codons have the value '*'.
 
 .. py:function :: find_good_ORF_criteria_3(bash_aligned_nc_seq, bash_codeUniversel)
 
@@ -88,7 +83,7 @@ This is the most important fonction, which is run on each input file. The dictio
 In nucleic or proteic format
 
 find_good_ORF_criteria_3() subroutines
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+""""""""""""""""""""""""""""""""""""""
 
 .. py:function:: multiple3(seq)
 
@@ -143,7 +138,7 @@ Detect if methionin in the aa sequence. Calls `allindices()`
    :rtype: string
 
 File : S02_remove_too_short_bit_or_whole_sequence.py
-----------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. py:function:: detect_short_indel(seq, MAX_LENGTH_SMALL_INDEL)
 
@@ -162,8 +157,8 @@ File : S02_remove_too_short_bit_or_whole_sequence.py
    detect_short_indel("agcga-ag----agact-aca--ga-----aaatg-aca---aaaa", 7)
    # [[5], [8, 9, 10, 11], [17], [21, 22], [25, 26, 27, 28, 29], [35], [39, 40, 41]]
 
-File : S01_find_orf_on_multiple_alignment.py
---------------------------------------------
+File : S03_remove_sties_with_not_enought_species_represented.py
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. py:function:: remove_position_with_too_much_missing_data(bash_aa, bash_nuc, MIN_SPECIES_NB)
 

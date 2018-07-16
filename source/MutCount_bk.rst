@@ -4,19 +4,7 @@ MutCount
 
 
 Overview
-========
-
-Separated mode
---------------
-
-This mode counts occurrences of amino-acids or nucleic acids, according to the sequences type, in each distinct orthogroup. Then, two subgroups of species are set by the user :
- #. A first group, constitued by species having something in common (an ecological trait, an ecological niche, a particular environmental adaptation)
- #. A second group, constitued by species sharing the opposite trait (for example, the user can have a first subgroup made with species adapted to high temperatures and a second group made with species adapted to cold temperatures)
-
-Within the groups, the program checks wether the occurrences of each element (amino-acid, nucleic acid, thermostability indice, GC content ...) is higher of lower between one species and all the species of the opposite group. Binomial tests are then performed of these counts.
-
-Concatenated mode
------------------
+********
 
 This script counts the number of codons, amino acids, and types of amino acids in sequences, as well as the mutation bias from one item to another between 2 sequences. Counting is then compared to empirical p-values, obtained from bootstrapped sequences obtained from a subset of sequences.
 
@@ -27,14 +15,15 @@ The script resamples random pairs of aligned codon to determine what countings c
 User parameters
 ===============
 
+Two modes available :
+ #. Separated
+ #. Concatenated
+
 Separated mode
 --------------
 
- #. Sequences type has to be specified : 'nucleic' or 'proteic'
- #. Inputs are all fasta files from `CDS_Search <CDS_Search.html>`_ read from a fixed named directory of inputs
- #. List of all species : the user has to specifiy all the species which can be found in the set of orthogroups (comma-separated abbreviated names, ex Ac,Ap,Ps,Pp,Pf,Am,Pg)
- #. Species for group one : set the list of species of group one (comma-separated abbreviated names, ex Ap,Ps)
- #. Species for group two : set the list of species of group two (comma-separated abbreviated names, ex Pg,Pp)
+ #. Inputs are all fasta files from `CDS_Search <CDS_Search.html>`_ separated by commas
+ #. Concatenated file from `ConcatPhyl <ConcatPhyl.html>`_ is used to retrieve all species names
 
 Concatenated mode
 -----------------
@@ -47,23 +36,18 @@ Concatenated mode
 
 
 Code documentation
-==================
+******************
 
 Algorithm
----------
+=========
 
-Separated mode
-^^^^^^^^^^^^^^
+Separated mode :
+----------------
 
- #. A first script proceed to count the occurrence of each element (nucleotide or amino-acid) in each orthogroup, then of each indice (GC and purine content, IVYWREL, VLIM, hydratation ...). Results are stored in nested dictionaries (keys : files_names, sub-keys : species names, sub-sub-keys : elements and indices names). Missing species in a group are set with dictionaries full of 'NaN' values. One cs file is written per element/indice.
- #. A second script prepare tables for binomial test by counting the number of successes and failures between the two subgroups of species (e.g the number of times a value of A is higher (and lower) than a value of B).
- #. A species is compared to the whole group of opposite species -> the maximum and minimum values of 'A' observed into the opposite group are taken into account for the comparisons
- #. A third R script loops on these tables to do binomial tests. The number of successes is, for instance, the number of times the value of 'A' has been higher than the value of 'B', and the number of trials is the number of times 'A' > 'B' + the number of times 'A' < 'B'
+.. todo:: Algo !
 
- .. note:: This is not how a binomial test is supposed to work. The number of trials should be the total number of comparisons ('A' > 'B' + 'A'<'B' + 'A'='B'). Is it done on purpose ?
-
-Concatenated mode
-^^^^^^^^^^^^^^^^^
+Concatenated mode :
+-------------------
 
 A whole bunch of dictionaries are used to store, for each sequences/pairs of sequences :
  #. Each codons/amino-acids/amino-acids types occurrences countings/frequences (3*2=6 dictionaries)
@@ -77,7 +61,7 @@ A whole bunch of dictionaries are used to store, for each sequences/pairs of seq
                                                        'aac':{'aaa':0, 'aac':0, ...}, 
                                                        ...}
 
-Resampling is done on all or on a subset of sequences by picking codons at random positions (which are positions where all the resampled sequences have a full codon). 
+Resampling is done on all or on a subset of sequences by picking codons at random positions. The more resemaplin
 
 
 Then, Final dictionaries gathers all occurrences and transitions of all sequences, which are written to csv files using pandas.
@@ -99,113 +83,7 @@ Then, Final dictionaries gathers all occurrences and transitions of all sequence
 Various values (IVRYWEL, EKQH, PAYRESDGM, GC12 ...) are stored in int/float variables, put in a list (one per species) and then also written in csv file.
 
 Source code
------------
-
-Separated mode
-^^^^^^^^^^^^^^
-
-File: S01b_extract_variable_nuc.py
-""""""""""""""""""""""""""""""""""
-
-Counts occurrences of nucleic acids and computes corresponding indices (GC content, purine content ...). Called when the sequences are in nucleic format.
-
-.. py:function:: all_nuc_counts(seq)
-
-   :param seq: a nucleic sequence
-   :type seq: String
-   :return: counts of each nucleotide
-   :rtype: dict
-
-.. py:function:: ratios(nuc_counts)
-
-   :param nuc_counts: counts of nucleotides in a sequence (computed by all_nuc_counts())
-   :type nuc_counts: dict
-   :return: values of various nucleic indices and ratios (GC%, purine% ...)
-   :rtype: dict
-
-For each element (A,C,G,T in a first directory, and each indice in a second directory), there is an output csv file. Rows are fasta files and columns are species. Missing species in a group have NaN values.
-
-File: S01b_extract_variable_prot.py
-"""""""""""""""""""""""""""""""""""
-
-Counts occurrences of amino acids and computes corresponding indices (IVYRWEL, ratio EQ_KQ ...). Called when the sequences are in proteic format.
-
-.. py:function:: all_aa_counts(seq)
-
-   :param seq: a proteic sequence
-   :type seq: String
-   :return: counts of each amino-acid
-   :rtype: dict
-
-.. py:function:: all_aa_props(seq_counts)
-
-   :param seq_counts: counts of amino-acids in a sequence (computed by all_aa_counts())
-   :type seq_counts: dict
-   :return: proportion of each amino-acid in the sequence
-   :rtype: dict
-
-This function is called but is curently excluded from the final results.
-
-.. py:function:: aa_variables_counts_and_props(aa_counts)
-
-   :param aa_counts: counts of amino-acids in a sequence (computed by all_aa_counts())
-   :type aa_counts: dict
-   :returns: 2 variables : counts and proportions of various indices and ratios
-   :rtype: dict
-
-.. py:function:: aa_properties(amino_acids_properties_file)
-
-   :param amino_acids_properties_file: a file which comes along with the scripts, storing various amino-acids properties
-   :type amino_acids_properties_file: String
-   :return: the content of the file, each amino-acid properties being a list (frequencies, weight, volume, partial_specific_volume, hydratation)
-   :rtype: dict
-
-.. py:function:: sequence_properties_from_aa_properties(aa_counts, aa_properties)
-
-   :param aa_counts: counts of amino-acids in a sequence (computed by all_aa_counts())
-   :type aa_counts: dict
-   :param aa_properties: amino-acids properties returned by the call of aa_properties()
-   :type aa_properties: dict
-
-For each element (each amino-acid in a first directory, and each indice in a second directory), there is an output csv file. Rows are fasta files and columns are species. Missing species in a group have NaN values.
-
-File: S02b_extreme_2states.py
-"""""""""""""""""""""""""""""
-
-Proceeds to count, for each element/indice and each comparison *species A from group 1* VS. *all species from group 2*, the number of times A > B and A < B. The script handles both sequences format (nucleic and proteic).
-
-.. py:function:: loop_on_elems(list_of_elems, path_in, path_out, sps_group_1, sps_group_2, colnames)
-
-   :param list_of_elems: the lsit of counted elements names, which corresponds to dictionaries keys
-   :type list_of_elems: list
-   :param path_in: The name of the input directory
-   :type path_in: String
-   :param path_out: The name of the output directory
-   :type path_out: String
-   :param sps_group_1: Species names (abbreviated) belonging to group 1
-   :type sps_group_1: list
-   :param sps_group_2: Species names (abbreviated) belonging to group 2
-   :type sps_group_2: list
-   :param colnames: contains automaticcaly formatted names for the table columns (one per comparison)
-   :type colnames: dict
-
-This is the main function, which loops on every counts file, make pandas dataframe which are then written in csv files. It calls the sub-routine tableu().
-
-.. py:function:: tableu(fileu, sps_group_1, sps_group_2)
-
-   :param fileu: contains the counts of an element computed by the previous script
-   :type fileu: pandas DataFrame
-   :param sps_group_1: Same parameter than into the function loop_on_elems()
-   :type sps_group_1: list
-   :param sps_group_2: Same parameter than into the function loop_on_elems()
-   :type sps_group_2: list
-
-This function parse the pandas DataFrame obtained after reading the input counts file and proceeds to count the number of successes for A<B and A>B
-
-At the end of this second script, a R script (S03b_sign_test_binomial.R) is called twice (on elements counts and on indices counts) and run binomial tests.
-
-Concatenated mode
-^^^^^^^^^^^^^^^^^
+===========
 
 .. py:function:: buildDicts(list_codons, content, dict_genetic_code, dict_aa_classif)
 

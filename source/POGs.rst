@@ -4,7 +4,7 @@ POGs
 
 
 Overview
-********
+========
 
 POGs (Putative Orthologs Groups) parses outputs of `Pairwise <Pairwise.html>`_ to build groups of putative orthologous genes.
 
@@ -13,16 +13,16 @@ User parameters
 
 The parameter's name are the ones used in the Galaxy's interface.
  #. Input files from Pairwise DNA : all the `Pairwise_DNA <Pairwise.html>`_ outputs, separated by commas
- #. (integer) Drop orthogroups with less than n species : smaller orthogroups will not be returned
+ #. (integer) Drop orthogroups with less than n species : smaller orthogroups will not be returned. It is recommended to set this number to the total number of studied species, to avoid missing data afterwards
  #. (-v) Verbose : display a supplementary table with details before the paralogous sequence removal
  #. (-p) Paralogs : if activated, returns the orthogroups before paralogs sequences removal
 
 
 Code documentation
-******************
+==================
 
 Algorithm
-=========
+---------
 
 Pairwise outputs are gathered into a list of lists of couples of homologous sequences obtained by blast, for instance :
 
@@ -73,10 +73,7 @@ Each orthogroup is then written in a fasta file. The log displays a dataframe in
 
 
 Source code
-===========
-
-Main features
--------------
+-----------
 
 .. py:class:: Locus(header, sequence, tagged)
 
@@ -116,7 +113,7 @@ Proceeds to create a list of lists of Locus objects. Calls the sub-routine **get
 This is the main function, which creates the orthogroups by parsing the list returned by *getListPairwiseAll* and writes output files
 
 makeOrthogroups() sub-routines
-------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. py:function:: checkIfTagged(pair)
 
