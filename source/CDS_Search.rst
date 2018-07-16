@@ -30,8 +30,6 @@ Code documentation
 Algorithm
 ---------
 
-.. todo:: Algo !
-
 Part. 1:
 ^^^^^^^^
 
@@ -47,12 +45,10 @@ Predict potential ORF on the basis of 2 criteria + 1 optional criteria :
 Part. 2:
 ^^^^^^^^
 
-Find and remove indels
+.. todo:: Algo ! indels finding and removal !
 
 Source code
 -----------
-
-.. todo:: source code docs !
 
 File : S01_find_orf_on_multiple_alignment.py
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
