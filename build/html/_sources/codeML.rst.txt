@@ -19,6 +19,12 @@ User parameters
 
 Full readme at http://abacus.gene.ucl.ac.uk/software/pamlDOC.pdf
 
+The most important parameters are the model choices, 'branch model' and 'Site model'. The two of them can be combined to run mixed models.
+
+.. warning:: Incompatibilities between modesl are automatically excluded from the selection, but some can remain (we haven't tested everything yet)!
+
+.. note:: Don't forget to set the 'Sequences format in the fasta file' advanced parameter according to the format of your alignement ! The AdaptSearch suite is configured to run with nucleic format by default, but it is still possible to perform analyses on proteic data (the tool CDS_Search can return proteic sequences, and ConcatPhyl can handle them)
+
 References
 ==========
 

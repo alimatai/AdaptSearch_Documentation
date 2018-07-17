@@ -6,7 +6,10 @@ CDS_Search
 Overview
 ========
 
-This tool takes files containing nucleic aligned sequences and search the ORF and the CDS.
+This tool takes files containing nucleic aligned sequences and search the ORF and the CDS. 
+
+.. note:: By default, AdaptSearch will run with nucleic format, but you can choose to use proteic format from this point to run ConcatPhyl and CodeML.
+
 
 User parameters
 ===============

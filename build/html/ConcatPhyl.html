@@ -53,6 +53,10 @@
 <div class="section" id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
 <p>This tool takes files containing fasta sequences (from CDS_Search outputs in the AdaptSearch suite, in nucleic or proteic format), concatenate all the sequences in a super-alignment, and run RAxML to build a phylogeny.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">By default, AdaptSearch will run with nucleic format, but you can choose to use proteic format from CDS_Search to run ConcatPhyl and CodeML.</p>
+</div>
 </div>
 <div class="section" id="user-parameters">
 <h2>User parameters<a class="headerlink" href="#user-parameters" title="Permalink to this headline">¶</a></h2>
@@ -62,7 +66,7 @@
 <div><ul class="simple">
 <li>Files from Filter Assemblies : a set of fasta files (one file per species), e.g. the outputs of the first tool of the AdaptSearch suite. Used to retrieve all the species names.</li>
 <li>Alignment files without indels : a set of fasta files with aligned sequences (with the same species than into the previous parameter), e.g the outputs of the CDS_Search tool of the AdaptSearch suite.</li>
-<li>Format choice : nucleic or proteic.</li>
+<li>Format choice : nucleic or proteic (according to the CDS_Search output you choose).</li>
 </ul>
 </div></blockquote>
 </div>

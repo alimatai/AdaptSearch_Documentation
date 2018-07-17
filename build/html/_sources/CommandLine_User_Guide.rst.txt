@@ -45,7 +45,7 @@ Now the pipeline can be launch. You'll have to launch each tool manually once th
    qsub cds_search.sh
    qsub concat_phyl.sh
    qsub mutcount.sh
-   qsub codeml.sh
+   qsub codeml.sh 'directory_result_name'
    
 The input and outputs files are automatically handled for each tool but :
    
@@ -168,3 +168,35 @@ Command lines to edit::
 * 1st argument : outputs_phylogeny/03_Concatenation_nuc.fas : do not modify
 * 2d argument : 'write,here,species,to,count' is the list of species for countings: Replace those by comma-separated species abbreviated names (ex : Ac,Ap,Am,Pf)
 * 3d argument : 'write,here,species,to,resample' is the list of species for resampling: Replace those by comma-separated species abbreviated names (ex : Pg,Pp,Ps,Pi)
+
+~~~~~~
+codeML
+~~~~~~
+
+There is no command to edit, but you'll have to set up all the parameters of the configuration file 'codeml.ctl'. The most important lines are the three first lines :
+
+.. code-block:: none
+
+      seqfile = fileName * sequence data file name
+      outfile = nameResults * main result file name
+     treefile = treeName * tree structure file name
+
+     -> Replace 'fileName' with the name and path of the fasta file of concatenated sequence returned by Concatphyl
+     -> Replace 'nameResults' with any keyword of your choice : it's the name of the main output file
+     -> Replace 'treeName' with the name and path of the newick tree computed by RaxML in ConcatPhyl
+
+     Ex : 
+      seqfile = 06_outputs_concat_phyl/03_Concatenation_nuc.fas * sequence data file name
+      outfile = model_M0 * main result file name
+     treefile = 06_outputs_concat_phyl/RAxML_bestTree.raxml * tree structure file name
+
+Then, you can set all the standards and advanced parameters. The evolutionary models can be chosen with the parameters 'model' and 'NSsites' : the different combinations allow to choose between branch models, sites models, and branch-sites models.
+
+The config file provides a quick description of each parameter but you can read more at http://abacus.gene.ucl.ac.uk/software/pamlDOC.pdf
+
+.. note:: There is another file called *codeml_model.ctl* (read-only permission) : it is here to provide a back-up in case the user messes up the regular *codeml.ctl* file
+
+.. topic:: Run the tool
+  
+   Run the tool by typing **qsub codeml.sh 'model_identifier'**, where 'model_identifier' is any name you want, used to create a dedicated directory result. By doing like that, you will be able to run several model on the same results and store the results easily.
+

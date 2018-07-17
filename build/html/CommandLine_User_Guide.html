@@ -89,7 +89,7 @@ If you think that a tool will run for more than 12h, edit the line <strong>#$ -q
 <span class="n">qsub</span> <span class="n">cds_search</span><span class="o">.</span><span class="n">sh</span>
 <span class="n">qsub</span> <span class="n">concat_phyl</span><span class="o">.</span><span class="n">sh</span>
 <span class="n">qsub</span> <span class="n">mutcount</span><span class="o">.</span><span class="n">sh</span>
-<span class="n">qsub</span> <span class="n">codeml</span><span class="o">.</span><span class="n">sh</span>
+<span class="n">qsub</span> <span class="n">codeml</span><span class="o">.</span><span class="n">sh</span> <span class="s1">&#39;directory_result_name&#39;</span>
 </pre></div>
 </div>
 <p>The input and outputs files are automatically handled for each tool but :</p>
@@ -212,6 +212,34 @@ raxmlHPC -n raxml -s 03_Concatenation_nuc.phy -m GTRGAMMA -p 1234567890 -N 1000 
 <li>2d argument : ‘write,here,species,to,count’ is the list of species for countings: Replace those by comma-separated species abbreviated names (ex : Ac,Ap,Am,Pf)</li>
 <li>3d argument : ‘write,here,species,to,resample’ is the list of species for resampling: Replace those by comma-separated species abbreviated names (ex : Pg,Pp,Ps,Pi)</li>
 </ul>
+</div>
+<div class="section" id="codeml">
+<h4>codeML<a class="headerlink" href="#codeml" title="Permalink to this headline">¶</a></h4>
+<p>There is no command to edit, but you’ll have to set up all the parameters of the configuration file ‘codeml.ctl’. The most important lines are the three first lines :</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span> seqfile = fileName * sequence data file name
+ outfile = nameResults * main result file name
+treefile = treeName * tree structure file name
+
+-&gt; Replace &#39;fileName&#39; with the name and path of the fasta file of concatenated sequence returned by Concatphyl
+-&gt; Replace &#39;nameResults&#39; with any keyword of your choice : it&#39;s the name of the main output file
+-&gt; Replace &#39;treeName&#39; with the name and path of the newick tree computed by RaxML in ConcatPhyl
+
+Ex :
+ seqfile = 06_outputs_concat_phyl/03_Concatenation_nuc.fas * sequence data file name
+ outfile = model_M0 * main result file name
+treefile = 06_outputs_concat_phyl/RAxML_bestTree.raxml * tree structure file name
+</pre></div>
+</div>
+<p>Then, you can set all the standards and advanced parameters. The evolutionary models can be chosen with the parameters ‘model’ and ‘NSsites’ : the different combinations allow to choose between branch models, sites models, and branch-sites models.</p>
+<p>The config file provides a quick description of each parameter but you can read more at <a class="reference external" href="http://abacus.gene.ucl.ac.uk/software/pamlDOC.pdf">http://abacus.gene.ucl.ac.uk/software/pamlDOC.pdf</a></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">There is another file called <em>codeml_model.ctl</em> (read-only permission) : it is here to provide a back-up in case the user messes up the regular <em>codeml.ctl</em> file</p>
+</div>
+<div class="topic">
+<p class="topic-title first">Run the tool</p>
+<p>Run the tool by typing <strong>qsub codeml.sh ‘model_identifier’</strong>, where ‘model_identifier’ is any name you want, used to create a dedicated directory result. By doing like that, you will be able to run several model on the same results and store the results easily.</p>
+</div>
 </div>
 </div>
 </div>

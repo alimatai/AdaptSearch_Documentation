@@ -64,6 +64,15 @@
 <div class="section" id="user-parameters">
 <h2>User parameters<a class="headerlink" href="#user-parameters" title="Permalink to this headline">¶</a></h2>
 <p>Full readme at <a class="reference external" href="http://abacus.gene.ucl.ac.uk/software/pamlDOC.pdf">http://abacus.gene.ucl.ac.uk/software/pamlDOC.pdf</a></p>
+<p>The most important parameters are the model choices, ‘branch model’ and ‘Site model’. The two of them can be combined to run mixed models.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Incompatibilities between modesl are automatically excluded from the selection, but some can remain (we haven’t tested everything yet)!</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Don’t forget to set the ‘Sequences format in the fasta file’ advanced parameter according to the format of your alignement ! The AdaptSearch suite is configured to run with nucleic format by default, but it is still possible to perform analyses on proteic data (the tool CDS_Search can return proteic sequences, and ConcatPhyl can handle them)</p>
+</div>
 </div>
 <div class="section" id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>

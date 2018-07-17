@@ -6,7 +6,10 @@ ConcatPhyl
 Overview
 ========
 
-This tool takes files containing fasta sequences (from CDS_Search outputs in the AdaptSearch suite, in nucleic or proteic format), concatenate all the sequences in a super-alignment, and run RAxML to build a phylogeny.
+This tool takes files containing fasta sequences (from CDS_Search outputs in the AdaptSearch suite, in nucleic or proteic format), concatenate all the sequences in a super-alignment, and run RAxML to build a phylogeny. 
+
+.. note:: By default, AdaptSearch will run with nucleic format, but you can choose to use proteic format from CDS_Search to run ConcatPhyl and CodeML.
+
 
 User parameters
 ===============
@@ -16,7 +19,7 @@ Inputs
 
  * Files from Filter Assemblies : a set of fasta files (one file per species), e.g. the outputs of the first tool of the AdaptSearch suite. Used to retrieve all the species names.
  * Alignment files without indels : a set of fasta files with aligned sequences (with the same species than into the previous parameter), e.g the outputs of the CDS_Search tool of the AdaptSearch suite. 
- * Format choice : nucleic or proteic.
+ * Format choice : nucleic or proteic (according to the CDS_Search output you choose).
 
 RAxML parameters
 ----------------
