@@ -15,7 +15,7 @@ Welcome to AdaptSearch's documentation!
    :class: align-right
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents:
 
    Filter_Assemblies
@@ -29,6 +29,7 @@ Welcome to AdaptSearch's documentation!
    MutCount
    ConcatPhyl
    codeML
+   codeML_Results_Analysis
    CommandLine_User_Guide
 
 

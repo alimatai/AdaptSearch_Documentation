@@ -38,14 +38,14 @@ If you think that a tool will run for more than 12h, edit the line **#$ -q short
    
 Now the pipeline can be launch. You'll have to launch each tool manually once the previous tool is finished::
 
-   qsub filter_assemblies.sh
-   qsub pairwise.sh
-   qsub pogs.sh
-   qsub blastalign.sh
-   qsub cds_search.sh
-   qsub concat_phyl.sh
-   qsub mutcount.sh
-   qsub codeml.sh 'directory_result_name'
+   qsub Step_01_filter_assemblies.sh
+   qsub Step_02_pairwise.sh
+   qsub Step_03_pogs.sh
+   qsub Step_04_blastalign.sh
+   qsub Step_05_cds_search.sh
+   qsub Step_06_concat_phyl.sh
+   qsub Step_07_mutcount.sh
+   qsub Step_08_codeml.sh 'directory_result_name'
    
 The input and outputs files are automatically handled for each tool but :
    
