@@ -17,10 +17,22 @@ TransDecoder identifies likely coding sequences based on the following criteria:
  #. optional the putative peptide has a match to a Pfam domain above the noise cutoff score.
 
 
-
-
 User parameters
 ===============
+
+ * Transcripts : all the transciriptoms fasta files (one per species)
+ * Minimum protein length : the minimum length of the open reading frame
+ * Advanced options
+
+  - Strand-specific : Check 'Yes' to analyze top strand only (default : No)
+  - Genetic code : choose a specific geentic-code (default : universal)
+  - Shorten potential 5' partials if they are this percentage of the original protein or longer : 5' partials longer than the specified percentage will be eliminated (default : deactivated)
+  - Retain long ORfs : only return ORFs equal or longer than the specified length (default : 900)
+  - Retain only the single best ORF per transcript (default : No) ; if 'Yes', only one ORF per transcript will be returned
+
+ * Markov training options
+ 
+  - Training method : choose between training with the top longest ORFs (default : the 500 longest) or with a set of known ORFs (fasta file)
 
 
 References

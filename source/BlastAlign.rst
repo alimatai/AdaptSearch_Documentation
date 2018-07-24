@@ -17,14 +17,23 @@ This tool has been chosen for it's good ability to manage indels.
 User parameters
 ===============
 
- #. Fasta file(s) : outputs of `POGs <POGs.html>`_ ; under Galaxy, it can be one or many files
- #. Output format : choice between fasta (default for AdaptSearch), phylip or nexus (default for stand-alone BlastAlign)
+ * Fasta file(s) : outputs of `POGs <POGs.html>`_ ; under Galaxy, it can be one or many files
+ * Output format : choice between fasta (default for AdaptSearch), phylip or nexus (default for stand-alone BlastAlign)
+ * Blast advanced options
+ 
+  - Proportion of gaps allowed in any one sequence in the final alignement : (default 95, i.e. only removing sequences with extremely short matches (-m))
+  - Reference sequence : enter the header of a sequence which will be used as reference for blast (default : deactivated)
+  - Sequences to exlude : enter sequences' header to exlude them from the analysis (default : deactivated)
+  - Retain original names in output files : keeps trace of the inputs headers' format (default : activated)
 
 
 References
 ==========
 
 Publication : Belshaw R, Katzourakis A (2005) BlastAlign: a program that uses blast to align problematic nucleotide sequences. Bioinformatics 21:122-3
+
+Source code : http://evolve.zoo.ox.ac.uk/Evolve/Blastalign.html
+
 
 AdaptSearch supplemental code
 =============================

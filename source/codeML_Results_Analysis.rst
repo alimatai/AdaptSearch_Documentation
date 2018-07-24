@@ -162,44 +162,50 @@ Functions for the detection of positive selection : functions_positive_selection
 
 .. warning:: These functions are not finished ! (implementation have been stopped for a while due to versions and dependancies conflicts).
 
-.. py:function:: details_most_likely_on_sites(pval, alt_model, null_model, tree)
+.. py:function:: details_on_sites(model, tree, models_types, verbose)
 
-   :param pval: the pvalue from the ML ratio test between alt and null model
-   :type pval: float
-   :param alt_model: must be a site-model
-   :type alt_model: ete3 model object
-   :param null_model: must be a site-model
-   :type null_model: ete3 model object
+   :param model: must be a site-model
+   :type model: ete3 model object   
    :param tree: the tree used for running models
    :type tree: ete3 tree object
+   :param models_types: the list of evolutionary models, sorted by type
+   :type models_list: dict
+   :param verbose: activate the display of conserved and neutral sites in the result
+   :type verbose: bool
 
-This function is for finding the location of the positively selected sites
+This function is for printing the location of the positively selected sites. Under model M1, there are no such sites (only w < 1 and w = 1)
 
-.. py:function:: details_most_likely_on_branches(pval, alt_model, null_model, tree)
+.. py:function:: frame_site(model, tree, models_types, verbose)
 
-   :param pval: the pvalue from the ML ratio test between alt and null model
-   :type pval: float
-   :param alt_model: must be a branch-model
-   :type alt_model: ete3 model object
-   :param null_model: must be a branch-model
-   :type null_model: ete3 model object
+   :param model: must be a site-model
+   :type model: ete3 model object   
    :param tree: the tree used for running models
    :type tree: ete3 tree object
+   :param models_types: the list of evolutionary models, sorted by type
+   :type models_list: dict
+   :param verbose: activate the display of conserved and neutral sites in the result
+   :type verbose: bool
 
-This function is for finding finding positively selected branches
+   This function works in the same way than details_on_sites() but writes the results in a csv table.
 
-.. py:function:: details_most_likely_on_branches(pval, alt_model, null_model, tree)
+.. py:function:: details_on_branches(pval, alt_model, null_model, tree)
 
-   :param pval: the pvalue from the ML ratio test between alt and null model
-   :type pval: float
-   :param alt_model: must be a branch-site-model
-   :type alt_model: ete3 model object
-   :param null_model: must be a branch-site-model
-   :type null_model: ete3 model object
+   :param model: must be a site-model
+   :type model: ete3 model object   
    :param tree: the tree used for running models
    :type tree: ete3 tree object
+   :param models_types: the list of evolutionary models, sorted by type
+   :type models_list: dict
+   :param verbose: activate the display of conserved and neutral sites in the result
+   :type verbose: bool
 
-This function is for finding positively selected branches and sites
+This function is for printing positively selected branches on screen
+
+.. py:function:: models_types()
+
+   :return m_types: the list of models classified by their type (branch/site/branch-site/branch-ancestor/null)
+   :rtype: dict
+
 
 Conda environment
 =================

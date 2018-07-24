@@ -86,6 +86,6 @@ References
 
 Publication : Yang, Z. (2007). PAML 4: Phylogenetic Analysis by Maximum Likelihood. In Molecular Biology and Evolution, 24 (8), pp. 1586–1591. [doi:10.1093/molbev/msm088]
 
-Website : http://abacus.gene.ucl.ac.uk/software/paml.html
+Website and manual : http://abacus.gene.ucl.ac.uk/software/paml.html
 
 Back to `main page <index.html>`_.

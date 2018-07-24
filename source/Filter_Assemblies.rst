@@ -112,5 +112,10 @@ File: S04_find_orf.py
    :return: the reverse complement of `entry`
    :rtype: string
 
+References
+==========
+
+Huang X, Madan A. 1999. CAP3: a DNA sequence assembly program. Genome Res 9:868–877. https://doi.org/10.1101/gr.9.9.868.
+Download CAP3 : http://seq.cs.iastate.edu/cap3.html
 
 Back to `main page <index.html>`_.

@@ -48,7 +48,7 @@ Predict potential ORF on the basis of 2 criteria + 1 optional criteria :
 Part. 2:
 ^^^^^^^^
 
-.. todo:: Algo ! indels finding and removal !
+Find and removes too short regions or regions with too many indels, based on the user parameters 'Minimal length of the CDS', 'Minimal length of the subsequence between two series of indels' and 'Minimal length of the CDS without indels'
 
 Source code
 -----------
@@ -74,12 +74,11 @@ Stop codons have the value '*'.
    :returns: 6 dictionaries
    :rtype: dict
 
-This is the most important fonction, which is run on each input file. The dictionaries return:
- #. All the sequences with best  (open reading frame)
- #. All the sequences with CDS (coding sequence)
- #. All the sequences with CDS without indels
- 
-In nucleic or proteic format
+This is the most important fonction, which is run on each input file. The dictionaries return, in nucleic and proteic format :
+ #. All the sequences with their best ORF
+ #. All the sequences with their CDS without Methionine
+ #. All the sequences with their CDS with Methionine
+
 
 find_good_ORF_criteria_3() subroutines
 """"""""""""""""""""""""""""""""""""""
@@ -145,7 +144,7 @@ File : S02_remove_too_short_bit_or_whole_sequence.py
    :type seq: string
    :param MAX_LENGTH_SMALL_INDEL:
    :type MAX_LENGTH_SMALL_INDEL: int
-   :return: The list of consecutive gap positions
+   :return: The lists of consecutive gap positions
    :rtype: list of lists
 
 .. code-block:: python
@@ -171,5 +170,7 @@ File : S03_remove_sties_with_not_enought_species_represented.py
    :rtype: dict
 
 `bash_aa` and `bash_nuc` are obtained at each input file iteration with the function `dico(fileIN)` from `dico.py` file.
+
+Scripts S02 and S03 are for Part 2 (indels removal).
 
 Back to `main page <index.html>`_.

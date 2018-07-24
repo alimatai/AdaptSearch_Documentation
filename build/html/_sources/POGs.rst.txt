@@ -71,7 +71,6 @@ Each orthogroup is then written in a fasta file. The log displays a dataframe in
     RETURN list_orthogroups
 
 
-
 Source code
 -----------
 

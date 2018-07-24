@@ -66,10 +66,19 @@
 <div class="section" id="user-parameters">
 <h2>User parameters<a class="headerlink" href="#user-parameters" title="Permalink to this headline">¶</a></h2>
 <blockquote>
-<div><ol class="arabic simple">
+<div><ul class="simple">
 <li>Fasta file(s) : outputs of <a class="reference external" href="POGs.html">POGs</a> ; under Galaxy, it can be one or many files</li>
 <li>Output format : choice between fasta (default for AdaptSearch), phylip or nexus (default for stand-alone BlastAlign)</li>
-</ol>
+<li>Blast advanced options</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>Proportion of gaps allowed in any one sequence in the final alignement : (default 95, i.e. only removing sequences with extremely short matches (-m))</li>
+<li>Reference sequence : enter the header of a sequence which will be used as reference for blast (default : deactivated)</li>
+<li>Sequences to exlude : enter sequences’ header to exlude them from the analysis (default : deactivated)</li>
+<li>Retain original names in output files : keeps trace of the inputs headers’ format (default : activated)</li>
+</ul>
+</div></blockquote>
 </div></blockquote>
 </div>
 <div class="section" id="references">
@@ -126,6 +135,7 @@
 <li class="toctree-l1"><a class="reference internal" href="MutCount.html">MutCount</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ConcatPhyl.html">ConcatPhyl</a></li>
 <li class="toctree-l1"><a class="reference internal" href="codeML.html">codeML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="codeML_Results_Analysis.html">Analysis of codeML results</a></li>
 <li class="toctree-l1"><a class="reference internal" href="CommandLine_User_Guide.html">User Guide for the use of AdaptSearch in command line</a></li>
 </ul>
 

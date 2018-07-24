@@ -66,6 +66,30 @@
 </div>
 <div class="section" id="user-parameters">
 <h2>User parameters<a class="headerlink" href="#user-parameters" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>Transcripts : all the transciriptoms fasta files (one per species)</li>
+<li>Minimum protein length : the minimum length of the open reading frame</li>
+<li>Advanced options</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>Strand-specific : Check ‘Yes’ to analyze top strand only (default : No)</li>
+<li>Genetic code : choose a specific geentic-code (default : universal)</li>
+<li>Shorten potential 5’ partials if they are this percentage of the original protein or longer : 5’ partials longer than the specified percentage will be eliminated (default : deactivated)</li>
+<li>Retain long ORfs : only return ORFs equal or longer than the specified length (default : 900)</li>
+<li>Retain only the single best ORF per transcript (default : No) ; if ‘Yes’, only one ORF per transcript will be returned</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Markov training options</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>Training method : choose between training with the top longest ORFs (default : the 500 longest) or with a set of known ORFs (fasta file)</li>
+</ul>
+</div></blockquote>
+</div></blockquote>
 </div>
 <div class="section" id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
@@ -100,6 +124,7 @@
 <li class="toctree-l1"><a class="reference internal" href="MutCount.html">MutCount</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ConcatPhyl.html">ConcatPhyl</a></li>
 <li class="toctree-l1"><a class="reference internal" href="codeML.html">codeML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="codeML_Results_Analysis.html">Analysis of codeML results</a></li>
 <li class="toctree-l1"><a class="reference internal" href="CommandLine_User_Guide.html">User Guide for the use of AdaptSearch in command line</a></li>
 </ul>
 

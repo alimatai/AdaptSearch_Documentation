@@ -112,5 +112,12 @@ This function is called on each input orthogroup fasta file in the function conc
     
     > cgataa acgagc cagcagtaagac ttcgat
 
+References
+==========
+
+RAxML publication : Stamatakis A. RAxML version 8: a tool for phylogenetic analysis and post-analysis of large phylogenies. Bioinformatics. 2014;30(9):1312-1313. doi:10.1093/bioinformatics/btu033.
+
+RAxML Manual : https://sco.h-its.org/exelixis/resource/download/NewManual.pdf
+
 
 Back to `main page <index.html>`_.

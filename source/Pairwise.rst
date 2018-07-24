@@ -70,5 +70,13 @@ File : S05_find_rbh.py
 
 This last script compare all the best hits from both blasts and keeps only reciprocical best hits.
 
+References
+==========
+
+Blast Manual : https://www.ncbi.nlm.nih.gov/books/NBK279690/pdf/Bookshelf_NBK279690.pdf
+
+Diamond publication : Benjamin Buchfink, Chao Xie & Daniel H. Huson, Fast and Sensitive Protein Alignment using DIAMOND, Nature Methods, 12, 59–60 (2015) doi:10.1038/nmeth.3176.
+
+Diamond Manuel and source code : https://github.com/bbuchfink/diamond
 
 Back to `main page <index.html>`_.

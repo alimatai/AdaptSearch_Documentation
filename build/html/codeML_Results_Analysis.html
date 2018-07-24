@@ -208,17 +208,17 @@ etc. The &#39;out&#39; file in the path is the main codeml output, which can hav
 <p class="last">These functions are not finished ! (implementation have been stopped for a while due to versions and dependancies conflicts).</p>
 </div>
 <dl class="function">
-<dt id="details_most_likely_on_sites">
-<code class="descname">details_most_likely_on_sites</code><span class="sig-paren">(</span><em>pval</em>, <em>alt_model</em>, <em>null_model</em>, <em>tree</em><span class="sig-paren">)</span><a class="headerlink" href="#details_most_likely_on_sites" title="Permalink to this definition">¶</a></dt>
+<dt id="details_on_sites">
+<code class="descname">details_on_sites</code><span class="sig-paren">(</span><em>model</em>, <em>tree</em>, <em>models_types</em>, <em>verbose</em><span class="sig-paren">)</span><a class="headerlink" href="#details_on_sites" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>pval</strong> (<em>float</em>) – the pvalue from the ML ratio test between alt and null model</li>
-<li><strong>alt_model</strong> (<em>ete3 model object</em>) – must be a site-model</li>
-<li><strong>null_model</strong> (<em>ete3 model object</em>) – must be a site-model</li>
+<li><strong>model</strong> (<em>ete3 model object</em>) – must be a site-model</li>
 <li><strong>tree</strong> (<em>ete3 tree object</em>) – the tree used for running models</li>
+<li><strong>models_types</strong> – the list of evolutionary models, sorted by type</li>
+<li><strong>verbose</strong> (<em>bool</em>) – activate the display of conserved and neutral sites in the result</li>
 </ul>
 </td>
 </tr>
@@ -226,39 +226,39 @@ etc. The &#39;out&#39; file in the path is the main codeml output, which can hav
 </table>
 </dd></dl>
 
-<p>This function is for finding the location of the positively selected sites</p>
+<p>This function is for printing the location of the positively selected sites. Under model M1, there are no such sites (only w &lt; 1 and w = 1)</p>
 <dl class="function">
-<dt id="details_most_likely_on_branches">
-<code class="descname">details_most_likely_on_branches</code><span class="sig-paren">(</span><em>pval</em>, <em>alt_model</em>, <em>null_model</em>, <em>tree</em><span class="sig-paren">)</span><a class="headerlink" href="#details_most_likely_on_branches" title="Permalink to this definition">¶</a></dt>
+<dt id="frame_site">
+<code class="descname">frame_site</code><span class="sig-paren">(</span><em>model</em>, <em>tree</em>, <em>models_types</em>, <em>verbose</em><span class="sig-paren">)</span><a class="headerlink" href="#frame_site" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>pval</strong> (<em>float</em>) – the pvalue from the ML ratio test between alt and null model</li>
-<li><strong>alt_model</strong> (<em>ete3 model object</em>) – must be a branch-model</li>
-<li><strong>null_model</strong> (<em>ete3 model object</em>) – must be a branch-model</li>
+<li><strong>model</strong> (<em>ete3 model object</em>) – must be a site-model</li>
 <li><strong>tree</strong> (<em>ete3 tree object</em>) – the tree used for running models</li>
+<li><strong>models_types</strong> – the list of evolutionary models, sorted by type</li>
+<li><strong>verbose</strong> (<em>bool</em>) – activate the display of conserved and neutral sites in the result</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
+<p>This function works in the same way than details_on_sites() but writes the results in a csv table.</p>
 </dd></dl>
 
-<p>This function is for finding finding positively selected branches</p>
 <dl class="function">
-<dt>
-<code class="descname">details_most_likely_on_branches</code><span class="sig-paren">(</span><em>pval</em>, <em>alt_model</em>, <em>null_model</em>, <em>tree</em><span class="sig-paren">)</span></dt>
+<dt id="details_on_branches">
+<code class="descname">details_on_branches</code><span class="sig-paren">(</span><em>pval</em>, <em>alt_model</em>, <em>null_model</em>, <em>tree</em><span class="sig-paren">)</span><a class="headerlink" href="#details_on_branches" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>pval</strong> (<em>float</em>) – the pvalue from the ML ratio test between alt and null model</li>
-<li><strong>alt_model</strong> (<em>ete3 model object</em>) – must be a branch-site-model</li>
-<li><strong>null_model</strong> (<em>ete3 model object</em>) – must be a branch-site-model</li>
+<li><strong>model</strong> (<em>ete3 model object</em>) – must be a site-model</li>
 <li><strong>tree</strong> (<em>ete3 tree object</em>) – the tree used for running models</li>
+<li><strong>models_types</strong> – the list of evolutionary models, sorted by type</li>
+<li><strong>verbose</strong> (<em>bool</em>) – activate the display of conserved and neutral sites in the result</li>
 </ul>
 </td>
 </tr>
@@ -266,7 +266,22 @@ etc. The &#39;out&#39; file in the path is the main codeml output, which can hav
 </table>
 </dd></dl>
 
-<p>This function is for finding positively selected branches and sites</p>
+<p>This function is for printing positively selected branches on screen</p>
+<dl class="function">
+<dt id="models_types">
+<code class="descname">models_types</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models_types" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return m_types:</th><td class="field-body">the list of models classified by their type (branch/site/branch-site/branch-ancestor/null)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </div>
 </div>
 <div class="section" id="conda-environment">

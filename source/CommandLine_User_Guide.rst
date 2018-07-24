@@ -14,9 +14,9 @@ Usage example
 .. Warning:: Make sure to respect the items below :
 
  * The input start files names (transcriptoms) must **start with the species abbreviated name**, for example, if the species is *Alvinella pompejana* : Ap_transcriptom.fasta
- * The pipeline is set to work with the directories architecture defined in **/projet/umr7144/abice/vmataigne/AdaptSearch_commandLine**, which is stored in each .sh script into the **'path'** variable. You can copy the whole project elsewhere but you'll have to modify the value of **'path'**  in each .sh script according to the copy destination.
+ * The pipeline is set to work with the directories architecture defined in **/projet/umr7144/abice/vmataigne/AdaptSearch_commandLine** : Do not modify any script name or location (same warning for directories), except if you copy the whole proejct elswhere. Maybe you'll have to ask for access to support.abims@sb-roscoff.fr).
  
-.. note:: The pipeline suite is semi-automatic : each tool have to run by the user (a given tool is not automatically launched by the previous one).
+.. note:: The pipeline suite is semi-automatic : each tool have to be run by the user (a given tool is not automatically launched by the previous one).
 
 .. note:: Almost every tool can be launched without editing the default parameters, except MutCount, where the user has to edit the command lines to set groups of species for counts, resampling, and ecological categories.
 
@@ -49,9 +49,9 @@ Now the pipeline can be launch. You'll have to launch each tool manually once th
    
 The input and outputs files are automatically handled for each tool but :
    
-.. Warning:: if you run a tool a second time (for instance with different parameters), the previous results will be erased ! Make sure to move the previous results in another directory
+.. Warning:: if you run a tool a second time (for instance with different parameters), the previous results directories must be renamed or moved in another directory ! If they are not, the tool will not be launched, or the previous results will be erased.
 
-After each tool run, various temporary and intermediate files are stored in the directory  **archived_temp_files/**. Already stored results will also be erased if you run the same tool twice.
+After each tool run, various temporary and intermediate files are stored in the directory  **archived_temp_files/**. Already stored results might also be erased if you run the same tool twice (or, the new temp files won't be moved and will stay in the main directory).
 
 --------------------------------
 How to modify default parameters

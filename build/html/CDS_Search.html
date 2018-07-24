@@ -100,10 +100,7 @@
 </div>
 <div class="section" id="part-2">
 <h4>Part. 2:<a class="headerlink" href="#part-2" title="Permalink to this headline">¶</a></h4>
-<div class="admonition-todo admonition" id="index-0">
-<p class="first admonition-title">Todo</p>
-<p class="last">Algo ! indels finding and removal !</p>
-</div>
+<p>Find and removes too short regions or regions with too many indels, based on the user parameters ‘Minimal length of the CDS’, ‘Minimal length of the subsequence between two series of indels’ and ‘Minimal length of the CDS without indels’</p>
 </div>
 </div>
 <div class="section" id="source-code">
@@ -152,15 +149,14 @@
 </dd></dl>
 
 <dl class="docutils">
-<dt>This is the most important fonction, which is run on each input file. The dictionaries return:</dt>
+<dt>This is the most important fonction, which is run on each input file. The dictionaries return, in nucleic and proteic format :</dt>
 <dd><ol class="first last arabic simple">
-<li>All the sequences with best  (open reading frame)</li>
-<li>All the sequences with CDS (coding sequence)</li>
-<li>All the sequences with CDS without indels</li>
+<li>All the sequences with their best ORF</li>
+<li>All the sequences with their CDS without Methionine</li>
+<li>All the sequences with their CDS with Methionine</li>
 </ol>
 </dd>
 </dl>
-<p>In nucleic or proteic format</p>
 <div class="section" id="find-good-orf-criteria-3-subroutines">
 <h5>find_good_ORF_criteria_3() subroutines<a class="headerlink" href="#find-good-orf-criteria-3-subroutines" title="Permalink to this headline">¶</a></h5>
 <dl class="function">
@@ -290,7 +286,7 @@
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The list of consecutive gap positions</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The lists of consecutive gap positions</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list of lists</p>
@@ -335,6 +331,7 @@
 </dd></dl>
 
 <p><cite>bash_aa</cite> and <cite>bash_nuc</cite> are obtained at each input file iteration with the function <cite>dico(fileIN)</cite> from <cite>dico.py</cite> file.</p>
+<p>Scripts S02 and S03 are for Part 2 (indels removal).</p>
 <p>Back to <a class="reference external" href="index.html">main page</a>.</p>
 </div>
 </div>
@@ -360,12 +357,17 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">CDS_Search</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#user-parameters">User parameters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#code-documentation">Code documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#code-documentation">Code documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#algorithm">Algorithm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#source-code">Source code</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="MutCount.html">MutCount</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ConcatPhyl.html">ConcatPhyl</a></li>
 <li class="toctree-l1"><a class="reference internal" href="codeML.html">codeML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="codeML_Results_Analysis.html">Analysis of codeML results</a></li>
 <li class="toctree-l1"><a class="reference internal" href="CommandLine_User_Guide.html">User Guide for the use of AdaptSearch in command line</a></li>
 </ul>
 
