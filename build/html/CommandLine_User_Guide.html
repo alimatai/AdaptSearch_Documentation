@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="codeML" href="codeML.html" /> 
+    <link rel="prev" title="Visualization with Python" href="Visualization_with_Python.html" /> 
   </head>
   <body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -33,7 +33,7 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="codeML.html" title="codeML"
+          <a href="Visualization_with_Python.html" title="Visualization with Python"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">AdaptSearch 2 documentation</a> &#187;</li> 
       </ul>
@@ -57,12 +57,12 @@
 <p>Make sure to respect the items below :</p>
 <ul class="last simple">
 <li>The input start files names (transcriptoms) must <strong>start with the species abbreviated name</strong>, for example, if the species is <em>Alvinella pompejana</em> : Ap_transcriptom.fasta</li>
-<li>The pipeline is set to work with the directories architecture defined in <strong>/projet/umr7144/abice/vmataigne/AdaptSearch_commandLine</strong>, which is stored in each .sh script into the <strong>‘path’</strong> variable. You can copy the whole project elsewhere but you’ll have to modify the value of <strong>‘path’</strong>  in each .sh script according to the copy destination.</li>
+<li>The pipeline is set to work with the directories architecture defined in <strong>/projet/umr7144/abice/vmataigne/AdaptSearch_commandLine</strong> : Do not modify any script name or location (same warning for directories), except if you copy the whole proejct elswhere. Maybe you’ll have to ask for access to <a class="reference external" href="mailto:support&#46;abims&#37;&#52;&#48;sb-roscoff&#46;fr">support<span>&#46;</span>abims<span>&#64;</span>sb-roscoff<span>&#46;</span>fr</a>).</li>
 </ul>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The pipeline suite is semi-automatic : each tool have to run by the user (a given tool is not automatically launched by the previous one).</p>
+<p class="last">The pipeline suite is semi-automatic : each tool have to be run by the user (a given tool is not automatically launched by the previous one).</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -95,9 +95,9 @@ If you think that a tool will run for more than 12h, edit the line <strong>#$ -q
 <p>The input and outputs files are automatically handled for each tool but :</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">if you run a tool a second time (for instance with different parameters), the previous results will be erased ! Make sure to move the previous results in another directory</p>
+<p class="last">if you run a tool a second time (for instance with different parameters), the previous results directories must be renamed or moved in another directory ! If they are not, the tool will not be launched, or the previous results will be erased.</p>
 </div>
-<p>After each tool run, various temporary and intermediate files are stored in the directory  <strong>archived_temp_files/</strong>. Already stored results will also be erased if you run the same tool twice.</p>
+<p>After each tool run, various temporary and intermediate files are stored in the directory  <strong>archived_temp_files/</strong>. Already stored results might also be erased if you run the same tool twice (or, the new temp files won’t be moved and will stay in the main directory).</p>
 </div>
 <div class="section" id="how-to-modify-default-parameters">
 <h3>How to modify default parameters<a class="headerlink" href="#how-to-modify-default-parameters" title="Permalink to this headline">¶</a></h3>
@@ -240,6 +240,7 @@ treefile = 06_outputs_concat_phyl/RAxML_bestTree.raxml * tree structure file nam
 <p class="topic-title first">Run the tool</p>
 <p>Run the tool by typing <strong>qsub codeml.sh ‘model_identifier’</strong>, where ‘model_identifier’ is any name you want, used to create a dedicated directory result. By doing like that, you will be able to run several model on the same results and store the results easily.</p>
 </div>
+<p>Back to <a class="reference external" href="index.html">main page</a>.</p>
 </div>
 </div>
 </div>
@@ -265,15 +266,21 @@ treefile = 06_outputs_concat_phyl/RAxML_bestTree.raxml * tree structure file nam
 <li class="toctree-l1"><a class="reference internal" href="MutCount.html">MutCount</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ConcatPhyl.html">ConcatPhyl</a></li>
 <li class="toctree-l1"><a class="reference internal" href="codeML.html">codeML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="codeML_Results_Analysis.html">Analysis of codeML results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Visualization_with_Python.html">Visualization with Python</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">User Guide for the use of AdaptSearch in command line</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#usage-example">Usage example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#usage-example">Usage example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#run-the-tools">Run the tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#how-to-modify-default-parameters">How to modify default parameters</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="codeML.html"
-                        title="previous chapter">codeML</a></p>
+  <p class="topless"><a href="Visualization_with_Python.html"
+                        title="previous chapter">Visualization with Python</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -302,7 +309,7 @@ treefile = 06_outputs_concat_phyl/RAxML_bestTree.raxml * tree structure file nam
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="codeML.html" title="codeML"
+          <a href="Visualization_with_Python.html" title="Visualization with Python"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">AdaptSearch 2 documentation</a> &#187;</li> 
       </ul>

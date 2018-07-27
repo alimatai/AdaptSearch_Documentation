@@ -32,6 +32,9 @@ References
 
 Publication : Belshaw R, Katzourakis A (2005) BlastAlign: a program that uses blast to align problematic nucleotide sequences. Bioinformatics 21:122-3
 
+Source code : http://evolve.zoo.ox.ac.uk/Evolve/Blastalign.html
+
+
 AdaptSearch supplemental code
 =============================
 

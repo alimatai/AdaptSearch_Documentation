@@ -210,7 +210,7 @@ This function is for printing positively selected branches on screen
 Conda environment
 =================
 
-I used a conda environment to run these scripts :
+I used a conda environment (with Python 2.7) to run these scripts :
 
 .. code-block:: none
 

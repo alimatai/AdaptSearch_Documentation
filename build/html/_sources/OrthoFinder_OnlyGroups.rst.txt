@@ -36,6 +36,6 @@ References
 
 Publication : Emms, David M. and Kelly, Steven (2015). OrthoFinder: solving fundamental biases in whole genome comparisons dramatically improves orthogroup inference accuracy. In Genome Biology, 16 (1). [doi:10.1186/s13059-015-0721-2
 
-Source code Available at https://github.com/davidemms/OrthoFinder
+Manual and source code : https://github.com/davidemms/OrthoFinder
 
 Back to `main page <index.html>`_.

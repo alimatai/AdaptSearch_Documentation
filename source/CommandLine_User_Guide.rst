@@ -200,3 +200,4 @@ The config file provides a quick description of each parameter but you can read 
   
    Run the tool by typing **qsub codeml.sh 'model_identifier'**, where 'model_identifier' is any name you want, used to create a dedicated directory result. By doing like that, you will be able to run several model on the same results and store the results easily.
 
+Back to `main page <index.html>`_.

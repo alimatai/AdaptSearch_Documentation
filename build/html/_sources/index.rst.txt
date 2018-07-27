@@ -26,10 +26,11 @@ Welcome to AdaptSearch's documentation!
    OrthoFinder_OnlyGroups
    Orthogroups_Tool
    CDS_Search
-   MutCount
    ConcatPhyl
-   codeML
-   codeML_Results_Analysis
+   MutCount
+   CodeML
+   CodeML_Results_Analysis
+   Visualization_With_Python
    CommandLine_User_Guide
 
 

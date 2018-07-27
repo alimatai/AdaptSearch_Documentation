@@ -1,0 +1,252 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Visualization with Python &#8212; AdaptSearch 2 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="User Guide for the use of AdaptSearch in command line" href="CommandLine_User_Guide.html" />
+    <link rel="prev" title="Analysis of codeML results" href="CodeML_Results_Analysis.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="CommandLine_User_Guide.html" title="User Guide for the use of AdaptSearch in command line"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="CodeML_Results_Analysis.html" title="Analysis of codeML results"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">AdaptSearch 2 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="visualization-with-python">
+<h1>Visualization with Python<a class="headerlink" href="#visualization-with-python" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="heatmaps">
+<h2>Heatmaps<a class="headerlink" href="#heatmaps" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="overview">
+<h3>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h3>
+<p>This tool takes as input csv files from MutCount in concatenated mode, which contains counts and frequencies of codons, amino-acids, and amino-acids types for each studied species. It calls the Python module Bokeh to build heatmaps on counts and frequencies. Species are in lines and ordered according to their positions in the phylogenetic tree computed by RAxML (ConcatPhyl tool), and codons/amino-acids/amino-acids types are in columns. Codons and amino-acids are ordered according to their type (‘aromatics’,’charged’,’polar’,’unpolar’).</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Dots colors map the values of the counts/frequencies, and dots sizes map the pvalue significance ( small : significantly smaller, medium : not significantly different, big : significantly higher)</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">There is an unfinished Galaxy wrapper for this script</p>
+</div>
+</div>
+<div class="section" id="usage">
+<h3>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-none"><div class="highlight"><pre><span></span># command line :
+python heatmap_bokeh.py &lt;csv_file_with_from_MutCount_Concatenated&gt; &lt;counts/frequencies/all&gt; &lt;tree_from_Concatphyl&gt;
+# example
+python heatmap_bokeh.py aa_freqs.csv all tree.nwk
+
+# The csv file is one of the following outputs from MutCount in concatenated mode :
+- codons_freqs.csv
+- aa_freqs.csv
+- aa_types_freqs.csv
+All these files contains counts, frequencies, and p-values for each codon/amino-acid/amino-acid type for each species
+
+# The second argument let the user choose what to plots : &#39;counts&#39;, &#39;frequencies&#39;, or both (&#39;all&#39;, which will return two files).
+
+# The tree is used to order the lines (species) of the Heatmap in order to, later, join the tree representation with the heatmap.
+</pre></div>
+</div>
+<img alt="_images/frequencies_of_amino-acids.png" class="align-center" src="_images/frequencies_of_amino-acids.png" />
+</div>
+<div class="section" id="code-documentation">
+<h3>Code documentation<a class="headerlink" href="#code-documentation" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="makeLineOrderFromTree">
+<code class="descname">makeLineOrderFromTree</code><span class="sig-paren">(</span><em>tree</em><span class="sig-paren">)</span><a class="headerlink" href="#makeLineOrderFromTree" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>tree</strong> (<em>file</em>) – a tree in newick format</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the species names list extract from the tree</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list of Strings</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>This function is used to have heatmap lines labels</p>
+<dl class="function">
+<dt id="makeHeatmap">
+<code class="descname">makeHeatmap</code><span class="sig-paren">(</span><em>df</em>, <em>what</em>, <em>on_what</em>, <em>colors</em>, <em>range_x</em>, <em>range_y</em>, <em>width</em>, <em>height</em><span class="sig-paren">)</span><a class="headerlink" href="#makeHeatmap" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>df</strong> (<em>pandas DataFrame</em>) – an already stacked pandas dataframe</li>
+<li><strong>what</strong> (<em>String</em>) – indicates the column what is being plotted : ‘counts’ or ‘frequencies’</li>
+<li><strong>on_what</strong> (<em>String</em>) – indicates the type of data : ‘codons’, ‘amino-acids’, ‘amino-acids-types’</li>
+<li><strong>colors</strong> (<em>list of Strings</em>) – hexadecimals colors</li>
+<li><strong>range_x</strong> (<em>list of Strings</em>) – </li>
+<li><strong>range_y</strong> (<em>list of Strings</em>) – </li>
+<li><strong>width</strong> (<em>int</em>) – widht of the heatmap</li>
+<li><strong>height</strong> (<em>int</em>) – height of the heatmap</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>This is the function building the heatmap ; The parameters are set by the main() function and vary according to what is being plotted (codons, amino-acids, amino-acids types, frequencies, counts)</p>
+</div>
+</div>
+<div class="section" id="histograms">
+<h2>Histograms<a class="headerlink" href="#histograms" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h3>Overview<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="id2">
+<h3>Usage<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="id3">
+<h3>Code documentation<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="conda-environment">
+<h2>Conda environment<a class="headerlink" href="#conda-environment" title="Permalink to this headline">¶</a></h2>
+<p>I used a conda environment (with Python 2.7) to run these scripts :</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span># Install bokeh
+conda install -c bokeh bokeh
+
+# You&#39;ll maybe have to install as well :
+conda install -c bokeh selenium
+conda install -c conda-forge phantomjs
+conda install -c anaconda pillow
+
+# Pandas and numpy
+conda install -c anaconda numpy
+conda install -c anaconda pandas
+</pre></div>
+</div>
+<p>Back to <a class="reference external" href="index.html">main page</a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="index.html">Table Of Contents</a></h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Filter_Assemblies.html">Filter_Assemblies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pairwise.html">Pairwise</a></li>
+<li class="toctree-l1"><a class="reference internal" href="POGs.html">POGs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BlastAlign.html">BlastAlign</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TransDecoder.html">TransDecoder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OrthoFinder_OnlyGroups.html">OrthoFinder_OnlyGroups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Orthogroups_Tool.html">Orthogroups_Tool</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CDS_Search.html">CDS_Search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ConcatPhyl.html">ConcatPhyl</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MutCount.html">MutCount</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CodeML.html">codeML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CodeML_Results_Analysis.html">Analysis of codeML results</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Visualization with Python</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#heatmaps">Heatmaps</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#code-documentation">Code documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#histograms">Histograms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Code documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#conda-environment">Conda environment</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="CommandLine_User_Guide.html">User Guide for the use of AdaptSearch in command line</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="CodeML_Results_Analysis.html"
+                        title="previous chapter">Analysis of codeML results</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="CommandLine_User_Guide.html"
+                        title="next chapter">User Guide for the use of AdaptSearch in command line</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/Visualization_With_Python.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="CommandLine_User_Guide.html" title="User Guide for the use of AdaptSearch in command line"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="CodeML_Results_Analysis.html" title="Analysis of codeML results"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">AdaptSearch 2 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Victor Mataigne.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.
+    </div>
+  </body>
+</html>
