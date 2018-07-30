@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="MutCount" href="MutCount.html" />
+    <link rel="next" title="ConcatPhyl" href="ConcatPhyl.html" />
     <link rel="prev" title="Orthogroups_Tool" href="Orthogroups_Tool.html" /> 
   </head>
   <body>
@@ -34,7 +34,7 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="MutCount.html" title="MutCount"
+          <a href="ConcatPhyl.html" title="ConcatPhyl"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="Orthogroups_Tool.html" title="Orthogroups_Tool"
@@ -133,8 +133,10 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>bash_aligned_nc_seq</strong> (<em>dict</em>) – </li>
-<li><strong>bash_codeUniversel</strong> (<em>dict</em>) – </li>
+<li><strong>bash_aligned_nc_seq</strong> (<em>dict</em>) – A dictionary storing the sequences of the input fasta file (obtaiend by the function dico())</li>
+<li><strong>bash_codeUniversel</strong> (<em>dict</em>) – Obtained with the function code_universel()</li>
+<li><strong>minimal_cds_length</strong> (<em>int</em>) – the minimal length of a cds, in amino-acids</li>
+<li><strong>min_spec</strong> (<em>int</em>) – the minimum number of species within the group after the cds search</li>
 </ul>
 </td>
 </tr>
@@ -176,17 +178,17 @@
 </table>
 </dd></dl>
 
-<p>Tests if a sequence is multiple of 3, which measn only full codons. If not, the end of the sequence is cut by one or two bases.</p>
+<p>Tests if a sequence is multiple of 3, which means only full codons. If not, the end of the sequence is cut by one or two bases.</p>
 <dl class="function">
 <dt id="simply_get_ORF">
-<code class="descname">simply_get_ORF</code><span class="sig-paren">(</span><em>seq_dna</em>, <em>bash_codeUniversel</em><span class="sig-paren">)</span><a class="headerlink" href="#simply_get_ORF" title="Permalink to this definition">¶</a></dt>
+<code class="descname">simply_get_ORF</code><span class="sig-paren">(</span><em>seq_dna</em>, <em>gen_code</em><span class="sig-paren">)</span><a class="headerlink" href="#simply_get_ORF" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>seq_dna</strong> (<em>string</em>) – a dna/rna sequence (a,t,c,g)</li>
-<li><strong>bash_codeUniversel</strong> (<em>dict</em>) – </li>
+<li><strong>gen_code</strong> (<em>dict</em>) – Obtained with the function code_universel()</li>
 </ul>
 </td>
 </tr>
@@ -201,43 +203,16 @@
 </dd></dl>
 
 <dl class="function">
-<dt id="allindices">
-<code class="descname">allindices</code><span class="sig-paren">(</span><em>string</em>, <em>sub</em><span class="sig-paren">)</span><a class="headerlink" href="#allindices" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>string</strong> (<em>string</em>) – a dna/rna sequence</li>
-<li><strong>sub</strong> (<em>string</em>) – a smaller dna/rna sequence</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">the list of occurrences of the <cite>sub</cite></p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<p>Detects all indices corresponding to all occurrences of a substring in a string. This can be replaced by :</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
-<span class="p">[</span><span class="n">motif</span><span class="o">.</span><span class="n">start</span><span class="p">()</span> <span class="k">for</span> <span class="n">motif</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span> <span class="n">string</span><span class="p">)]</span>
-</pre></div>
-</div>
-<dl class="function">
 <dt id="detect_Methionine">
-<code class="descname">detect_Methionine</code><span class="sig-paren">(</span><em>seq_aa</em>, <em>Ortho</em><span class="sig-paren">)</span><a class="headerlink" href="#detect_Methionine" title="Permalink to this definition">¶</a></dt>
+<code class="descname">detect_Methionine</code><span class="sig-paren">(</span><em>seq_aa</em>, <em>Ortho</em>, <em>minimal_cds_length</em><span class="sig-paren">)</span><a class="headerlink" href="#detect_Methionine" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>seq_aa</strong> (<em>string</em>) – an amino-acid sequence</li>
-<li><strong>Ortho</strong> (<em>int</em>) – value indicating wether the first methionine found is not in the last 55 amino-acids.</li>
+<li><strong>Ortho</strong> (<em>int</em>) – value indicating wether the first methionine found is not in the last 50 amino-acids.</li>
+<li><strong>minimal_cds_length</strong> (<em>int</em>) – the minimal length of a cds, in amino-acids</li>
 </ul>
 </td>
 </tr>
@@ -251,7 +226,7 @@
 </table>
 </dd></dl>
 
-<p>Detect if methionin in the aa sequence. Calls <cite>allindices()</cite></p>
+<p>Detect if methionin in the aa sequence.</p>
 <dl class="function">
 <dt id="ReverseComplement2">
 <code class="descname">ReverseComplement2</code><span class="sig-paren">(</span><em>seq</em><span class="sig-paren">)</span><a class="headerlink" href="#ReverseComplement2" title="Permalink to this definition">¶</a></dt>
@@ -264,6 +239,24 @@
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The reverse complement of <cite>seq</cite></td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">string</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<code class="descname">write_output_file(results_dict, name_elems, path_out):</code></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>results_dict</strong> (<em>dict</em>) – the results of the cds search on the input file</li>
+<li><strong>name_elems</strong> (<em>list of Strings</em>) – a list containing all the words of the output file names. Edited with the orthogroup number and its number of species</li>
+<li><strong>parth_out</strong> – the path to the output directory</li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>
@@ -364,10 +357,11 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="MutCount.html">MutCount</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ConcatPhyl.html">ConcatPhyl</a></li>
-<li class="toctree-l1"><a class="reference internal" href="codeML.html">codeML</a></li>
-<li class="toctree-l1"><a class="reference internal" href="codeML_Results_Analysis.html">Analysis of codeML results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MutCount.html">MutCount</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CodeML.html">codeML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CodeML_Results_Analysis.html">Analysis of codeML results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Visualization_With_Python.html">Visualization with Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="CommandLine_User_Guide.html">User Guide for the use of AdaptSearch in command line</a></li>
 </ul>
 
@@ -375,8 +369,8 @@
   <p class="topless"><a href="Orthogroups_Tool.html"
                         title="previous chapter">Orthogroups_Tool</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="MutCount.html"
-                        title="next chapter">MutCount</a></p>
+  <p class="topless"><a href="ConcatPhyl.html"
+                        title="next chapter">ConcatPhyl</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -405,7 +399,7 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="MutCount.html" title="MutCount"
+          <a href="ConcatPhyl.html" title="ConcatPhyl"
              >next</a> |</li>
         <li class="right" >
           <a href="Orthogroups_Tool.html" title="Orthogroups_Tool"

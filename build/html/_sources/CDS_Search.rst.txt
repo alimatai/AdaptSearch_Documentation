@@ -67,10 +67,14 @@ Stop codons have the value '*'.
 
 .. py:function :: find_good_ORF_criteria_3(bash_aligned_nc_seq, bash_codeUniversel)
 
-   :param bash_aligned_nc_seq:
+   :param bash_aligned_nc_seq: A dictionary storing the sequences of the input fasta file (obtaiend by the function dico())
    :type bash_aligned_nc_seq: dict
-   :param bash_codeUniversel:
+   :param bash_codeUniversel: Obtained with the function code_universel()
    :type bash_codeUniversel: dict
+   :param minimal_cds_length: the minimal length of a cds, in amino-acids
+   :type minimal_cds_length: int
+   :param min_spec: the minimum number of species within the group after the cds search
+   :type min_spec: int
    :returns: 6 dictionaries
    :rtype: dict
 
@@ -90,43 +94,29 @@ find_good_ORF_criteria_3() subroutines
    :return: an updated sequence and the length(seq)%3 modulo
    :rtype: tuple
 
-Tests if a sequence is multiple of 3, which measn only full codons. If not, the end of the sequence is cut by one or two bases.
+Tests if a sequence is multiple of 3, which means only full codons. If not, the end of the sequence is cut by one or two bases.
 
-.. py:function:: simply_get_ORF(seq_dna, bash_codeUniversel)
+.. py:function:: simply_get_ORF(seq_dna, gen_code)
 
    :param seq_dna: a dna/rna sequence (a,t,c,g)
    :type seq_dna: string
-   :param bash_codeUniversel:
-   :type bash_codeUniversel: dict
+   :param gen_code: Obtained with the function code_universel()
+   :type gen_code: dict
    :return: an amino-acid sequence translated from seq_dna (open-reading frame only)
    :rtype: string
 
-.. py:function:: allindices(string, sub)
-
-  :param string: a dna/rna sequence
-  :type string: string
-  :param sub: a smaller dna/rna sequence
-  :type sub: string
-  :return: the list of occurrences of the `sub`
-  :rtype: list
-
-Detects all indices corresponding to all occurrences of a substring in a string. This can be replaced by :
-
-.. code-block:: python
-
-   import re
-   [motif.start() for motif in re.finditer(sub, string)]
-
-.. py:function:: detect_Methionine(seq_aa, Ortho)
+.. py:function:: detect_Methionine(seq_aa, Ortho, minimal_cds_length)
 
    :param seq_aa: an amino-acid sequence
    :type seq_aa: string
-   :param Ortho: value indicating wether the first methionine found is not in the last 55 amino-acids.
+   :param Ortho: value indicating wether the first methionine found is not in the last 50 amino-acids.
    :type Ortho: int
+   :param minimal_cds_length: the minimal length of a cds, in amino-acids
+   :type minimal_cds_length: int
    :return: an updated value of `Ortho`
    :rtype: int
 
-Detect if methionin in the aa sequence. Calls `allindices()`
+Detect if methionin in the aa sequence.
 
 .. py:function:: ReverseComplement2(seq)
 
@@ -134,6 +124,16 @@ Detect if methionin in the aa sequence. Calls `allindices()`
    :type seq: string
    :return: The reverse complement of `seq`
    :rtype: string
+
+.. py:function:: write_output_file(results_dict, name_elems, path_out):
+
+   :param results_dict: the results of the cds search on the input file
+   :type results_dict: dict
+   :param name_elems: a list containing all the words of the output file names. Edited with the orthogroup number and its number of species
+   :type name_elems: list of Strings
+   :param parth_out: the path to the output directory
+   :type path_out: String
+   
 
 File : S02_remove_too_short_bit_or_whole_sequence.py
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

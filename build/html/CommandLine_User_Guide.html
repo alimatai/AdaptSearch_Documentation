@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Visualization with Python" href="Visualization_with_Python.html" /> 
+    <link rel="prev" title="Visualization with Python" href="Visualization_With_Python.html" /> 
   </head>
   <body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -33,7 +33,7 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="Visualization_with_Python.html" title="Visualization with Python"
+          <a href="Visualization_With_Python.html" title="Visualization with Python"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">AdaptSearch 2 documentation</a> &#187;</li> 
       </ul>
@@ -211,30 +211,39 @@ raxmlHPC -n raxml -s 03_Concatenation_nuc.phy -m GTRGAMMA -p 1234567890 -N 1000 
 <li>1st argument : outputs_phylogeny/03_Concatenation_nuc.fas : do not modify</li>
 <li>2d argument : ‘write,here,species,to,count’ is the list of species for countings: Replace those by comma-separated species abbreviated names (ex : Ac,Ap,Am,Pf)</li>
 <li>3d argument : ‘write,here,species,to,resample’ is the list of species for resampling: Replace those by comma-separated species abbreviated names (ex : Pg,Pp,Ps,Pi)</li>
+<li>4th argument : length (in amino-acids) of each resample</li>
+<li>5th argument : number of resampling iterations</li>
 </ul>
 </div>
 <div class="section" id="codeml">
 <h4>codeML<a class="headerlink" href="#codeml" title="Permalink to this headline">¶</a></h4>
-<p>There is no command to edit, but you’ll have to set up all the parameters of the configuration file ‘codeml.ctl’. The most important lines are the three first lines :</p>
-<div class="highlight-none"><div class="highlight"><pre><span></span> seqfile = fileName * sequence data file name
- outfile = nameResults * main result file name
-treefile = treeName * tree structure file name
-
--&gt; Replace &#39;fileName&#39; with the name and path of the fasta file of concatenated sequence returned by Concatphyl
--&gt; Replace &#39;nameResults&#39; with any keyword of your choice : it&#39;s the name of the main output file
--&gt; Replace &#39;treeName&#39; with the name and path of the newick tree computed by RaxML in ConcatPhyl
-
-Ex :
- seqfile = 06_outputs_concat_phyl/03_Concatenation_nuc.fas * sequence data file name
- outfile = model_M0 * main result file name
-treefile = 06_outputs_concat_phyl/RAxML_bestTree.raxml * tree structure file name
+<p>There is no command to edit, but you’ll have to set up all the parameters of the configuration file ‘codeml_model.ctl’.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Do NOT edit the three first lines : there are automatically edited by the shell script with the appropriate files names</p>
+</div>
+<div class="highlight-none"><div class="highlight"><pre><span></span> seqfile = fastaAlignementFile * sequence data file name
+ outfile = out_codeml * main result file name
+treefile = newickTreeFile * tree structure file name
 </pre></div>
 </div>
-<p>Then, you can set all the standards and advanced parameters. The evolutionary models can be chosen with the parameters ‘model’ and ‘NSsites’ : the different combinations allow to choose between branch models, sites models, and branch-sites models.</p>
-<p>The config file provides a quick description of each parameter but you can read more at <a class="reference external" href="http://abacus.gene.ucl.ac.uk/software/pamlDOC.pdf">http://abacus.gene.ucl.ac.uk/software/pamlDOC.pdf</a></p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">There is another file called <em>codeml_model.ctl</em> (read-only permission) : it is here to provide a back-up in case the user messes up the regular <em>codeml.ctl</em> file</p>
+<p>Then, you can set all the standards and advanced parameters. The evolutionary models can be chosen with the standards parameters ‘model’ and ‘NSsites’ : the different combinations allow to choose between branch models, sites models, and branch-sites models :</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>  model = 0
+             * models for codons:
+                 * 0:one, 1:b, 2:2 or more dN/dS ratios for branches
+             * models for AAs or codon-translated AAs:
+                 * 0:poisson, 1:proportional,2:Empirical,3:Empirical+F
+                 * 6:FromCodon, 8:REVaa_0, 9:REVaa(nr=189)
+NSsites = 0  * 0:one w;1:neutral;2:selection; 3:discrete;4:freqs;
+             * 5:gamma;6:2gamma;7:beta;8:beta&amp;w;9:beta&amp;gamma;
+             * 10:beta&amp;gamma+1; 11:beta&amp;normal&gt;1; 12:0&amp;2normal&gt;1;
+             * 13:3normal&gt;0
+</pre></div>
+</div>
+<p>The config file provides a quick description of each advanced parameter but you can read more at <a class="reference external" href="http://abacus.gene.ucl.ac.uk/software/pamlDOC.pdf">http://abacus.gene.ucl.ac.uk/software/pamlDOC.pdf</a></p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The file called <em>codeml_model.ctl</em> has to be edited with appropriate parameters for each model computation. A copy of this file is made and store in the output directory. If you delete this model file accidentally, you can create a new one by copy-pasting the example file on <a class="reference external" href="CodeML.html#the-codeml-config-file">the codeML documentation</a>.</p>
 </div>
 <div class="topic">
 <p class="topic-title first">Run the tool</p>
@@ -263,11 +272,11 @@ treefile = 06_outputs_concat_phyl/RAxML_bestTree.raxml * tree structure file nam
 <li class="toctree-l1"><a class="reference internal" href="OrthoFinder_OnlyGroups.html">OrthoFinder_OnlyGroups</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Orthogroups_Tool.html">Orthogroups_Tool</a></li>
 <li class="toctree-l1"><a class="reference internal" href="CDS_Search.html">CDS_Search</a></li>
-<li class="toctree-l1"><a class="reference internal" href="MutCount.html">MutCount</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ConcatPhyl.html">ConcatPhyl</a></li>
-<li class="toctree-l1"><a class="reference internal" href="codeML.html">codeML</a></li>
-<li class="toctree-l1"><a class="reference internal" href="codeML_Results_Analysis.html">Analysis of codeML results</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Visualization_with_Python.html">Visualization with Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MutCount.html">MutCount</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CodeML.html">codeML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CodeML_Results_Analysis.html">Analysis of codeML results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Visualization_With_Python.html">Visualization with Python</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">User Guide for the use of AdaptSearch in command line</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#usage-example">Usage example</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#run-the-tools">Run the tools</a></li>
@@ -279,7 +288,7 @@ treefile = 06_outputs_concat_phyl/RAxML_bestTree.raxml * tree structure file nam
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="Visualization_with_Python.html"
+  <p class="topless"><a href="Visualization_With_Python.html"
                         title="previous chapter">Visualization with Python</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -309,7 +318,7 @@ treefile = 06_outputs_concat_phyl/RAxML_bestTree.raxml * tree structure file nam
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="Visualization_with_Python.html" title="Visualization with Python"
+          <a href="Visualization_With_Python.html" title="Visualization with Python"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">AdaptSearch 2 documentation</a> &#187;</li> 
       </ul>

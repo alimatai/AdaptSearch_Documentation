@@ -168,33 +168,42 @@ Command lines to edit::
 * 1st argument : outputs_phylogeny/03_Concatenation_nuc.fas : do not modify
 * 2d argument : 'write,here,species,to,count' is the list of species for countings: Replace those by comma-separated species abbreviated names (ex : Ac,Ap,Am,Pf)
 * 3d argument : 'write,here,species,to,resample' is the list of species for resampling: Replace those by comma-separated species abbreviated names (ex : Pg,Pp,Ps,Pi)
+* 4th argument : length (in amino-acids) of each resample
+* 5th argument : number of resampling iterations
 
 ~~~~~~
 codeML
 ~~~~~~
 
-There is no command to edit, but you'll have to set up all the parameters of the configuration file 'codeml.ctl'. The most important lines are the three first lines :
+There is no command to edit, but you'll have to set up all the parameters of the configuration file 'codeml_model.ctl'.
+
+.. warning:: Do NOT edit the three first lines : there are automatically edited by the shell script with the appropriate files names
 
 .. code-block:: none
 
-      seqfile = fileName * sequence data file name
-      outfile = nameResults * main result file name
-     treefile = treeName * tree structure file name
+      seqfile = fastaAlignementFile * sequence data file name
+      outfile = out_codeml * main result file name
+     treefile = newickTreeFile * tree structure file name
 
-     -> Replace 'fileName' with the name and path of the fasta file of concatenated sequence returned by Concatphyl
-     -> Replace 'nameResults' with any keyword of your choice : it's the name of the main output file
-     -> Replace 'treeName' with the name and path of the newick tree computed by RaxML in ConcatPhyl
+Then, you can set all the standards and advanced parameters. The evolutionary models can be chosen with the standards parameters 'model' and 'NSsites' : the different combinations allow to choose between branch models, sites models, and branch-sites models :
 
-     Ex : 
-      seqfile = 06_outputs_concat_phyl/03_Concatenation_nuc.fas * sequence data file name
-      outfile = model_M0 * main result file name
-     treefile = 06_outputs_concat_phyl/RAxML_bestTree.raxml * tree structure file name
+.. code-block:: none
 
-Then, you can set all the standards and advanced parameters. The evolutionary models can be chosen with the parameters 'model' and 'NSsites' : the different combinations allow to choose between branch models, sites models, and branch-sites models.
+        model = 0
+                   * models for codons:
+                       * 0:one, 1:b, 2:2 or more dN/dS ratios for branches
+                   * models for AAs or codon-translated AAs:
+                       * 0:poisson, 1:proportional,2:Empirical,3:Empirical+F
+                       * 6:FromCodon, 8:REVaa_0, 9:REVaa(nr=189)
+      NSsites = 0  * 0:one w;1:neutral;2:selection; 3:discrete;4:freqs;
+                   * 5:gamma;6:2gamma;7:beta;8:beta&w;9:beta&gamma;
+                   * 10:beta&gamma+1; 11:beta&normal>1; 12:0&2normal>1;
+                   * 13:3normal>0
 
-The config file provides a quick description of each parameter but you can read more at http://abacus.gene.ucl.ac.uk/software/pamlDOC.pdf
 
-.. note:: There is another file called *codeml_model.ctl* (read-only permission) : it is here to provide a back-up in case the user messes up the regular *codeml.ctl* file
+The config file provides a quick description of each advanced parameter but you can read more at http://abacus.gene.ucl.ac.uk/software/pamlDOC.pdf
+
+.. warning:: The file called *codeml_model.ctl* has to be edited with appropriate parameters for each model computation. A copy of this file is made and store in the output directory. If you delete this model file accidentally, you can create a new one by copy-pasting the example file on `the codeML documentation <CodeML.html#the-codeml-config-file>`_.
 
 .. topic:: Run the tool
   
