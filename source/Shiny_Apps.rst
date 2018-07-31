@@ -67,7 +67,21 @@ The server function is composed by :
 .. todo:: Make a more classical variable plots (with the arrows) : plotly does not has an automatic way to construct PCAs.
 .. todo:: Display two color code on biplots (nb : I tried, but it seems plotly has trouble to handle double color scales)
 .. todo:: Display lines names (species) on data tables
-.. todo:: Make the use of FCA possible (the counts are actually contingency tables)
+
+FCA
+===
+
+This RShiny app displays FCA results (package FactoMineR) : CA factor map, explained variance by axe plot, and CA data tables.
+
+Usage
+=====
+
+Similar to the PCA application, except that colors ranges have been temporarily deactivated (for the same reason than with PCA bi-plot).
+
+Code documentation
+------------------
+
+Similar to the PCA application.
 
 
 Elements transitions between couples of species

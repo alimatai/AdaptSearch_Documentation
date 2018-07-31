@@ -128,19 +128,27 @@
 <p class="first admonition-title">Todo</p>
 <p class="last">Display lines names (species) on data tables</p>
 </div>
-<div class="admonition-todo admonition" id="index-3">
-<p class="first admonition-title">Todo</p>
-<p class="last">Make the use of FCA possible (the counts are actually contingency tables)</p>
 </div>
+</div>
+<div class="section" id="fca">
+<h2>FCA<a class="headerlink" href="#fca" title="Permalink to this headline">¶</a></h2>
+<p>This RShiny app displays FCA results (package FactoMineR) : CA factor map, explained variance by axe plot, and CA data tables.</p>
+</div>
+<div class="section" id="id1">
+<h2>Usage<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Similar to the PCA application, except that colors ranges have been temporarily deactivated (for the same reason than with PCA bi-plot).</p>
+<div class="section" id="id2">
+<h3>Code documentation<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>Similar to the PCA application.</p>
 </div>
 </div>
 <div class="section" id="elements-transitions-between-couples-of-species">
 <h2>Elements transitions between couples of species<a class="headerlink" href="#elements-transitions-between-couples-of-species" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id1">
-<h3>Overview<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id3">
+<h3>Overview<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 </div>
-<div class="section" id="id2">
-<h3>usage<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id4">
+<h3>usage<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>The user will need RStudio, if possible under a proper conda environment. Launch Rstudio, load the script and click “Run App”. Then, load your data, set up the parameters and click ‘Start’.</p>
 <p>There is one figure per couple of species, each figure containing two barplots :</p>
 <ol class="arabic simple">
@@ -157,8 +165,8 @@
 <p class="first admonition-title">Note</p>
 <p class="last">When studying codons transitions, the plots might become too dense, even if not displaying non-existing transitions.</p>
 </div>
-<div class="section" id="id3">
-<h4>User parameters<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id5">
+<h4>User parameters<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
 <ol class="arabic simple">
 <li>data : csv file from MutCount concatenated mode</li>
 <li>What to plot : choose between counts and frequencies</li>
@@ -166,18 +174,18 @@
 </ol>
 </div>
 </div>
-<div class="section" id="id4">
-<h3>Code documentation<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id6">
+<h3>Code documentation<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>The server function is composed by :</p>
 <ol class="arabic simple">
 <li>A ‘data’ reactive event, which takes the input file and reorders columns in order to plot transitions at the right place (transition X-&gt;Y above transition Y-&gt;X). This step also skips transitions of type X -&gt; X (i.e conserved elements). The column reordering follows a pattern proper to each input file</li>
 <li>An observe event, which displays the plot at each parameter variation. The input data goes throught several preprocessing (lines selection and renaming, melting with reshape2, splitting in above and below plots …) and then is sent to a renderPlotly function, which constructs a plotly object.</li>
 </ol>
-<div class="admonition-todo admonition" id="index-4">
+<div class="admonition-todo admonition" id="index-3">
 <p class="first admonition-title">Todo</p>
 <p class="last">It would be good to replace the species numbers by the species couples names</p>
 </div>
-<div class="admonition-todo admonition" id="index-5">
+<div class="admonition-todo admonition" id="index-4">
 <p class="first admonition-title">Todo</p>
 <p class="last">Make the pvalues appear on the plot (nb : I tried, but it seems plotly has trouble to handle sublplots)</p>
 </div>
@@ -226,10 +234,15 @@
 <li class="toctree-l3"><a class="reference internal" href="#code-documentation">Code documentation</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#fca">FCA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">Usage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Code documentation</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#elements-transitions-between-couples-of-species">Elements transitions between couples of species</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id1">Overview</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id2">usage</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id4">Code documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">Code documentation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#training">Training</a></li>

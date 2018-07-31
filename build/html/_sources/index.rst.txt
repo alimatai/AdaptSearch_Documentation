@@ -34,6 +34,7 @@ Welcome to AdaptSearch's documentation!
    Shiny_Apps
    CommandLine_User_Guide
 
+This documentation is stored on `GitHub <https://github.com/Mataivic/AdaptSearch_Documentation>`_.
 
 Indices and tables
 ==================
