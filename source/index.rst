@@ -31,8 +31,10 @@ Welcome to AdaptSearch's documentation!
    CodeML
    CodeML_Results_Analysis
    Visualization_With_Python
+   Shiny_Apps
    CommandLine_User_Guide
 
+This documentation is stored on `GitHub <https://github.com/Mataivic/AdaptSearch_Documentation>`_.
 
 Indices and tables
 ==================

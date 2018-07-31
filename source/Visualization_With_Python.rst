@@ -22,7 +22,7 @@ Usage
    # command line :
    python heatmap_bokeh.py <csv_file_with_from_MutCount_Concatenated> <counts/frequencies/all> <tree_from_Concatphyl> 
    # example
-   python heatmap_bokeh.py aa_freqs.csv all tree.nwk
+   python scripts/heatmap_bokeh.py test-data/aa_freqs.csv all test-data/tree.nwk
 
    # The csv file is one of the following outputs from MutCount in concatenated mode :
    - codons_freqs.csv

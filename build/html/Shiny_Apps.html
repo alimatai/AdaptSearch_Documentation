@@ -1,0 +1,288 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Visualization with RShiny apps &#8212; AdaptSearch 2 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="User Guide for the use of AdaptSearch in command line" href="CommandLine_User_Guide.html" />
+    <link rel="prev" title="Visualization with Python" href="Visualization_With_Python.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="CommandLine_User_Guide.html" title="User Guide for the use of AdaptSearch in command line"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Visualization_With_Python.html" title="Visualization with Python"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">AdaptSearch 2 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="visualization-with-rshiny-apps">
+<h1>Visualization with RShiny apps<a class="headerlink" href="#visualization-with-rshiny-apps" title="Permalink to this headline">¶</a></h1>
+<p>These Rshiny apps use Rplotly, in order to allows easy interactive components with the user (zooms, autoscale, hover, png export …)</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When you export a plot from an app, do not forget to write the ‘png’ extension !</p>
+</div>
+<div class="section" id="required-packages">
+<h2>Required packages<a class="headerlink" href="#required-packages" title="Permalink to this headline">¶</a></h2>
+<p>R 3.4.3 and rstudio</p>
+<ol class="arabic simple">
+<li>shiny v1.0.5</li>
+<li>shinythemes v1.1.1</li>
+<li>FactoMineR v1.40</li>
+<li>plotly v4.7.1</li>
+<li>reshape2 v1.4.3</li>
+<li>ggplot2 v2.2.1</li>
+</ol>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Be careful about conflicts between packages’ versions ! The specified versions above should run without any trouble.</p>
+</div>
+</div>
+<div class="section" id="pca">
+<h2>PCA<a class="headerlink" href="#pca" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="overview">
+<h3>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h3>
+<p>This RShiny app displays PCA results (package FactoMineR) : individuals and variables plots, bi-plot, explained variance by axe plot, and PCA data tables.</p>
+</div>
+<div class="section" id="usage">
+<h3>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h3>
+<p>The user will need RStudio, if possible under a proper conda environment. Launch Rstudio, load the script and click “Run App”. Then, load your data, set up the parameters and click ‘Start’.</p>
+<p>The application displays all the PCA plots in the main panel, and data tables (cos2, correlation, contribution) in secondary panels ‘Individuals data’ and ‘variables data’</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">It is planned to make the apps available on a Galaxy’s instance (or maybe to build a dedicated conda environment on the cluster)</p>
+</div>
+<div class="section" id="user-parameters">
+<h4>User parameters<a class="headerlink" href="#user-parameters" title="Permalink to this headline">¶</a></h4>
+<ol class="arabic simple">
+<li>data file : csv file from MutCount concatenated mode</li>
+<li>What to plot : choose between counts and frequencies</li>
+<li>Axis X and Axis Y : the axes to use to plot the PCA</li>
+<li>Individuals and variables colors ranges : the dot for both individuals and variables plots are colored according to the values of their cos2/contribution/correlation.</li>
+<li>Axis for individuals and variables color range : since every dot has a cos2/correlation/contribution for each axe, the user can choose the axe used for the colorscale. By default, the color scale is based on cos2 (individuals) and contribution (variables), both on axis 1.</li>
+</ol>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">There is no implemented limit for the axes numbers : if the user choose an unexisting axe, an error message will be displayed.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">It happens regularly to have an error message for the variables plot (‘<em>Error</em> : Wasn’t able to determine range of domain’). It is due to a dots colorscale error : the selected attributes (cos2 or contribution) for colorscale contains ‘Inf’ values with are incompatible with the colorscale. If this happens, the varaibles dots colorscale will only work with the ‘contribution’.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The feature ‘Hide unrepresentative data’ is not implemented yet ; its purpose is to simplify heavy plots (for example codons-transitions) by hiding unrepresentative points according to the value used for the colorscale.</p>
+</div>
+<img alt="_images/example_pca.png" class="align-center" src="_images/example_pca.png" />
+</div>
+</div>
+<div class="section" id="code-documentation">
+<h3>Code documentation<a class="headerlink" href="#code-documentation" title="Permalink to this headline">¶</a></h3>
+<p>The server function is composed by :</p>
+<ol class="arabic simple">
+<li>A ‘data’ reactive event, which takes the input file, select lines according to the user choice (counts/frequencies) and the file content (elements counts/transitions counts/ gc_counts), and computes the PCA.</li>
+<li>An observe event, which displays all the PCA plots and data tables at each parameter variation.</li>
+</ol>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">Make a more classical variable plots (with the arrows) : plotly does not has an automatic way to construct PCAs.</p>
+</div>
+<div class="admonition-todo admonition" id="index-1">
+<p class="first admonition-title">Todo</p>
+<p class="last">Display two color code on biplots (nb : I tried, but it seems plotly has trouble to handle double color scales)</p>
+</div>
+<div class="admonition-todo admonition" id="index-2">
+<p class="first admonition-title">Todo</p>
+<p class="last">Display lines names (species) on data tables</p>
+</div>
+<div class="admonition-todo admonition" id="index-3">
+<p class="first admonition-title">Todo</p>
+<p class="last">Make the use of FCA possible (the counts are actually contingency tables)</p>
+</div>
+</div>
+</div>
+<div class="section" id="elements-transitions-between-couples-of-species">
+<h2>Elements transitions between couples of species<a class="headerlink" href="#elements-transitions-between-couples-of-species" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h3>Overview<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="id2">
+<h3>usage<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>The user will need RStudio, if possible under a proper conda environment. Launch Rstudio, load the script and click “Run App”. Then, load your data, set up the parameters and click ‘Start’.</p>
+<p>There is one figure per couple of species, each figure containing two barplots :</p>
+<ol class="arabic simple">
+<li>Above, the number (or frequencies) of transitions from element X to element Y, from species A to species B</li>
+<li>Below, the number (or frequencies) of transitions from element Y to element X, still from species A to species B</li>
+</ol>
+<p>The image autoadjusts to the windows’ size, and displays only existing transitions : if for a couple of elements X and Y, there are no transitions, it is removed from the xaxis. Plots are constructed in a way that the two directions of a possible transitions between two elements are always displayed one above the other.</p>
+<img alt="_images/example_plot_transitions.png" class="align-center" src="_images/example_plot_transitions.png" />
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">It is planned to make the apps available on a Galaxy’s instance (or maybe to build a dedicated conda environment on the cluster).</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When studying codons transitions, the plots might become too dense, even if not displaying non-existing transitions.</p>
+</div>
+<div class="section" id="id3">
+<h4>User parameters<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<ol class="arabic simple">
+<li>data : csv file from MutCount concatenated mode</li>
+<li>What to plot : choose between counts and frequencies</li>
+<li>Species number : each species couple transitions has a numeric key (which actually corresponds to it’s line number in the output file).</li>
+</ol>
+</div>
+</div>
+<div class="section" id="id4">
+<h3>Code documentation<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>The server function is composed by :</p>
+<ol class="arabic simple">
+<li>A ‘data’ reactive event, which takes the input file and reorders columns in order to plot transitions at the right place (transition X-&gt;Y above transition Y-&gt;X). This step also skips transitions of type X -&gt; X (i.e conserved elements). The column reordering follows a pattern proper to each input file</li>
+<li>An observe event, which displays the plot at each parameter variation. The input data goes throught several preprocessing (lines selection and renaming, melting with reshape2, splitting in above and below plots …) and then is sent to a renderPlotly function, which constructs a plotly object.</li>
+</ol>
+<div class="admonition-todo admonition" id="index-4">
+<p class="first admonition-title">Todo</p>
+<p class="last">It would be good to replace the species numbers by the species couples names</p>
+</div>
+<div class="admonition-todo admonition" id="index-5">
+<p class="first admonition-title">Todo</p>
+<p class="last">Make the pvalues appear on the plot (nb : I tried, but it seems plotly has trouble to handle sublplots)</p>
+</div>
+</div>
+</div>
+<div class="section" id="training">
+<h2>Training<a class="headerlink" href="#training" title="Permalink to this headline">¶</a></h2>
+<p>Shiny</p>
+<p><a class="reference external" href="http://rstudio.github.io/shiny/tutorial/">Official tutorial</a></p>
+<p><a class="reference external" href="https://shiny.rstudio.com/tutorial/">A GitHub Tutorial</a></p>
+<p><a class="reference external" href="https://shiny.rstudio.com/articles/">Articles</a></p>
+<p>plotly (nb : plotly also exists as a Python package)</p>
+<p><a class="reference external" href="https://plot.ly/r/">Official tutorial</a></p>
+<p><a class="reference external" href="https://plotly-book.cpsievert.me/">Book</a></p>
+<p><a class="reference external" href="https://plot.ly/r/shiny-tutorial/">Plotly with Shiny tutorial</a></p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="index.html">Table Of Contents</a></h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Filter_Assemblies.html">Filter_Assemblies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pairwise.html">Pairwise</a></li>
+<li class="toctree-l1"><a class="reference internal" href="POGs.html">POGs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BlastAlign.html">BlastAlign</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TransDecoder.html">TransDecoder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OrthoFinder_OnlyGroups.html">OrthoFinder_OnlyGroups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Orthogroups_Tool.html">Orthogroups_Tool</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CDS_Search.html">CDS_Search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ConcatPhyl.html">ConcatPhyl</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MutCount.html">MutCount</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CodeML.html">codeML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CodeML_Results_Analysis.html">Analysis of codeML results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Visualization_With_Python.html">Visualization with Python</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Visualization with RShiny apps</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#required-packages">Required packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pca">PCA</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#code-documentation">Code documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#elements-transitions-between-couples-of-species">Elements transitions between couples of species</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Code documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#training">Training</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="CommandLine_User_Guide.html">User Guide for the use of AdaptSearch in command line</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Visualization_With_Python.html"
+                        title="previous chapter">Visualization with Python</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="CommandLine_User_Guide.html"
+                        title="next chapter">User Guide for the use of AdaptSearch in command line</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/Shiny_Apps.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="CommandLine_User_Guide.html" title="User Guide for the use of AdaptSearch in command line"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Visualization_With_Python.html" title="Visualization with Python"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">AdaptSearch 2 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Victor Mataigne.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.
+    </div>
+  </body>
+</html>
