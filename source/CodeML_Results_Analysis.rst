@@ -31,6 +31,13 @@ Usage
 
 .. todo:: There is currently a unfinished Galaxy's wrapper.
 
+Images outputs or GUI's visualisation
+-------------------------------------
+
+ete3 allows the export of trees and alignments with branch and sites annotated with dn/ds values and selection detection.
+
+.. todo:: This part is actually not implemented due to conflicts between Python versions, ete versions, and PyQt versions. The existing Python scripts have few commented commands unachieved.
+
 Script for exploitation of codeML results : load_precomputed_model.py
 ---------------------------------------------------------------------
 
@@ -186,7 +193,7 @@ This function is for printing the location of the positively selected sites. Und
    :param verbose: activate the display of conserved and neutral sites in the result
    :type verbose: bool
 
-   This function works in the same way than details_on_sites() but writes the results in a csv table.
+.. todo:: This function works in the same way than details_on_sites() but writes the results in a csv table.
 
 .. py:function:: details_on_branches(pval, alt_model, null_model, tree)
 
@@ -199,7 +206,7 @@ This function is for printing the location of the positively selected sites. Und
    :param verbose: activate the display of conserved and neutral sites in the result
    :type verbose: bool
 
-This function is for printing positively selected branches on screen
+.. todo:: This function is for printing positively selected branches on screen
 
 .. py:function:: models_types()
 
@@ -226,7 +233,7 @@ I used a conda environment (with Python 2.7) to run these scripts :
    conda install -c anaconda numpy 
    conda install -c anaconda pandas
 
-.. warning:: I had many versions and dependancies conflicts and crashes ! I suspect a conflict between Python versions (2.7/3.4) / PyQt versions (4/5) and ete3 versions. This needs to be investigated.
+.. warning:: This has been already mentionned, but we had many versions and dependancies conflicts and crashes ! I suspect a conflict between Python versions (2.7/3.4) / PyQt versions (4/5) and ete3 versions. This needs to be investigated.
 
 Reference
 =========

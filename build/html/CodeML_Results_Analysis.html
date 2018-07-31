@@ -5,12 +5,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Analysis of codeML results &#8212; AdaptSearch 2 documentation</title>
-    
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
@@ -82,6 +79,14 @@
 <div class="admonition-todo admonition" id="index-1">
 <p class="first admonition-title">Todo</p>
 <p class="last">There is currently a unfinished Galaxy’s wrapper.</p>
+</div>
+<div class="section" id="images-outputs-or-gui-s-visualisation">
+<h3>Images outputs or GUI’s visualisation<a class="headerlink" href="#images-outputs-or-gui-s-visualisation" title="Permalink to this headline">¶</a></h3>
+<p>ete3 allows the export of trees and alignments with branch and sites annotated with dn/ds values and selection detection.</p>
+<div class="admonition-todo admonition" id="index-2">
+<p class="first admonition-title">Todo</p>
+<p class="last">This part is actually not implemented due to conflicts between Python versions, ete versions, and PyQt versions. The existing Python scripts have few commented commands unachieved.</p>
+</div>
 </div>
 <div class="section" id="script-for-exploitation-of-codeml-results-load-precomputed-model-py">
 <h3>Script for exploitation of codeML results : load_precomputed_model.py<a class="headerlink" href="#script-for-exploitation-of-codeml-results-load-precomputed-model-py" title="Permalink to this headline">¶</a></h3>
@@ -247,9 +252,12 @@ etc. The &#39;out&#39; file in the path is the main codeml output, which can hav
 </tr>
 </tbody>
 </table>
-<p>This function works in the same way than details_on_sites() but writes the results in a csv table.</p>
 </dd></dl>
 
+<div class="admonition-todo admonition" id="index-3">
+<p class="first admonition-title">Todo</p>
+<p class="last">This function works in the same way than details_on_sites() but writes the results in a csv table.</p>
+</div>
 <dl class="function">
 <dt id="details_on_branches">
 <code class="descname">details_on_branches</code><span class="sig-paren">(</span><em>pval</em>, <em>alt_model</em>, <em>null_model</em>, <em>tree</em><span class="sig-paren">)</span><a class="headerlink" href="#details_on_branches" title="Permalink to this definition">¶</a></dt>
@@ -269,7 +277,10 @@ etc. The &#39;out&#39; file in the path is the main codeml output, which can hav
 </table>
 </dd></dl>
 
-<p>This function is for printing positively selected branches on screen</p>
+<div class="admonition-todo admonition" id="index-4">
+<p class="first admonition-title">Todo</p>
+<p class="last">This function is for printing positively selected branches on screen</p>
+</div>
 <dl class="function">
 <dt id="models_types">
 <code class="descname">models_types</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#models_types" title="Permalink to this definition">¶</a></dt>
@@ -305,7 +316,7 @@ conda install -c anaconda pandas
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">I had many versions and dependancies conflicts and crashes ! I suspect a conflict between Python versions (2.7/3.4) / PyQt versions (4/5) and ete3 versions. This needs to be investigated.</p>
+<p class="last">This has been already mentionned, but we had many versions and dependancies conflicts and crashes ! I suspect a conflict between Python versions (2.7/3.4) / PyQt versions (4/5) and ete3 versions. This needs to be investigated.</p>
 </div>
 </div>
 <div class="section" id="reference">
@@ -343,6 +354,7 @@ conda install -c anaconda pandas
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#images-outputs-or-gui-s-visualisation">Images outputs or GUI’s visualisation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#script-for-exploitation-of-codeml-results-load-precomputed-model-py">Script for exploitation of codeML results : load_precomputed_model.py</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#script-for-running-codeml-models-on-one-or-many-alignments-load-precomputed-model-py">Script for running codeML models on one or many alignments : load_precomputed_model.py</a></li>
 </ul>
@@ -409,7 +421,7 @@ conda install -c anaconda pandas
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2018, Victor Mataigne.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.
     </div>
   </body>
 </html>
