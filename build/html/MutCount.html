@@ -4,23 +4,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>MutCount &#8212; AdaptSearch 2 documentation</title>
-    
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '2',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
@@ -28,8 +17,7 @@
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="codeML" href="CodeML.html" />
     <link rel="prev" title="ConcatPhyl" href="ConcatPhyl.html" /> 
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -130,7 +118,7 @@
 </ol>
 </dd>
 </dl>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Example</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example</span>
 <span class="n">codons_counts_species_X</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;aaa&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;aac&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="o">...</span><span class="p">}</span>
 <span class="n">codons_transitions_counts_species_X_to_species_Y</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;aaa&#39;</span><span class="p">:{</span><span class="s1">&#39;aaa&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;aac&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="o">...</span><span class="p">},</span>
                                                     <span class="s1">&#39;aac&#39;</span><span class="p">:{</span><span class="s1">&#39;aaa&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;aac&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="o">...</span><span class="p">},</span>
@@ -139,7 +127,7 @@
 </div>
 <p>Resampling is done on all or on a subset of sequences by picking codons at random positions (which are positions where all the resampled sequences have a full codon).</p>
 <p>Then, Final dictionaries gathers all occurrences and transitions of all sequences, which are written to csv files using pandas.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Example</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example</span>
 <span class="n">codons_counts_final</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Species1&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;aaa&#39;</span><span class="p">:</span><span class="mi">20</span><span class="p">,</span> <span class="s1">&#39;aac&#39;</span><span class="p">:</span><span class="mi">12</span><span class="p">,</span> <span class="o">...</span><span class="p">},</span>
                        <span class="s1">&#39;Species2&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;aaa&#39;</span><span class="p">:</span><span class="mi">14</span><span class="p">,</span> <span class="s1">&#39;aac&#39;</span><span class="p">:</span><span class="mi">17</span><span class="p">,</span> <span class="o">...</span><span class="p">},</span>
                        <span class="o">...</span><span class="p">}</span>
@@ -570,7 +558,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="CodeML.html">codeML</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CodeML_Results_Analysis.html">Analysis of codeML results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GeneSearch.html">GeneSearch</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Visualization_With_Python.html">Visualization with Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Shiny_Apps.html">Visualization with RShiny apps</a></li>
 <li class="toctree-l1"><a class="reference internal" href="CommandLine_User_Guide.html">User Guide for the use of AdaptSearch in command line</a></li>
@@ -591,12 +579,14 @@
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -620,7 +610,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2018, Victor Mataigne.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.1.
     </div>
   </body>
 </html>

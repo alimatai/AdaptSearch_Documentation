@@ -1,12 +1,12 @@
-**************************
-Analysis of codeML results
-**************************
+**********
+GeneSearch
+**********
 
 
 Overview
 ========
 
-These scripts call functions from the python module ETE Toolkit and have been developepd to work in two ways :
+These scripts call functions from the python module ETE Toolkit and have been developped to work in two ways :
 
 Handling of codeML runs on a super-alignment from AdaptSearch's Galaxy instance
 -------------------------------------------------------------------------------
@@ -217,23 +217,31 @@ This function is for printing the location of the positively selected sites. Und
 Conda environment
 =================
 
-I used a conda environment (with Python 2.7) to run these scripts :
+I used a conda environment (with Python 2.7) :
 
 .. code-block:: none
 
-   # (1) The suite itself, for running in commandline in a terminal
-   conda install -c etetoolkit ete3 ete_toolchain
+   # Create environment with Python 2
+   conda create -n env_ete3 python=2.7
+   source activate env_ete3
 
-   # (2) The Python module
-   conda install -c etetoolkit ete3 
-
-   # Dependancies will be automaticcaly installed with (1) and (2).
+   # Packages which a specific version
+   conda install -c anaconda qt=4.8.7
+   conda install -c anaconda sip=4.18
+   conda install -c anaconda pyqt=4.11.4
 
    # Pandas and numpy
-   conda install -c anaconda numpy 
-   conda install -c anaconda pandas
+   conda install -c anaconda numpy=1.15
+   conda install -c anaconda pandas=0.23.3
 
-.. warning:: This has been already mentionned, but we had many versions and dependancies conflicts and crashes ! I suspect a conflict between Python versions (2.7/3.4) / PyQt versions (4/5) and ete3 versions. This needs to be investigated.
+   # ete3 and paml
+   conda install -c etetoolkit ete3
+   conda install -c bioconda paml
+
+   # Other dependancies will be automatically installed
+
+.. warning:: This has been already mentionned, but we had many versions and dependancies conflicts and crashes ! I suspect a conflict between Python versions (2.7/3.4) / PyQt versions (4/5) and ete3 versions. This needs to be investigated. The specified versions of the packages cited above will, *apriori*, avoid crashes.
+
 
 Reference
 =========

@@ -4,32 +4,20 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>codeML &#8212; AdaptSearch 2 documentation</title>
-    
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '2',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Analysis of codeML results" href="CodeML_Results_Analysis.html" />
+    <link rel="next" title="GeneSearch" href="GeneSearch.html" />
     <link rel="prev" title="MutCount" href="MutCount.html" /> 
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -37,7 +25,7 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="CodeML_Results_Analysis.html" title="Analysis of codeML results"
+          <a href="GeneSearch.html" title="GeneSearch"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="MutCount.html" title="MutCount"
@@ -84,7 +72,7 @@
 <h3>The codeml config file<a class="headerlink" href="#the-codeml-config-file" title="Permalink to this headline">¶</a></h3>
 <p>The program codeML reads all the model parameter from a pre-formatted configfile (‘codeml.ctl’), which is written within Galaxy, based on the parameters specified by the user. This config file looks like this :</p>
 <p>The config file looks like this :</p>
-<div class="highlight-none"><div class="highlight"><pre><span></span>      seqfile = fastaAlignementFile * sequence data file name
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>      seqfile = fastaAlignementFile * sequence data file name
       outfile = outputDirName * main result file name
      treefile = newickTreeFile * tree structure file name
         noisy = 9  * 0,1,2,3,9: how much rubbish on the screen
@@ -167,7 +155,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#references">References</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="CodeML_Results_Analysis.html">Analysis of codeML results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GeneSearch.html">GeneSearch</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Visualization_With_Python.html">Visualization with Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Shiny_Apps.html">Visualization with RShiny apps</a></li>
 <li class="toctree-l1"><a class="reference internal" href="CommandLine_User_Guide.html">User Guide for the use of AdaptSearch in command line</a></li>
@@ -177,8 +165,8 @@
   <p class="topless"><a href="MutCount.html"
                         title="previous chapter">MutCount</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="CodeML_Results_Analysis.html"
-                        title="next chapter">Analysis of codeML results</a></p>
+  <p class="topless"><a href="GeneSearch.html"
+                        title="next chapter">GeneSearch</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -188,12 +176,14 @@
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -207,7 +197,7 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="CodeML_Results_Analysis.html" title="Analysis of codeML results"
+          <a href="GeneSearch.html" title="GeneSearch"
              >next</a> |</li>
         <li class="right" >
           <a href="MutCount.html" title="MutCount"
@@ -217,7 +207,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2018, Victor Mataigne.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.1.
     </div>
   </body>
 </html>

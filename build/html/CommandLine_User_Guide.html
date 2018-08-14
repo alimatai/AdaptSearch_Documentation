@@ -4,31 +4,19 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>User Guide for the use of AdaptSearch in command line &#8212; AdaptSearch 2 documentation</title>
-    
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '2',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="prev" title="Visualization with RShiny apps" href="Shiny_Apps.html" /> 
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -74,18 +62,18 @@
 <div class="section" id="run-the-tools">
 <h3>Run the tools<a class="headerlink" href="#run-the-tools" title="Permalink to this headline">¶</a></h3>
 <p>First, go to the directory specified above</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ssh</span> <span class="n">nz</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span> <span class="n">nz</span>
 <span class="n">cd</span> <span class="o">/</span><span class="n">projet</span><span class="o">/</span><span class="n">umr7144</span><span class="o">/</span><span class="n">abice</span><span class="o">/</span><span class="n">vmataigne</span><span class="o">/</span><span class="n">AdaptSearch_commandLine</span>
 </pre></div>
 </div>
 <p>Then, copy your input transcritoms in the directory:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cp</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">your</span><span class="o">/</span><span class="n">files</span><span class="o">/*.</span><span class="n">fasta</span> <span class="n">input_start_files</span><span class="o">/</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cp</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">your</span><span class="o">/</span><span class="n">files</span><span class="o">/*.</span><span class="n">fasta</span> <span class="n">input_start_files</span><span class="o">/</span>
 </pre></div>
 </div>
 <p>Specify your email adress in each .sh file (edit <strong>#$ -M victor.mataigne&#64;sb-roscoff.fr</strong>)
 If you think that a tool will run for more than 12h, edit the line <strong>#$ -q short.q</strong> to <strong>#$ -q long.q</strong></p>
 <p>Now the pipeline can be launch. You’ll have to launch each tool manually once the previous tool is finished:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">qsub</span> <span class="n">Step_01_filter_assemblies</span><span class="o">.</span><span class="n">sh</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">qsub</span> <span class="n">Step_01_filter_assemblies</span><span class="o">.</span><span class="n">sh</span>
 <span class="n">qsub</span> <span class="n">Step_02_pairwise</span><span class="o">.</span><span class="n">sh</span>
 <span class="n">qsub</span> <span class="n">Step_03_pogs</span><span class="o">.</span><span class="n">sh</span>
 <span class="n">qsub</span> <span class="n">Step_04_blastalign</span><span class="o">.</span><span class="n">sh</span>
@@ -112,7 +100,7 @@ If you think that a tool will run for more than 12h, edit the line <strong>#$ -q
 <div class="section" id="filter-assemblies">
 <h4>Filter Assemblies<a class="headerlink" href="#filter-assemblies" title="Permalink to this headline">¶</a></h4>
 <p>Command line to edit:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>python S01_script_to_choose.py $inputs 100 100 60
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>python S01_script_to_choose.py $inputs 100 100 60
 </pre></div>
 </div>
 <ul class="simple">
@@ -125,7 +113,7 @@ If you think that a tool will run for more than 12h, edit the line <strong>#$ -q
 <div class="section" id="pairwise">
 <h4>Pairwise<a class="headerlink" href="#pairwise" title="Permalink to this headline">¶</a></h4>
 <p>Command line to edit:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>python S01_run_first_blast.py $inputs 1e-5 diamond
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>python S01_run_first_blast.py $inputs 1e-5 diamond
 </pre></div>
 </div>
 <ul class="simple">
@@ -137,7 +125,7 @@ If you think that a tool will run for more than 12h, edit the line <strong>#$ -q
 <div class="section" id="pogs">
 <h4>POGs<a class="headerlink" href="#pogs" title="Permalink to this headline">¶</a></h4>
 <p>Command line to edit:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>python pogs.py $inputs 3 -v
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>python pogs.py $inputs 3 -v
 </pre></div>
 </div>
 <ul class="simple">
@@ -150,7 +138,7 @@ If you think that a tool will run for more than 12h, edit the line <strong>#$ -q
 <div class="section" id="blastalign">
 <h4>BlastAlign<a class="headerlink" href="#blastalign" title="Permalink to this headline">¶</a></h4>
 <p>Command line to edit:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>BlastAlign+ -i $n -m 95 -n T -s 0
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>BlastAlign+ -i $n -m 95 -n T -s 0
 </pre></div>
 </div>
 <ul class="simple">
@@ -163,7 +151,7 @@ If you think that a tool will run for more than 12h, edit the line <strong>#$ -q
 <div class="section" id="cds-search">
 <h4>CDS_Search<a class="headerlink" href="#cds-search" title="Permalink to this headline">¶</a></h4>
 <p>Command lines to edit:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">S01_find_orf_on_multiple_alignment</span><span class="o">.</span><span class="n">py</span> <span class="n">code_universel_modified</span><span class="o">.</span><span class="n">txt</span> <span class="mi">50</span> <span class="n">list_files</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">S01_find_orf_on_multiple_alignment</span><span class="o">.</span><span class="n">py</span> <span class="n">code_universel_modified</span><span class="o">.</span><span class="n">txt</span> <span class="mi">50</span> <span class="n">list_files</span>
 <span class="n">python</span> <span class="n">S02_remove_too_short_bit_or_whole_sequence</span><span class="o">.</span><span class="n">py</span> <span class="mi">3</span> <span class="n">oui</span> <span class="mi">50</span> <span class="mi">15</span>
 <span class="n">python</span> <span class="n">S03_remove_site_with_not_enough_species_represented</span><span class="o">.</span><span class="n">py</span> <span class="mi">3</span> <span class="mi">50</span>
 </pre></div>
@@ -185,7 +173,7 @@ If you think that a tool will run for more than 12h, edit the line <strong>#$ -q
 <div class="section" id="concat-phyl">
 <h4>Concat_Phyl<a class="headerlink" href="#concat-phyl" title="Permalink to this headline">¶</a></h4>
 <p>Command lines to edit:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>python S01_concatenate.py $inputs nucleic list_files
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>python S01_concatenate.py $inputs nucleic list_files
 raxmlHPC -n raxml -s 03_Concatenation_nuc.phy -m GTRGAMMA -p 1234567890 -N 1000 -x 12345 -f a
 </pre></div>
 </div>
@@ -207,7 +195,7 @@ raxmlHPC -n raxml -s 03_Concatenation_nuc.phy -m GTRGAMMA -p 1234567890 -N 1000 
 <div class="section" id="mutcount">
 <h4>Mutcount<a class="headerlink" href="#mutcount" title="Permalink to this headline">¶</a></h4>
 <p>Command lines to edit:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">S01a_codons_counting</span><span class="o">.</span><span class="n">py</span> <span class="n">outputs_phylogeny</span><span class="o">/</span><span class="mi">03</span><span class="n">_Concatenation_nuc</span><span class="o">.</span><span class="n">fas</span> <span class="s1">&#39;write,here,species,to,count&#39;</span> <span class="s1">&#39;write,here,species,to,resample&#39;</span> <span class="mi">1000</span> <span class="mi">1000</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">S01a_codons_counting</span><span class="o">.</span><span class="n">py</span> <span class="n">outputs_phylogeny</span><span class="o">/</span><span class="mi">03</span><span class="n">_Concatenation_nuc</span><span class="o">.</span><span class="n">fas</span> <span class="s1">&#39;write,here,species,to,count&#39;</span> <span class="s1">&#39;write,here,species,to,resample&#39;</span> <span class="mi">1000</span> <span class="mi">1000</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -225,13 +213,13 @@ raxmlHPC -n raxml -s 03_Concatenation_nuc.phy -m GTRGAMMA -p 1234567890 -N 1000 
 <p class="first admonition-title">Warning</p>
 <p class="last">Do NOT edit the three first lines : there are automatically edited by the shell script with the appropriate files names</p>
 </div>
-<div class="highlight-none"><div class="highlight"><pre><span></span> seqfile = fastaAlignementFile * sequence data file name
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span> seqfile = fastaAlignementFile * sequence data file name
  outfile = out_codeml * main result file name
 treefile = newickTreeFile * tree structure file name
 </pre></div>
 </div>
 <p>Then, you can set all the standards and advanced parameters. The evolutionary models can be chosen with the standards parameters ‘model’ and ‘NSsites’ : the different combinations allow to choose between branch models, sites models, and branch-sites models :</p>
-<div class="highlight-none"><div class="highlight"><pre><span></span>  model = 0
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  model = 0
              * models for codons:
                  * 0:one, 1:b, 2:2 or more dN/dS ratios for branches
              * models for AAs or codon-translated AAs:
@@ -278,7 +266,7 @@ NSsites = 0  * 0:one w;1:neutral;2:selection; 3:discrete;4:freqs;
 <li class="toctree-l1"><a class="reference internal" href="ConcatPhyl.html">ConcatPhyl</a></li>
 <li class="toctree-l1"><a class="reference internal" href="MutCount.html">MutCount</a></li>
 <li class="toctree-l1"><a class="reference internal" href="CodeML.html">codeML</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CodeML_Results_Analysis.html">Analysis of codeML results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GeneSearch.html">GeneSearch</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Visualization_With_Python.html">Visualization with Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Shiny_Apps.html">Visualization with RShiny apps</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">User Guide for the use of AdaptSearch in command line</a><ul>
@@ -303,12 +291,14 @@ NSsites = 0  * 0:one w;1:neutral;2:selection; 3:discrete;4:freqs;
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -329,7 +319,7 @@ NSsites = 0  * 0:one w;1:neutral;2:selection; 3:discrete;4:freqs;
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2018, Victor Mataigne.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.1.
     </div>
   </body>
 </html>

@@ -29,7 +29,7 @@ Welcome to AdaptSearch's documentation!
    ConcatPhyl
    MutCount
    CodeML
-   CodeML_Results_Analysis
+   GeneSearch
    Visualization_With_Python
    Shiny_Apps
    CommandLine_User_Guide
