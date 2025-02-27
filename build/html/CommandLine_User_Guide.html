@@ -48,7 +48,7 @@
 <p>Make sure to respect the items below :</p>
 <ul class="last simple">
 <li>The input start files names (transcriptoms) must <strong>start with the species abbreviated name</strong>, for example, if the species is <em>Alvinella pompejana</em> : Ap_transcriptom.fasta</li>
-<li>The pipeline is set to work with the directories architecture defined in <strong>/projet/umr7144/abice/vmataigne/AdaptSearch_commandLine</strong> : Do not modify any script name or location (same warning for directories), except if you copy the whole proejct elswhere. Maybe you’ll have to ask for access to <a class="reference external" href="mailto:support&#46;abims&#37;&#52;&#48;sb-roscoff&#46;fr">support<span>&#46;</span>abims<span>&#64;</span>sb-roscoff<span>&#46;</span>fr</a>).</li>
+<li>The pipeline is set to work with the directories architecture defined in <strong>/projet/umr7144/abice/amataigne/AdaptSearch_commandLine</strong> : Do not modify any script name or location (same warning for directories), except if you copy the whole proejct elswhere. Maybe you’ll have to ask for access to <a class="reference external" href="mailto:support&#46;abims&#37;&#52;&#48;sb-roscoff&#46;fr">support<span>&#46;</span>abims<span>&#64;</span>sb-roscoff<span>&#46;</span>fr</a>).</li>
 </ul>
 </div>
 <div class="admonition note">
@@ -63,14 +63,14 @@
 <h3>Run the tools<a class="headerlink" href="#run-the-tools" title="Permalink to this headline">¶</a></h3>
 <p>First, go to the directory specified above</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span> <span class="n">nz</span>
-<span class="n">cd</span> <span class="o">/</span><span class="n">projet</span><span class="o">/</span><span class="n">umr7144</span><span class="o">/</span><span class="n">abice</span><span class="o">/</span><span class="n">vmataigne</span><span class="o">/</span><span class="n">AdaptSearch_commandLine</span>
+<span class="n">cd</span> <span class="o">/</span><span class="n">projet</span><span class="o">/</span><span class="n">umr7144</span><span class="o">/</span><span class="n">abice</span><span class="o">/</span><span class="n">amataigne</span><span class="o">/</span><span class="n">AdaptSearch_commandLine</span>
 </pre></div>
 </div>
 <p>Then, copy your input transcritoms in the directory:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cp</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">your</span><span class="o">/</span><span class="n">files</span><span class="o">/*.</span><span class="n">fasta</span> <span class="n">input_start_files</span><span class="o">/</span>
 </pre></div>
 </div>
-<p>Specify your email adress in each .sh file (edit <strong>#$ -M victor.mataigne&#64;sb-roscoff.fr</strong>)
+<p>Specify your email adress in each .sh file (edit <strong>#$ -M alice.mataigne&#64;sb-roscoff.fr</strong>)
 If you think that a tool will run for more than 12h, edit the line <strong>#$ -q short.q</strong> to <strong>#$ -q long.q</strong></p>
 <p>Now the pipeline can be launch. You’ll have to launch each tool manually once the previous tool is finished:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">qsub</span> <span class="n">Step_01_filter_assemblies</span><span class="o">.</span><span class="n">sh</span>
@@ -318,7 +318,7 @@ NSsites = 0  * 0:one w;1:neutral;2:selection; 3:discrete;4:freqs;
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2018, Victor Mataigne.
+        &#169; Copyright 2018, Alice Mataigne.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.1.
     </div>
   </body>
