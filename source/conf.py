@@ -48,8 +48,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'AdaptSearch'
-copyright = u'2018, Victor Mataigne'
-author = u'Victor Mataigne'
+copyright = u'2018, Alice Mataigne'
+author = u'Alice Mataigne'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
