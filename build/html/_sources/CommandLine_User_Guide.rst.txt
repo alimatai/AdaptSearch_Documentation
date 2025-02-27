@@ -14,7 +14,7 @@ Usage example
 .. Warning:: Make sure to respect the items below :
 
  * The input start files names (transcriptoms) must **start with the species abbreviated name**, for example, if the species is *Alvinella pompejana* : Ap_transcriptom.fasta
- * The pipeline is set to work with the directories architecture defined in **/projet/umr7144/abice/vmataigne/AdaptSearch_commandLine** : Do not modify any script name or location (same warning for directories), except if you copy the whole proejct elswhere. Maybe you'll have to ask for access to support.abims@sb-roscoff.fr).
+ * The pipeline is set to work with the directories architecture defined in **/projet/umr7144/abice/amataigne/AdaptSearch_commandLine** : Do not modify any script name or location (same warning for directories), except if you copy the whole proejct elswhere. Maybe you'll have to ask for access to support.abims@sb-roscoff.fr).
  
 .. note:: The pipeline suite is semi-automatic : each tool have to be run by the user (a given tool is not automatically launched by the previous one).
 
@@ -27,13 +27,13 @@ Run the tools
 First, go to the directory specified above ::
 
    ssh nz
-   cd /projet/umr7144/abice/vmataigne/AdaptSearch_commandLine
+   cd /projet/umr7144/abice/amataigne/AdaptSearch_commandLine
    
 Then, copy your input transcritoms in the directory::
 
    cp /path/to/your/files/*.fasta input_start_files/
    
-Specify your email adress in each .sh file (edit **#$ -M victor.mataigne@sb-roscoff.fr**)
+Specify your email adress in each .sh file (edit **#$ -M alice.mataigne@sb-roscoff.fr**)
 If you think that a tool will run for more than 12h, edit the line **#$ -q short.q** to **#$ -q long.q**
    
 Now the pipeline can be launch. You'll have to launch each tool manually once the previous tool is finished::
